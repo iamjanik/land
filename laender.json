@@ -59,7 +59,7 @@
     "Kontinent": "Afrika",
     "Fläche": "28.051 km²",
     "Bevölkerung": "ca. 1,5 Mio.",
-    "Fakt": "Das einzige Land Afrikas, in dem Spanisch Amtssprache ist. Die Stadt Malabo liegt auf einer Vulkaninsel und war bis zum 01.01.2026 die Hauptstadt."
+    "Fakt": "Das einzige Land Afrikas, in dem Spanisch Amtssprache ist. Die Stadt Malabo liegt auf einer Vulkaninsel und war bis zum 02.01.2026 die Hauptstadt."
   },
   {
     "Land": "Argentinien",
@@ -122,7 +122,7 @@
     "Kontinent": "Asien",
     "Fläche": "147.570 km²",
     "Bevölkerung": "ca. 173 Mio.",
-    "Fakt": "Bangladesch ist größer als Deutschland, hat aber doppelt so viele Einwohner – eines der am dichtesten besiedelten Länder der Erde."
+    "Fakt": "Bangladesch ist kleiner als Deutschland, hat aber doppelt so viele Einwohner – eines der am dichtesten besiedelten Länder der Erde."
   },
   {
     "Land": "Barbados",
@@ -153,7 +153,7 @@
     "Kontinent": "Amerika",
     "Fläche": "22.966 km²",
     "Bevölkerung": "ca. 430.000",
-    "Fakt": "Das Belize Barrier Reef ist das zweitgrößte Korallenriff der Welt. Das berühmte Great Blue Hole mit 300 m Durchmesser liegt hier."
+    "Fakt": "Das Belize Barrier Reef ist das zweitgrößte Korallenriff der Welt. Das berühmte Great Blue Hole mit 318 m Durchmesser liegt hier."
   },
   {
     "Land": "Benin",
@@ -248,7 +248,7 @@
     "Kontinent": "Asien",
     "Fläche": "36.193 km²",
     "Bevölkerung": "ca. 23 Mio.",
-    "Fakt": "Taiwan produziert über 60 % der weltweiten Halbleiter-Chips und ist trotz geopolitischer Sonderlage eine der größten Volkswirtschaften Asiens."
+    "Fakt": "Taiwan produziert über 90 % der weltweit hergestellten Halbleiter (mit einer Strukturbreite unter 7 nm) und ist trotz geopolitischer Sonderlage eine der größten Volkswirtschaften Asiens."
   },
   {
     "Land": "China, Volksrepublik",
@@ -272,7 +272,7 @@
     "Kontinent": "Europa",
     "Fläche": "42.924 km²",
     "Bevölkerung": "ca. 5,9 Mio.",
-    "Fakt": "Dänemark belegt regelmäßig Platz 1 im UN-Glücksindex. Kopenhagen hat mehr Fahrräder als Einwohner."
+    "Fakt": "Dänemark belegt regelmäßig Platz 1, 2 oder 3 im UN-Glücksindex. Kopenhagen hat mehr Fahrräder als Einwohner."
   },
   {
     "Land": "Deutschland",
@@ -481,11 +481,11 @@
   },
   {
     "Land": "Indonesien",
-    "Hauptstadt": "Nusantara",
+    "Hauptstadt": "Jakarta",
     "Kontinent": "Asien",
     "Fläche": "1.904.569 km²",
     "Bevölkerung": "ca. 278 Mio.",
-    "Fakt": "Indonesien besteht aus über 17.000 Inseln und ist der weltgrößte Inselstaat. Die alte Hauptstadt Jakarta sank so schnell ab, dass eine neue (Nusantara auf Borneo) gebaut wird."
+    "Fakt": "Indonesien besteht aus über 17.000 Inseln und ist der weltgrößte Inselstaat. Die Hauptstadt Jakarta sinkt so schnell ab, dass eine neue (Nusantara auf Borneo) gebaut wird."
   },
   {
     "Land": "Irak",
@@ -501,7 +501,7 @@
     "Kontinent": "Asien",
     "Fläche": "1.648.195 km²",
     "Bevölkerung": "ca. 88 Mio.",
-    "Fakt": "Das Persische Reich war einst das größte Reich der Geschichte. Iran ist heute der weltweit größte Exporteur von Safran."
+    "Fakt": "Das Persische Reich war einst das größte Reich der Antike. Iran ist heute der weltweit größte Exporteur von Safran."
   },
   {
     "Land": "Irland",
@@ -533,7 +533,7 @@
     "Kontinent": "Europa",
     "Fläche": "301.340 km²",
     "Bevölkerung": "ca. 59 Mio.",
-    "Fakt": "Italien hat mehr UNESCO-Welterbestätten als jedes andere Land der Welt. Rom beherbergt gleich zwei eigenständige Staaten: Vatikanstadt und San Marino."
+    "Fakt": "Italien hat mehr UNESCO-Welterbestätten als jedes andere Land der Welt. Italien beherbergt gleich zwei eigenständige Staaten: Vatikanstadt und San Marino."
   },
   {
     "Land": "Jamaika",
@@ -673,7 +673,7 @@
     "Kontinent": "Asien",
     "Fläche": "120.538 km²",
     "Bevölkerung": "ca. 26 Mio.",
-    "Fakt": "Nordkorea hat eine eigene Zeitzone (UTC+8:30) und ein eigenes Kalendersystem, das mit dem Geburtsjahr Kim Il-sungs (1912) als Jahr 1 beginnt."
+    "Fakt": "Nordkorea hat ein eigenes Kalendersystem, das mit dem Geburtsjahr Kim Il-sungs (1912) als Jahr 1 beginnt."
   },
   {
     "Land": "Korea, Süd (Südkorea)",
@@ -752,7 +752,7 @@
     "Kontinent": "Afrika",
     "Fläche": "111.369 km²",
     "Bevölkerung": "ca. 5,4 Mio.",
-    "Fakt": "Liberia wurde 1847 von befreiten amerikanischen Sklaven gegründet und ist das einzige afrikanische Land, das nie kolonisiert wurde."
+    "Fakt": "Liberia wurde 1847 von befreiten amerikanischen Sklaven gegründet und ist neben Äthiopien das einzige afrikanische Land, das nie kolonisiert wurde."
   },
   {
     "Land": "Libyen",
@@ -1084,7 +1084,7 @@
     "Kontinent": "Asien",
     "Fläche": "300.000 km²",
     "Bevölkerung": "ca. 115 Mio.",
-    "Fakt": "Karaoke wurde auf den Philippinen erfunden. Die Philippinen sind der weltgrößte Exporteur von Krankenschwestern und bestehen aus über 7.600 Inseln."
+    "Fakt": "Die Philippinen sind der weltgrößte Exporteur von Krankenschwestern und bestehen aus über 7.600 Inseln."
   },
   {
     "Land": "Polen",
@@ -1265,7 +1265,7 @@
     "Kontinent": "Asien",
     "Fläche": "65.610 km²",
     "Bevölkerung": "ca. 22 Mio.",
-    "Fakt": "Sri Lanka gilt als Ursprungsort des Tees – \"Ceylon-Tee\" ist weltberühmt. Die Insel war bis 1972 unter dem Namen Ceylon bekannt."
+    "Fakt": "Sri Lanka ist der viertgrößte Teeproduzent der Welt – \"Ceylon-Tee\" ist weltberühmt. Die Insel war bis 1972 unter dem Namen Ceylon bekannt."
   },
   {
     "Land": "St. Kitts und Nevis",
