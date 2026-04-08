@@ -27,7 +27,6 @@
   --shadow-hover: 0 6px 24px rgba(0,0,0,.12);
   --radius:       12px;
   --transition:   .18s cubic-bezier(.4,0,.2,1);
-  --header-h:     112px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -51,12 +50,11 @@ header {
   box-shadow: var(--shadow);
 }
 
-/* Top bar: logo + actions */
 .header-bar {
   display: flex;
   align-items: center;
   padding: 0 16px;
-  height: 68px; /* increased from 56px */
+  height: 68px;
   gap: 8px;
   max-width: 1200px;
   margin: 0 auto;
@@ -65,85 +63,21 @@ header {
   overflow: hidden;
 }
 
-.header-logo {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  flex-shrink: 1;
-  min-width: 0;
-  overflow: hidden;
-}
-
 h1 {
   font-family: 'DM Serif Display', serif;
-  font-size: 1.55rem; /* increased from 1.35rem */
+  font-size: 1.55rem;
   letter-spacing: -.02em;
   line-height: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
+  flex-shrink: 1;
 }
 
-/* Info icon next to title */
-.info-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-muted);
-  padding: 2px 4px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: color var(--transition), background var(--transition);
-  position: relative;
-}
-.info-btn:hover { color: var(--accent); background: var(--accent-light); }
-.info-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-/* Tooltip */
-.info-tooltip {
-  display: none;
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--text);
-  color: #f4f1eb;
-  font-family: 'DM Sans', sans-serif;
-  font-size: .78rem;
-  font-weight: 400;
-  line-height: 1.5;
-  padding: 10px 14px;
-  border-radius: 10px;
-  width: 240px;
-  box-shadow: 0 6px 24px rgba(0,0,0,.22);
-  z-index: 200;
-  pointer-events: none;
-  text-align: left;
-  white-space: normal;
-}
-.info-tooltip::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top: none;
-  border-bottom-color: var(--text);
-}
-.info-btn:hover .info-tooltip,
-.info-btn:focus .info-tooltip {
-  display: block;
-}
-
-/* Spacer pushes actions to right */
 .header-spacer { flex: 1; min-width: 4px; }
 
-/* Search – expands inline on desktop */
+/* Search */
 .search-wrap {
   position: relative;
   flex-shrink: 1;
@@ -158,12 +92,12 @@ h1 {
   pointer-events: none;
 }
 input[type=search] {
-  padding: 8px 10px 8px 34px; /* slightly taller */
+  padding: 8px 10px 8px 34px;
   border: 1.5px solid var(--border);
   border-radius: 8px;
   background: var(--bg);
   font-family: 'DM Sans', sans-serif;
-  font-size: .88rem; /* slightly larger */
+  font-size: .88rem;
   color: var(--text);
   outline: none;
   transition: border-color var(--transition);
@@ -175,14 +109,11 @@ input[type=search] {
 input[type=search]::-webkit-search-cancel-button { display: none; }
 input[type=search]:focus { border-color: var(--accent); }
 
-/* Desktop: inline search always visible, mobile-row hidden */
 @media (min-width: 600px) {
   #searchWrapInline { display: block !important; }
   #searchWrapMobile { display: none !important; }
   #searchToggleBtn  { display: none !important; }
 }
-
-/* Mobile: inline search hidden, own row below header-bar */
 @media (max-width: 599px) {
   #searchWrapInline { display: none !important; }
   #searchWrapMobile {
@@ -201,19 +132,8 @@ input[type=search]:focus { border-color: var(--accent); }
     width: 100%; min-width: 0;
     padding-top: 9px; padding-bottom: 9px;
   }
-  /* tooltip: show to left on mobile to avoid overflow */
-  .info-tooltip {
-    left: 0;
-    transform: none;
-    width: 210px;
-  }
-  .info-tooltip::before {
-    left: 20px;
-    transform: none;
-  }
 }
 
-/* Header actions row */
 .header-actions {
   display: flex;
   align-items: center;
@@ -221,20 +141,19 @@ input[type=search]:focus { border-color: var(--accent); }
   flex-shrink: 0;
 }
 
-/* Toolbar buttons */
 .icon-btn {
   background: none;
   border: none;
   cursor: pointer;
   color: var(--text-muted);
-  padding: 7px 9px; /* slightly larger tap target */
+  padding: 7px 9px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
   font-family: 'DM Sans', sans-serif;
-  font-size: .82rem; /* slightly larger */
+  font-size: .82rem;
   font-weight: 500;
   transition: background var(--transition), color var(--transition);
   white-space: nowrap;
@@ -245,7 +164,6 @@ input[type=search]:focus { border-color: var(--accent); }
 .icon-btn .btn-label { display: none; }
 @media (min-width: 820px) { .icon-btn .btn-label { display: inline; } }
 
-/* Flashcard button gets accent treatment */
 .btn-flashcard {
   color: var(--accent);
   border: 1.5px solid var(--border);
@@ -256,7 +174,6 @@ input[type=search]:focus { border-color: var(--accent); }
   color: var(--accent-hover);
 }
 
-/* Divider between icon groups */
 .hdr-divider {
   width: 1px;
   height: 22px;
@@ -280,7 +197,7 @@ input[type=search]:focus { border-color: var(--accent); }
   max-width: 1200px;
   margin: 0 auto;
 }
-.filter-bar::-webkit-scrollbar { display: none; }
+.filter-inner::-webkit-scrollbar { display: none; }
 
 .filter-btn {
   padding: 5px 14px;
@@ -300,7 +217,6 @@ input[type=search]:focus { border-color: var(--accent); }
 .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
 .filter-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-/* Result info pill */
 .result-pill {
   margin-left: auto;
   flex-shrink: 0;
@@ -362,7 +278,6 @@ main {
 .continent-line { flex: 1; height: 1px; background: var(--border); }
 .continent-count { font-size: .72rem; color: var(--text-muted); font-weight: 500; }
 
-/* Country card */
 .country-card {
   background: var(--surface);
   border: 1.5px solid var(--border);
@@ -547,42 +462,20 @@ main {
 </head>
 <body>
 
-<!-- ══ HEADER ══════════════════════════════════════════════ -->
 <header>
   <div class="header-bar">
-    <!-- Logo + Info -->
-    <div class="header-logo">
-      <h1>Länder der Erde</h1>
-      <!-- Info button with tooltip -->
-      <button class="info-btn" type="button" aria-label="Hinweis zur Auswahl">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="8" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="12" y1="12" x2="12" y2="16"/>
-        </svg>
-        <span class="info-tooltip" role="tooltip">
-          „Länder" steht hier synonym für <strong>Staaten</strong>. Die Liste umfasst die <strong>193 Mitgliedstaaten der Vereinten Nationen</strong> sowie einige weitere anerkannte Staaten.
-        </span>
-      </button>
-    </div>
-
+    <h1>Länder der Erde</h1>
     <div class="header-spacer"></div>
 
-    <!-- Search inline (desktop only) -->
     <div class="search-wrap" id="searchWrapInline" role="search">
       <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
       </svg>
-      <input type="search" id="searchInput"
-             placeholder="Suchen …"
-             autocomplete="off"
-             aria-label="Land oder Hauptstadt suchen">
+      <input type="search" id="searchInput" placeholder="Suchen …" autocomplete="off" aria-label="Land oder Hauptstadt suchen">
     </div>
 
-    <!-- Actions -->
     <div class="header-actions">
-      <!-- Mobile search toggle -->
-      <button class="icon-btn" id="searchToggleBtn" title="Suchen" aria-label="Suche ein-/ausblenden" aria-expanded="false">
+      <button class="icon-btn" id="searchToggleBtn" aria-label="Suche ein-/ausblenden" aria-expanded="false">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
@@ -590,14 +483,13 @@ main {
 
       <div class="hdr-divider"></div>
 
-      <!-- Expand / Collapse -->
-      <button class="icon-btn" id="expandAllBtn" title="Alle aufklappen" aria-label="Alle Karten aufklappen">
+      <button class="icon-btn" id="expandAllBtn" aria-label="Alle Karten aufklappen">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/>
         </svg>
         <span class="btn-label">Aufklappen</span>
       </button>
-      <button class="icon-btn" id="collapseAllBtn" title="Alle zuklappen" aria-label="Alle Karten zuklappen">
+      <button class="icon-btn" id="collapseAllBtn" aria-label="Alle Karten zuklappen">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <polyline points="7 11 12 6 17 11"/><polyline points="7 18 12 13 17 18"/>
         </svg>
@@ -606,7 +498,6 @@ main {
 
       <div class="hdr-divider"></div>
 
-      <!-- Lernkarten CTA -->
       <button class="icon-btn btn-flashcard" id="startFlashcardsBtn" aria-label="Lernkarten starten">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <rect x="2" y="4" width="20" height="16" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/>
@@ -616,20 +507,15 @@ main {
     </div>
   </div>
 
-  <!-- Mobile search row (toggled, sits below header-bar) -->
   <div id="searchWrapMobile" role="search">
     <div class="search-inner">
       <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
       </svg>
-      <input type="search" id="searchInputMobile"
-             placeholder="Suchen …"
-             autocomplete="off"
-             aria-label="Land oder Hauptstadt suchen">
+      <input type="search" id="searchInputMobile" placeholder="Suchen …" autocomplete="off" aria-label="Land oder Hauptstadt suchen">
     </div>
   </div>
 
-  <!-- Filter bar -->
   <div class="filter-bar">
     <nav class="filter-inner" aria-label="Nach Kontinent filtern">
       <button class="filter-btn active" data-filter="Alle">Alle</button>
@@ -643,7 +529,6 @@ main {
   </div>
 </header>
 
-<!-- ══ MAIN ═══════════════════════════════════════════════ -->
 <main id="main" aria-live="polite">
   <div class="loading" id="loadingMsg" role="status">Daten werden geladen …</div>
   <div class="no-results" id="noResults" role="status" aria-atomic="true">
@@ -654,7 +539,6 @@ main {
   </div>
 </main>
 
-<!-- ══ LERNKARTEN OVERLAY ══════════════════════════════════ -->
 <div class="fc-overlay" id="fcOverlay" role="dialog" aria-modal="true" aria-label="Lernkarten">
   <div class="fc-box" id="fcBox"></div>
 </div>
@@ -720,10 +604,7 @@ const FLAGS = {
   "Ägypten":"🇪🇬","Äquatorialguinea":"🇬🇶","Äthiopien":"🇪🇹"
 };
 
-function getFlag(n) {
-  if (!(n in FLAGS)) console.warn(`[Flags] Kein Eintrag für: "${n}"`);
-  return FLAGS[n] || "🌐";
-}
+function getFlag(n) { return FLAGS[n] || "🌐"; }
 
 function shuffle(arr) {
   const a = [...arr];
@@ -745,7 +626,7 @@ function debounce(fn, delay = 150) {
 
 function alphaGroup(land) {
   const c = land[0].toUpperCase();
-  return { "Ä": "A", "Ö": "O", "Ü": "U", "É": "E", "È": "E", "Ñ": "N" }[c] ?? c;
+  return { "Ä":"A","Ö":"O","Ü":"U","É":"E","È":"E","Ñ":"N" }[c] ?? c;
 }
 
 function btnRowHTML(items) {
@@ -758,9 +639,8 @@ function escapeHTML(str = "") {
   return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
 
-function cssId(name) { return name.replace(/[^a-z0-9]/gi, "_").toLowerCase(); }
+function cssId(name) { return name.replace(/[^a-z0-9]/gi,"_").toLowerCase(); }
 
-/* ── State ── */
 let LAENDER = [];
 let currentFilter = "Alle";
 let currentSearch  = "";
@@ -915,21 +795,12 @@ searchToggleBtn.addEventListener("click", () => {
   }
 });
 
-searchInput.addEventListener("input", debounce(e => {
-  currentSearch = e.target.value;
-  renderList();
-}, 150));
-
-searchInputMob.addEventListener("input", debounce(e => {
-  currentSearch = e.target.value;
-  renderList();
-}, 150));
+searchInput.addEventListener("input", debounce(e => { currentSearch = e.target.value; renderList(); }, 150));
+searchInputMob.addEventListener("input", debounce(e => { currentSearch = e.target.value; renderList(); }, 150));
 
 document.querySelectorAll(".filter-btn").forEach(btn => {
   btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter-btn").forEach(b => {
-      b.classList.remove("active"); b.removeAttribute("aria-current");
-    });
+    document.querySelectorAll(".filter-btn").forEach(b => { b.classList.remove("active"); b.removeAttribute("aria-current"); });
     btn.classList.add("active");
     btn.setAttribute("aria-current", "true");
     currentFilter = btn.dataset.filter;
@@ -938,30 +809,22 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
 });
 
 document.getElementById("expandAllBtn").addEventListener("click", () => {
-  getFiltered().forEach(l => activeCards.add(l.Land));
-  renderList();
+  getFiltered().forEach(l => activeCards.add(l.Land)); renderList();
 });
-
 document.getElementById("collapseAllBtn").addEventListener("click", () => {
-  getFiltered().forEach(l => activeCards.delete(l.Land));
-  renderList();
+  getFiltered().forEach(l => activeCards.delete(l.Land)); renderList();
 });
 
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && searchWrapMobile.classList.contains("open")) {
-    closeSearchMobile();
-    searchToggleBtn.focus();
+    closeSearchMobile(); searchToggleBtn.focus();
   }
 });
 
 /* ── Lernkarten ── */
 const fcOverlay = document.getElementById("fcOverlay");
 const fcBox     = document.getElementById("fcBox");
-
-const FC = {
-  pool: [], index: 0, correct: 0, wrong: 0,
-  mode: "reveal", selectedLetters: new Set(), availableLetters: [], initialized: false,
-};
+const FC = { pool:[], index:0, correct:0, wrong:0, mode:"reveal", selectedLetters:new Set(), availableLetters:[], initialized:false };
 
 function openFC()  { fcOverlay.classList.add("active"); fcBox.focus(); }
 function closeFC() { fcOverlay.classList.remove("active"); }
@@ -980,8 +843,7 @@ function renderStart() {
   const poolSize    = filtered.filter(l => FC.selectedLetters.has(alphaGroup(l.Land))).length;
   const allSelected = FC.selectedLetters.size === FC.availableLetters.length;
   const letterBtns  = FC.availableLetters.map(l =>
-    `<button class="fc-letter-btn${FC.selectedLetters.has(l) ? " active" : ""}"
-             data-l="${escapeHTML(l)}" type="button" aria-pressed="${FC.selectedLetters.has(l)}">${l}</button>`
+    `<button class="fc-letter-btn${FC.selectedLetters.has(l)?" active":""}" data-l="${escapeHTML(l)}" type="button" aria-pressed="${FC.selectedLetters.has(l)}">${l}</button>`
   ).join("");
 
   fcBox.innerHTML = `
@@ -1002,25 +864,21 @@ function renderStart() {
     </div>
     <div class="fc-warning" id="fcStartWarning" role="alert" aria-live="polite"></div>
     ${btnRowHTML([
-      { label: "Abbrechen", cls: "fc-btn-secondary", id: "fcCancelBtn" },
-      { label: "Starten",   cls: "fc-btn-primary",   id: "fcStartBtn"  },
+      { label:"Abbrechen", cls:"fc-btn-secondary", id:"fcCancelBtn" },
+      { label:"Starten",   cls:"fc-btn-primary",   id:"fcStartBtn"  },
     ])}`;
 
   fcBox.querySelectorAll(".fc-mode-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       FC.mode = btn.dataset.mode;
-      fcBox.querySelectorAll(".fc-mode-btn").forEach(b => {
-        b.classList.toggle("active", b === btn);
-        b.setAttribute("aria-pressed", String(b === btn));
-      });
+      fcBox.querySelectorAll(".fc-mode-btn").forEach(b => { b.classList.toggle("active", b===btn); b.setAttribute("aria-pressed", String(b===btn)); });
     });
   });
   fcBox.querySelectorAll(".fc-letter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const l = btn.dataset.l;
       if (l === "alle") {
-        FC.selectedLetters = FC.selectedLetters.size === FC.availableLetters.length
-          ? new Set() : new Set(FC.availableLetters);
+        FC.selectedLetters = FC.selectedLetters.size === FC.availableLetters.length ? new Set() : new Set(FC.availableLetters);
       } else {
         FC.selectedLetters.has(l) ? FC.selectedLetters.delete(l) : FC.selectedLetters.add(l);
       }
@@ -1029,10 +887,7 @@ function renderStart() {
   });
   document.getElementById("fcStartBtn").addEventListener("click", () => {
     const pool = filtered.filter(l => FC.selectedLetters.has(alphaGroup(l.Land)));
-    if (!pool.length) {
-      document.getElementById("fcStartWarning").textContent = "⚠️ Bitte mindestens einen Buchstaben auswählen.";
-      return;
-    }
+    if (!pool.length) { document.getElementById("fcStartWarning").textContent = "⚠️ Bitte mindestens einen Buchstaben auswählen."; return; }
     FC.pool = shuffle(pool); FC.index = 0; FC.correct = 0; FC.wrong = 0;
     renderCard_FC();
   });
@@ -1043,7 +898,7 @@ function renderCard_FC() {
   if (FC.index >= FC.pool.length) { renderResult(); return; }
   const land = FC.pool[FC.index];
   const flag = getFlag(land.Land);
-  const prog = `${FC.index + 1} / ${FC.pool.length} · ✅ ${FC.correct} · ❌ ${FC.wrong}`;
+  const prog = `${FC.index+1} / ${FC.pool.length} · ✅ ${FC.correct} · ❌ ${FC.wrong}`;
   if (FC.mode === "reveal") renderReveal(land, flag, prog);
   else renderType(land, flag, prog);
 }
@@ -1054,8 +909,8 @@ function renderReveal(land, flag, prog) {
     <span class="fc-flag" aria-hidden="true">${flag}</span>
     <div class="fc-question" aria-live="polite">Hauptstadt von<br><strong>${escapeHTML(land.Land)}</strong>?</div>
     ${btnRowHTML([
-      { label: "Abbrechen",      cls: "fc-btn-secondary", id: "fcAbortBtn" },
-      { label: "Antwort zeigen", cls: "fc-btn-reveal",    id: "fcRevealBtn" },
+      { label:"Abbrechen",      cls:"fc-btn-secondary", id:"fcAbortBtn"  },
+      { label:"Antwort zeigen", cls:"fc-btn-reveal",    id:"fcRevealBtn" },
     ])}`;
   document.getElementById("fcRevealBtn").addEventListener("click", () => {
     fcBox.innerHTML = `
@@ -1064,8 +919,8 @@ function renderReveal(land, flag, prog) {
       <div class="fc-question">Hauptstadt von<br><strong>${escapeHTML(land.Land)}</strong>?</div>
       <div class="fc-answer-box" role="status" aria-live="polite">${escapeHTML(land.Hauptstadt)}</div>
       ${btnRowHTML([
-        { label: "✗ Nicht gewusst", cls: "fc-btn-wrong",   id: "fcWrongBtn" },
-        { label: "✓ Gewusst",       cls: "fc-btn-correct", id: "fcOkBtn"    },
+        { label:"✗ Nicht gewusst", cls:"fc-btn-wrong",   id:"fcWrongBtn" },
+        { label:"✓ Gewusst",       cls:"fc-btn-correct", id:"fcOkBtn"    },
       ])}`;
     document.getElementById("fcOkBtn").addEventListener("click",    () => { FC.correct++; FC.index++; renderCard_FC(); });
     document.getElementById("fcWrongBtn").addEventListener("click", () => { FC.wrong++;   FC.index++; renderCard_FC(); });
@@ -1082,8 +937,8 @@ function renderType(land, flag, prog) {
            autocomplete="off" spellcheck="false" aria-label="Deine Antwort">
     <div class="fc-feedback" id="fcFeedback" role="status" aria-live="polite"></div>
     ${btnRowHTML([
-      { label: "Abbrechen", cls: "fc-btn-secondary", id: "fcAbortBtn" },
-      { label: "Prüfen",    cls: "fc-btn-reveal",    id: "fcCheckBtn" },
+      { label:"Abbrechen", cls:"fc-btn-secondary", id:"fcAbortBtn" },
+      { label:"Prüfen",    cls:"fc-btn-reveal",    id:"fcCheckBtn" },
     ])}`;
   const input = document.getElementById("fcInput");
   input.focus();
@@ -1118,33 +973,26 @@ function renderResult() {
     <div class="fc-result-title">Fertig!</div>
     <div class="fc-result-sub" role="status">${FC.correct} richtig · ${FC.wrong} falsch · ${pct}&nbsp;%</div>
     ${btnRowHTML([
-      { label: "Schließen", cls: "fc-btn-secondary", id: "fcDoneBtn"  },
-      { label: "Nochmal",   cls: "fc-btn-primary",   id: "fcRetryBtn" },
+      { label:"Schließen", cls:"fc-btn-secondary", id:"fcDoneBtn"  },
+      { label:"Nochmal",   cls:"fc-btn-primary",   id:"fcRetryBtn" },
     ])}`;
   document.getElementById("fcRetryBtn").addEventListener("click", () => {
-    FC.pool = shuffle(FC.pool); FC.index = 0; FC.correct = 0; FC.wrong = 0;
-    renderCard_FC();
+    FC.pool = shuffle(FC.pool); FC.index = 0; FC.correct = 0; FC.wrong = 0; renderCard_FC();
   });
   document.getElementById("fcDoneBtn").addEventListener("click", closeFC);
 }
 
 document.getElementById("startFlashcardsBtn").addEventListener("click", () => {
-  FC.initialized = false;
-  openFC();
-  renderStart();
+  FC.initialized = false; openFC(); renderStart();
 });
-
 fcOverlay.addEventListener("click", e => { if (e.target === fcOverlay) closeFC(); });
 fcOverlay.addEventListener("keydown", e => { if (e.key === "Escape") closeFC(); });
 
-/* ── Bootstrap ── */
 (async () => {
   const data = await loadData();
   if (!data) return;
   LAENDER = data;
   document.getElementById("loadingMsg").style.display = "none";
-
-  LAENDER.forEach(l => getFlag(l.Land));
   renderList();
 })();
 </script>
