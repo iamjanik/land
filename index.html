@@ -55,8 +55,8 @@ header {
 .header-bar {
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  height: 56px;
+  padding: 0 16px;
+  height: 68px; /* increased from 56px */
   gap: 8px;
   max-width: 1200px;
   margin: 0 auto;
@@ -76,13 +76,68 @@ header {
 
 h1 {
   font-family: 'DM Serif Display', serif;
-  font-size: 1.35rem;
+  font-size: 1.55rem; /* increased from 1.35rem */
   letter-spacing: -.02em;
   line-height: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
+}
+
+/* Info icon next to title */
+.info-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 2px 4px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: color var(--transition), background var(--transition);
+  position: relative;
+}
+.info-btn:hover { color: var(--accent); background: var(--accent-light); }
+.info-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Tooltip */
+.info-tooltip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: #f4f1eb;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .78rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 10px 14px;
+  border-radius: 10px;
+  width: 240px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.22);
+  z-index: 200;
+  pointer-events: none;
+  text-align: left;
+  white-space: normal;
+}
+.info-tooltip::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top: none;
+  border-bottom-color: var(--text);
+}
+.info-btn:hover .info-tooltip,
+.info-btn:focus .info-tooltip {
+  display: block;
 }
 
 /* Spacer pushes actions to right */
@@ -103,18 +158,18 @@ h1 {
   pointer-events: none;
 }
 input[type=search] {
-  padding: 7px 10px 7px 32px;
+  padding: 8px 10px 8px 34px; /* slightly taller */
   border: 1.5px solid var(--border);
   border-radius: 8px;
   background: var(--bg);
   font-family: 'DM Sans', sans-serif;
-  font-size: .85rem;
+  font-size: .88rem; /* slightly larger */
   color: var(--text);
   outline: none;
   transition: border-color var(--transition);
   -webkit-appearance: none;
   appearance: none;
-  width: 180px;
+  width: 190px;
   min-width: 80px;
 }
 input[type=search]::-webkit-search-cancel-button { display: none; }
@@ -144,7 +199,17 @@ input[type=search]:focus { border-color: var(--accent); }
   }
   #searchWrapMobile input[type=search] {
     width: 100%; min-width: 0;
-    padding-top: 8px; padding-bottom: 8px;
+    padding-top: 9px; padding-bottom: 9px;
+  }
+  /* tooltip: show to left on mobile to avoid overflow */
+  .info-tooltip {
+    left: 0;
+    transform: none;
+    width: 210px;
+  }
+  .info-tooltip::before {
+    left: 20px;
+    transform: none;
   }
 }
 
@@ -153,7 +218,7 @@ input[type=search]:focus { border-color: var(--accent); }
   display: flex;
   align-items: center;
   gap: 2px;
-  flex-shrink: 0;   /* actions never shrink – they're always accessible */
+  flex-shrink: 0;
 }
 
 /* Toolbar buttons */
@@ -162,14 +227,14 @@ input[type=search]:focus { border-color: var(--accent); }
   border: none;
   cursor: pointer;
   color: var(--text-muted);
-  padding: 6px 8px;
+  padding: 7px 9px; /* slightly larger tap target */
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
   font-family: 'DM Sans', sans-serif;
-  font-size: .8rem;
+  font-size: .82rem; /* slightly larger */
   font-weight: 500;
   transition: background var(--transition), color var(--transition);
   white-space: nowrap;
@@ -194,7 +259,7 @@ input[type=search]:focus { border-color: var(--accent); }
 /* Divider between icon groups */
 .hdr-divider {
   width: 1px;
-  height: 20px;
+  height: 22px;
   background: var(--border);
   margin: 0 4px;
   flex-shrink: 0;
@@ -485,10 +550,20 @@ main {
 <!-- ══ HEADER ══════════════════════════════════════════════ -->
 <header>
   <div class="header-bar">
-    <!-- Logo + Count -->
+    <!-- Logo + Info -->
     <div class="header-logo">
       <h1>Länder der Erde</h1>
-
+      <!-- Info button with tooltip -->
+      <button class="info-btn" type="button" aria-label="Hinweis zur Auswahl">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="8" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="12" y1="12" x2="12" y2="16"/>
+        </svg>
+        <span class="info-tooltip" role="tooltip">
+          „Länder" steht hier synonym für <strong>Staaten</strong>. Die Liste umfasst die <strong>193 Mitgliedstaaten der Vereinten Nationen</strong> sowie einige weitere anerkannte Staaten.
+        </span>
+      </button>
     </div>
 
     <div class="header-spacer"></div>
@@ -508,7 +583,7 @@ main {
     <div class="header-actions">
       <!-- Mobile search toggle -->
       <button class="icon-btn" id="searchToggleBtn" title="Suchen" aria-label="Suche ein-/ausblenden" aria-expanded="false">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
       </button>
@@ -517,13 +592,13 @@ main {
 
       <!-- Expand / Collapse -->
       <button class="icon-btn" id="expandAllBtn" title="Alle aufklappen" aria-label="Alle Karten aufklappen">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/>
         </svg>
         <span class="btn-label">Aufklappen</span>
       </button>
       <button class="icon-btn" id="collapseAllBtn" title="Alle zuklappen" aria-label="Alle Karten zuklappen">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <polyline points="7 11 12 6 17 11"/><polyline points="7 18 12 13 17 18"/>
         </svg>
         <span class="btn-label">Zuklappen</span>
@@ -533,7 +608,7 @@ main {
 
       <!-- Lernkarten CTA -->
       <button class="icon-btn btn-flashcard" id="startFlashcardsBtn" aria-label="Lernkarten starten">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <rect x="2" y="4" width="20" height="16" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/>
         </svg>
         <span class="btn-label">Lernkarten</span>
@@ -815,8 +890,8 @@ function buildCard(land) {
 
 /* ── Header interactions ── */
 const searchWrapMobile = document.getElementById("searchWrapMobile");
-const searchInput      = document.getElementById("searchInput");        // desktop
-const searchInputMob   = document.getElementById("searchInputMobile");  // mobile
+const searchInput      = document.getElementById("searchInput");
+const searchInputMob   = document.getElementById("searchInputMobile");
 const searchToggleBtn  = document.getElementById("searchToggleBtn");
 
 function closeSearchMobile() {
@@ -840,13 +915,11 @@ searchToggleBtn.addEventListener("click", () => {
   }
 });
 
-// Desktop input
 searchInput.addEventListener("input", debounce(e => {
   currentSearch = e.target.value;
   renderList();
 }, 150));
 
-// Mobile input – keep in sync
 searchInputMob.addEventListener("input", debounce(e => {
   currentSearch = e.target.value;
   renderList();
