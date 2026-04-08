@@ -31,13 +31,6 @@ input[type=search]:focus{border-color:var(--accent)}
 .more-item{background:none;border:none;font-family:'DM Sans',sans-serif;font-size:.85rem;color:var(--text);cursor:pointer;text-align:left;padding:9px 12px;border-radius:8px;transition:background .15s;width:100%}
 .more-item:hover{background:var(--surface2);color:var(--accent)}
 .result-info{font-size:.72rem;color:var(--text-muted);padding:4px 12px}
-
-.fc-letter-filter{margin:10px 0 4px}
-.fc-letter-label{font-size:.75rem;color:var(--text-muted);font-weight:500;margin-bottom:6px}
-.fc-letter-btns{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
-.fc-letter-btn{padding:3px 7px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;cursor:pointer;color:var(--text-muted);transition:all .15s}
-.fc-letter-btn:hover{border-color:var(--accent);color:var(--accent)}
-.fc-letter-btn.active{background:var(--accent);border-color:var(--accent);color:white}
 main{max-width:800px;margin:0 auto;padding:18px 14px 60px}
 .loading{text-align:center;padding:80px 20px;color:var(--text-muted);font-size:.95rem}
 .alpha-divider{display:flex;align-items:center;gap:10px;margin:18px 0 8px}
@@ -72,38 +65,66 @@ main{max-width:800px;margin:0 auto;padding:18px 14px 60px}
 .fakt-block{background:var(--accent-light);border:1px solid #b8d4b5;border-radius:8px;padding:10px 13px;grid-column:1/-1}
 .fakt-block .info-label{color:var(--accent)}
 .fakt-block .info-value{font-size:.85rem;font-weight:400;line-height:1.5;color:#2a3d29}
-.flashcard-overlay{display:none;position:fixed;inset:0;background:rgba(20,18,12,.78);z-index:200;align-items:center;justify-content:center;padding:16px}
-.flashcard-overlay.active{display:flex}
-.flashcard{background:var(--surface);border-radius:20px;padding:36px 28px;max-width:480px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.3)}
-.flashcard-progress{font-size:.75rem;color:var(--text-muted);margin-bottom:24px;font-weight:500}
-.flashcard-flag{font-size:2.8rem;margin-bottom:10px;display:block}
-.flashcard-question{font-family:'DM Serif Display',serif;font-size:clamp(1.3rem,5vw,1.9rem);margin-bottom:28px;line-height:1.2}
-.fc-input-wrap{margin-bottom:16px}
-.fc-input{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--text);background:var(--bg);outline:none;text-align:center;transition:border-color .2s}
+.no-results{text-align:center;padding:60px 20px;color:var(--text-muted);display:none}
+
+/* ───── LERNKARTEN ───── */
+.fc-overlay{display:none;position:fixed;inset:0;background:rgba(20,18,12,.78);z-index:300;align-items:center;justify-content:center;padding:16px}
+.fc-overlay.active{display:flex}
+.fc-box{background:var(--surface);border-radius:20px;padding:32px 28px 28px;max-width:460px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.3)}
+
+/* Fortschritt */
+.fc-progress{font-size:.75rem;color:var(--text-muted);margin-bottom:20px;font-weight:500}
+
+/* Flagge + Frage */
+.fc-flag{font-size:2.6rem;line-height:1;display:block;margin-bottom:8px}
+.fc-question{font-family:'DM Serif Display',serif;font-size:clamp(1.25rem,5vw,1.75rem);margin-bottom:24px;line-height:1.25}
+
+/* Antwort-Anzeige (reveal-Modus) */
+.fc-answer-box{background:var(--accent-light);border:2px solid var(--accent);border-radius:10px;padding:12px 20px;font-size:1.1rem;font-weight:600;color:var(--accent);margin-bottom:20px}
+
+/* Eingabe (type-Modus) */
+.fc-input{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--text);background:var(--bg);outline:none;text-align:center;transition:border-color .2s;margin-bottom:8px}
 .fc-input:focus{border-color:var(--accent)}
 .fc-input.correct{border-color:#2d7a2d;background:#e8f5e8}
 .fc-input.wrong{border-color:#c0392b;background:#fdecea}
-.flashcard-answer{background:var(--accent-light);border:2px solid var(--accent);border-radius:10px;padding:13px 20px;font-size:1.1rem;font-weight:600;color:var(--accent);margin-bottom:20px;display:none;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.flashcard-btns{display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap;flex-direction:row-reverse}
-.fc-btn{padding:10px 22px;border-radius:10px;border:2px solid;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .15s}
+.fc-feedback{font-size:.88rem;margin-bottom:14px;font-weight:500;min-height:1.2em}
+.fc-feedback.correct{color:#2d7a2d}
+.fc-feedback.wrong{color:#c0392b}
+
+/* Buttons – einheitliches Zeilenmodell */
+.fc-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:4px}
+.fc-btn{padding:10px 22px;border-radius:10px;border:2px solid;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.fc-btn-secondary{border-color:var(--border);color:var(--text-muted);background:transparent}
+.fc-btn-secondary:hover{border-color:var(--text-muted)}
 .fc-btn-reveal{border-color:var(--accent);color:var(--accent);background:transparent}
 .fc-btn-reveal:hover{background:var(--accent-light)}
+.fc-btn-primary{border-color:var(--accent);color:white;background:var(--accent)}
+.fc-btn-primary:hover{background:#246020}
 .fc-btn-correct{border-color:#2d7a2d;color:white;background:#2d7a2d}
 .fc-btn-correct:hover{background:#256025}
 .fc-btn-wrong{border-color:#c0392b;color:white;background:#c0392b}
 .fc-btn-wrong:hover{background:#a93226}
-.fc-btn-close{border-color:var(--border);color:var(--text-muted);background:transparent}
-.fc-btn-close:hover{border-color:var(--text-muted)}
-.fc-result{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:14px}
-.fc-result-details{font-size:.83rem;color:var(--text-muted);margin-bottom:22px}
-.fc-mode-select{margin-bottom:24px}
-.fc-mode-label{font-size:.8rem;color:var(--text-muted);margin-bottom:10px;font-weight:500}
-.fc-mode-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.fc-mode-btn{padding:8px 18px;border-radius:10px;border:2px solid var(--border);background:var(--surface);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;color:var(--text-muted);transition:all .15s}
+
+/* Startseite Buchstaben-Filter */
+.fc-start-title{font-family:'DM Serif Display',serif;font-size:1.25rem;margin-bottom:20px}
+.fc-mode-row{margin-bottom:20px}
+.fc-mode-label{font-size:.8rem;color:var(--text-muted);margin-bottom:8px;font-weight:500}
+.fc-mode-btns{display:flex;gap:8px;justify-content:center}
+.fc-mode-btn{padding:7px 18px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;color:var(--text-muted);transition:all .15s}
 .fc-mode-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-.no-results{text-align:center;padding:60px 20px;color:var(--text-muted);display:none}
-@media(max-width:500px){.card-body{padding-left:14px}.info-grid{grid-template-columns:1fr 1fr}.actions-row{gap:5px}}
+.fc-letters-row{margin-bottom:20px}
+.fc-letters-label{font-size:.78rem;color:var(--text-muted);font-weight:500;margin-bottom:8px}
+.fc-letters-grid{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.fc-letter-btn{padding:3px 7px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;cursor:pointer;color:var(--text-muted);transition:all .15s}
+.fc-letter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.fc-letter-btn.active{background:var(--accent);border-color:var(--accent);color:white}
+
+/* Ergebnis */
+.fc-result-emoji{font-size:2.2rem;display:block;margin-bottom:6px}
+.fc-result-title{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:6px}
+.fc-result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:22px}
+
+@media(max-width:500px){.card-body{padding-left:14px}.info-grid{grid-template-columns:1fr 1fr}.fc-btn{padding:9px 14px;font-size:.82rem}}
 </style>
 </head>
 <body>
@@ -146,11 +167,15 @@ main{max-width:800px;margin:0 auto;padding:18px 14px 60px}
     <p>Keine Länder gefunden.</p>
   </div>
 </main>
-<div class="flashcard-overlay" id="flashcardOverlay">
-  <div class="flashcard" id="flashcard"></div>
+
+<!-- ── LERNKARTEN OVERLAY ── -->
+<div class="fc-overlay" id="fcOverlay">
+  <div class="fc-box" id="fcBox"></div>
 </div>
+
 <script>
-const FLAGS = {"Afghanistan": "🇦🇫", "Albanien": "🇦🇱", "Algerien": "🇩🇿", "Andorra": "🇦🇩", "Angola": "🇦🇴", "Antigua und Barbuda": "🇦🇬", "Argentinien": "🇦🇷", "Armenien": "🇦🇲", "Aserbaidschan": "🇦🇿", "Australien": "🇦🇺", "Bahamas": "🇧🇸", "Bahrain": "🇧🇭", "Bangladesch": "🇧🇩", "Barbados": "🇧🇧", "Belarus": "🇧🇾", "Belgien": "🇧🇪", "Belize": "🇧🇿", "Benin": "🇧🇯", "Bhutan": "🇧🇹", "Bolivien": "🇧🇴", "Bosnien und Herzegowina": "🇧🇦", "Botswana": "🇧🇼", "Brasilien": "🇧🇷", "Brunei": "🇧🇳", "Bulgarien": "🇧🇬", "Burkina Faso": "🇧🇫", "Burundi": "🇧🇮", "Chile": "🇨🇱", "China, Republik / Taiwan": "🇹🇼", "China, Volksrepublik": "🇨🇳", "Costa Rica": "🇨🇷", "Dänemark": "🇩🇰", "Deutschland": "🇩🇪", "Dominica": "🇩🇲", "Dominikanische Republik": "🇩🇴", "Dschibuti": "🇩🇯", "Ecuador": "🇪🇨", "El Salvador": "🇸🇻", "Elfenbeinküste": "🇨🇮", "Eritrea": "🇪🇷", "Estland": "🇪🇪", "Eswatini": "🇸🇿", "Fidschi": "🇫🇯", "Finnland": "🇫🇮", "Frankreich": "🇫🇷", "Gabun": "🇬🇦", "Gambia": "🇬🇲", "Georgien": "🇬🇪", "Ghana": "🇬🇭", "Grenada": "🇬🇩", "Griechenland": "🇬🇷", "Guatemala": "🇬🇹", "Guinea": "🇬🇳", "Guinea-Bissau": "🇬🇼", "Guyana": "🇬🇾", "Haiti": "🇭🇹", "Honduras": "🇭🇳", "Indien": "🇮🇳", "Indonesien": "🇮🇩", "Irak": "🇮🇶", "Iran": "🇮🇷", "Irland": "🇮🇪", "Island": "🇮🇸", "Israel": "🇮🇱", "Italien": "🇮🇹", "Jamaika": "🇯🇲", "Japan": "🇯🇵", "Jemen": "🇾🇪", "Jordanien": "🇯🇴", "Kambodscha": "🇰🇭", "Kamerun": "🇨🇲", "Kanada": "🇨🇦", "Kap Verde": "🇨🇻", "Kasachstan": "🇰🇿", "Katar": "🇶🇦", "Kenia": "🇰🇪", "Kirgisistan": "🇰🇬", "Kiribati": "🇰🇮", "Kolumbien": "🇨🇴", "Komoren": "🇰🇲", "Kongo, Demokratische Republik": "🇨🇩", "Kongo, Republik": "🇨🇬", "Korea, Nord (Nordkorea)": "🇰🇵", "Korea, Süd (Südkorea)": "🇰🇷", "Kosovo": "🇽🇰", "Kroatien": "🇭🇷", "Kuba": "🇨🇺", "Kuwait": "🇰🇼", "Laos": "🇱🇦", "Lesotho": "🇱🇸", "Lettland": "🇱🇻", "Libanon": "🇱🇧", "Liberia": "🇱🇷", "Libyen": "🇱🇾", "Liechtenstein": "🇱🇮", "Litauen": "🇱🇹", "Luxemburg": "🇱🇺", "Madagaskar": "🇲🇬", "Malawi": "🇲🇼", "Malaysia": "🇲🇾", "Malediven": "🇲🇻", "Mali": "🇲🇱", "Malta": "🇲🇹", "Marokko": "🇲🇦", "Marshallinseln": "🇲🇭", "Mauretanien": "🇲🇷", "Mauritius": "🇲🇺", "Mexiko": "🇲🇽", "Mikronesien": "🇫🇲", "Moldau": "🇲🇩", "Monaco": "🇲🇨", "Mongolei": "🇲🇳", "Montenegro": "🇲🇪", "Mosambik": "🇲🇿", "Myanmar": "🇲🇲", "Namibia": "🇳🇦", "Nauru": "🇳🇷", "Nepal": "🇳🇵", "Neuseeland": "🇳🇿", "Nicaragua": "🇳🇮", "Niederlande": "🇳🇱", "Niger": "🇳🇪", "Nigeria": "🇳🇬", "Nordmazedonien": "🇲🇰", "Norwegen": "🇳🇴", "Oman": "🇴🇲", "Osttimor / Timor-Leste": "🇹🇱", "Österreich": "🇦🇹", "Pakistan": "🇵🇰", "Palau": "🇵🇼", "Panama": "🇵🇦", "Papua-Neuguinea": "🇵🇬", "Paraguay": "🇵🇾", "Peru": "🇵🇪", "Philippinen": "🇵🇭", "Polen": "🇵🇱", "Portugal": "🇵🇹", "Ruanda": "🇷🇼", "Rumänien": "🇷🇴", "Russland": "🇷🇺", "Salomonen": "🇸🇧", "Sambia": "🇿🇲", "Samoa": "🇼🇸", "San Marino": "🇸🇲", "São Tomé und Príncipe": "🇸🇹", "Saudi-Arabien": "🇸🇦", "Schweden": "🇸🇪", "Schweiz": "🇨🇭", "Senegal": "🇸🇳", "Serbien": "🇷🇸", "Seychellen": "🇸🇨", "Sierra Leone": "🇸🇱", "Simbabwe": "🇿🇼", "Singapur": "🇸🇬", "Slowakei": "🇸🇰", "Slowenien": "🇸🇮", "Somalia": "🇸🇴", "Spanien": "🇪🇸", "Sri Lanka": "🇱🇰", "St. Kitts und Nevis": "🇰🇳", "St. Lucia": "🇱🇨", "St. Vincent und die Grenadinen": "🇻🇨", "Sudan": "🇸🇩", "Suriname": "🇸🇷", "Syrien": "🇸🇾", "Südafrika": "🇿🇦", "Südsudan": "🇸🇸", "Tadschikistan": "🇹🇯", "Tansania": "🇹🇿", "Thailand": "🇹🇭", "Togo": "🇹🇬", "Tonga": "🇹🇴", "Trinidad und Tobago": "🇹🇹", "Tschad": "🇹🇩", "Tschechien": "🇨🇿", "Tunesien": "🇹🇳", "Turkmenistan": "🇹🇲", "Tuvalu": "🇹🇻", "Türkei": "🇹🇷", "Uganda": "🇺🇬", "Ukraine": "🇺🇦", "Ungarn": "🇭🇺", "Uruguay": "🇺🇾", "Usbekistan": "🇺🇿", "Vanuatu": "🇻🇺", "Vatikanstadt": "🇻🇦", "Venezuela": "🇻🇪", "Vereinigte Arabische Emirate": "🇦🇪", "Vereinigte Staaten": "🇺🇸", "Vereinigtes Königreich": "🇬🇧", "Vietnam": "🇻🇳", "Zentralafrikanische Republik": "🇨🇫", "Zypern": "🇨🇾", "Ägypten": "🇪🇬", "Äquatorialguinea": "🇬🇶", "Äthiopien": "🇪🇹"};
+const FLAGS = {"Afghanistan":"🇦🇫","Albanien":"🇦🇱","Algerien":"🇩🇿","Andorra":"🇦🇩","Angola":"🇦🇴","Antigua und Barbuda":"🇦🇬","Argentinien":"🇦🇷","Armenien":"🇦🇲","Aserbaidschan":"🇦🇿","Australien":"🇦🇺","Bahamas":"🇧🇸","Bahrain":"🇧🇭","Bangladesch":"🇧🇩","Barbados":"🇧🇧","Belarus":"🇧🇾","Belgien":"🇧🇪","Belize":"🇧🇿","Benin":"🇧🇯","Bhutan":"🇧🇹","Bolivien":"🇧🇴","Bosnien und Herzegowina":"🇧🇦","Botswana":"🇧🇼","Brasilien":"🇧🇷","Brunei":"🇧🇳","Bulgarien":"🇧🇬","Burkina Faso":"🇧🇫","Burundi":"🇧🇮","Chile":"🇨🇱","China, Republik / Taiwan":"🇹🇼","China, Volksrepublik":"🇨🇳","Costa Rica":"🇨🇷","Dänemark":"🇩🇰","Deutschland":"🇩🇪","Dominica":"🇩🇲","Dominikanische Republik":"🇩🇴","Dschibuti":"🇩🇯","Ecuador":"🇪🇨","El Salvador":"🇸🇻","Elfenbeinküste":"🇨🇮","Eritrea":"🇪🇷","Estland":"🇪🇪","Eswatini":"🇸🇿","Fidschi":"🇫🇯","Finnland":"🇫🇮","Frankreich":"🇫🇷","Gabun":"🇬🇦","Gambia":"🇬🇲","Georgien":"🇬🇪","Ghana":"🇬🇭","Grenada":"🇬🇩","Griechenland":"🇬🇷","Guatemala":"🇬🇹","Guinea":"🇬🇳","Guinea-Bissau":"🇬🇼","Guyana":"🇬🇾","Haiti":"🇭🇹","Honduras":"🇭🇳","Indien":"🇮🇳","Indonesien":"🇮🇩","Irak":"🇮🇶","Iran":"🇮🇷","Irland":"🇮🇪","Island":"🇮🇸","Israel":"🇮🇱","Italien":"🇮🇹","Jamaika":"🇯🇲","Japan":"🇯🇵","Jemen":"🇾🇪","Jordanien":"🇯🇴","Kambodscha":"🇰🇭","Kamerun":"🇨🇲","Kanada":"🇨🇦","Kap Verde":"🇨🇻","Kasachstan":"🇰🇿","Katar":"🇶🇦","Kenia":"🇰🇪","Kirgisistan":"🇰🇬","Kiribati":"🇰🇮","Kolumbien":"🇨🇴","Komoren":"🇰🇲","Kongo, Demokratische Republik":"🇨🇩","Kongo, Republik":"🇨🇬","Korea, Nord (Nordkorea)":"🇰🇵","Korea, Süd (Südkorea)":"🇰🇷","Kosovo":"🇽🇰","Kroatien":"🇭🇷","Kuba":"🇨🇺","Kuwait":"🇰🇼","Laos":"🇱🇦","Lesotho":"🇱🇸","Lettland":"🇱🇻","Libanon":"🇱🇧","Liberia":"🇱🇷","Libyen":"🇱🇾","Liechtenstein":"🇱🇮","Litauen":"🇱🇹","Luxemburg":"🇱🇺","Madagaskar":"🇲🇬","Malawi":"🇲🇼","Malaysia":"🇲🇾","Malediven":"🇲🇻","Mali":"🇲🇱","Malta":"🇲🇹","Marokko":"🇲🇦","Marshallinseln":"🇲🇭","Mauretanien":"🇲🇷","Mauritius":"🇲🇺","Mexiko":"🇲🇽","Mikronesien":"🇫🇲","Moldau":"🇲🇩","Monaco":"🇲🇨","Mongolei":"🇲🇳","Montenegro":"🇲🇪","Mosambik":"🇲🇿","Myanmar":"🇲🇲","Namibia":"🇳🇦","Nauru":"🇳🇷","Nepal":"🇳🇵","Neuseeland":"🇳🇿","Nicaragua":"🇳🇮","Niederlande":"🇳🇱","Niger":"🇳🇪","Nigeria":"🇳🇬","Nordmazedonien":"🇲🇰","Norwegen":"🇳🇴","Oman":"🇴🇲","Osttimor / Timor-Leste":"🇹🇱","Österreich":"🇦🇹","Pakistan":"🇵🇰","Palau":"🇵🇼","Panama":"🇵🇦","Papua-Neuguinea":"🇵🇬","Paraguay":"🇵🇾","Peru":"🇵🇪","Philippinen":"🇵🇭","Polen":"🇵🇱","Portugal":"🇵🇹","Ruanda":"🇷🇼","Rumänien":"🇷🇴","Russland":"🇷🇺","Salomonen":"🇸🇧","Sambia":"🇿🇲","Samoa":"🇼🇸","San Marino":"🇸🇲","São Tomé und Príncipe":"🇸🇹","Saudi-Arabien":"🇸🇦","Schweden":"🇸🇪","Schweiz":"🇨🇭","Senegal":"🇸🇳","Serbien":"🇷🇸","Seychellen":"🇸🇨","Sierra Leone":"🇸🇱","Simbabwe":"🇿🇼","Singapur":"🇸🇬","Slowakei":"🇸🇰","Slowenien":"🇸🇮","Somalia":"🇸🇴","Spanien":"🇪🇸","Sri Lanka":"🇱🇰","St. Kitts und Nevis":"🇰🇳","St. Lucia":"🇱🇨","St. Vincent und die Grenadinen":"🇻🇨","Sudan":"🇸🇩","Suriname":"🇸🇷","Syrien":"🇸🇾","Südafrika":"🇿🇦","Südsudan":"🇸🇸","Tadschikistan":"🇹🇯","Tansania":"🇹🇿","Thailand":"🇹🇭","Togo":"🇹🇬","Tonga":"🇹🇴","Trinidad und Tobago":"🇹🇹","Tschad":"🇹🇩","Tschechien":"🇨🇿","Tunesien":"🇹🇳","Turkmenistan":"🇹🇲","Tuvalu":"🇹🇻","Türkei":"🇹🇷","Uganda":"🇺🇬","Ukraine":"🇺🇦","Ungarn":"🇭🇺","Uruguay":"🇺🇾","Usbekistan":"🇺🇿","Vanuatu":"🇻🇺","Vatikanstadt":"🇻🇦","Venezuela":"🇻🇪","Vereinigte Arabische Emirate":"🇦🇪","Vereinigte Staaten":"🇺🇸","Vereinigtes Königreich":"🇬🇧","Vietnam":"🇻🇳","Zentralafrikanische Republik":"🇨🇫","Zypern":"🇨🇾","Ägypten":"🇪🇬","Äquatorialguinea":"🇬🇶","Äthiopien":"🇪🇹"};
+
 let LAENDER = [];
 let currentFilter = "Alle", currentSearch = "", activeCards = new Set();
 
@@ -158,7 +183,6 @@ function alphaGroup(land){
   const c = land[0];
   return {"Ä":"A","Ö":"O","Ü":"U"}[c] || c.toUpperCase();
 }
-
 function getFiltered(){
   const q = currentSearch.toLowerCase();
   return LAENDER.filter(l => {
@@ -167,7 +191,6 @@ function getFiltered(){
     return mc && ms;
   });
 }
-
 function renderCard(land){
   const flag = FLAGS[land.Land] || "🌐";
   const isOpen = activeCards.has(land.Land);
@@ -198,7 +221,6 @@ function renderCard(land){
   });
   return card;
 }
-
 function render(){
   const filtered = getFiltered();
   const main = document.getElementById("main");
@@ -206,12 +228,10 @@ function render(){
   document.getElementById("resultInfo").textContent =
     filtered.length === LAENDER.length ? "" : filtered.length + " von " + LAENDER.length;
   Array.from(main.children).forEach(c => {
-    if(!c.classList.contains("no-results") && !c.id === "loadingMsg") c.remove();
     if(c.id !== "noResults" && c.id !== "loadingMsg") c.remove();
   });
   if(!filtered.length){ noResults.style.display = "block"; return; }
   noResults.style.display = "none";
-
   if(currentFilter === "Alle"){
     let lastGroup = "";
     filtered.forEach(land => {
@@ -233,27 +253,21 @@ function render(){
     main.insertBefore(group, noResults);
   }
 }
-
 function init(data){
   LAENDER = data;
   document.getElementById("loadingMsg").style.display = "none";
   document.getElementById("countBadge").textContent = LAENDER.length + " Länder";
   render();
 }
-
-// Daten laden
 fetch("laender.json")
-  .then(r => {
-    if(!r.ok) throw new Error("Datei nicht gefunden");
-    return r.json();
-  })
+  .then(r => { if(!r.ok) throw new Error(); return r.json(); })
   .then(data => init(data))
   .catch(() => {
     document.getElementById("loadingMsg").textContent =
       "⚠️ laender.json konnte nicht geladen werden. Stelle sicher, dass sie im selben Ordner liegt.";
   });
 
-// Suche ein-/ausblenden
+// Suche
 const searchToggleBtn = document.getElementById("searchToggleBtn");
 const searchWrap = document.getElementById("searchWrap");
 const searchInput = document.getElementById("searchInput");
@@ -261,7 +275,7 @@ searchToggleBtn.addEventListener("click", () => {
   const open = searchWrap.style.display === "none";
   searchWrap.style.display = open ? "block" : "none";
   searchToggleBtn.classList.toggle("active", open);
-  if(open) { searchInput.focus(); }
+  if(open) searchInput.focus();
   else { searchInput.value = ""; currentSearch = ""; render(); }
 });
 
@@ -272,14 +286,12 @@ moreBtn.addEventListener("click", () => {
   moreMenu.classList.toggle("open");
   moreBtn.classList.toggle("active");
 });
-// Menü schließen bei Klick außerhalb
 document.addEventListener("click", e => {
   if(!moreBtn.contains(e.target) && !moreMenu.contains(e.target)){
     moreMenu.classList.remove("open");
     moreBtn.classList.remove("active");
   }
 });
-
 document.querySelectorAll(".filter-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
@@ -288,121 +300,233 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
     render();
   });
 });
-document.getElementById("searchInput").addEventListener("input", e => { currentSearch = e.target.value; render(); });
+searchInput.addEventListener("input", e => { currentSearch = e.target.value; render(); });
 document.getElementById("expandAllBtn").addEventListener("click", () => { getFiltered().forEach(l => activeCards.add(l.Land)); render(); });
 document.getElementById("collapseAllBtn").addEventListener("click", () => { activeCards.clear(); render(); });
 
-// Lernkarten
-let fcData=[], fcIndex=0, fcCorrect=0, fcWrong=0, fcMode="reveal";
-function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
-function normalize(s){ return s.toLowerCase().trim().replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss").replace(/[^a-z0-9]/g,""); }
-function closeFC(){ document.getElementById("flashcardOverlay").classList.remove("active"); }
-function showFlashcard(){
-  const fc = document.getElementById("flashcard");
-  document.getElementById("flashcardOverlay").classList.add("active");
-  if(fcIndex >= fcData.length){
-    const pct = Math.round(fcCorrect/fcData.length*100);
-    fc.innerHTML = `<div class="fc-result">${pct>=80?"🎉":pct>=50?"👍":"📚"} Fertig!</div><div class="fc-result-details">${fcCorrect} richtig · ${fcWrong} falsch · ${pct}%</div><div class="flashcard-btns"><button class="fc-btn fc-btn-close" id="fcDoneBtn">Schließen</button><button class="fc-btn fc-btn-reveal" id="fcRestartBtn">Nochmal</button></div>`;
-    document.getElementById("fcRestartBtn").onclick = () => { fcIndex=0; fcCorrect=0; fcWrong=0; fcData=shuffle(fcData); showFlashcard(); };
-    document.getElementById("fcDoneBtn").onclick = closeFC;
-    return;
+
+/* ════════════════════════════════════════
+   LERNKARTEN – komplett neu
+   Konvention: sekundäre Aktion links, primäre rechts
+   ════════════════════════════════════════ */
+
+const fcOverlay = document.getElementById("fcOverlay");
+const fcBox = document.getElementById("fcBox");
+
+// State
+const FC = {
+  pool: [],       // aktuelle Kartenmenge (gemischt)
+  index: 0,
+  correct: 0,
+  wrong: 0,
+  mode: "reveal", // "reveal" | "type"
+  selectedLetters: new Set(),
+  availableLetters: [],
+};
+
+function shuffle(arr){
+  const a = [...arr];
+  for(let i = a.length-1; i > 0; i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
   }
-  const land = fcData[fcIndex];
+  return a;
+}
+function normalize(s){
+  return s.toLowerCase().trim()
+    .replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
+    .replace(/[^a-z0-9]/g,"");
+}
+
+// Kleines Helfer: Button-Zeile bauen
+// items: [{label, cls, id?}]
+function btnRow(items){
+  return `<div class="fc-actions">${items.map(b =>
+    `<button class="fc-btn ${b.cls}" ${b.id ? `id="${b.id}"` : ""}>${b.label}</button>`
+  ).join("")}</div>`;
+}
+
+function closeFC(){ fcOverlay.classList.remove("active"); }
+
+// ── Startscreen ──────────────────────────────────────────────
+function renderStart(){
+  const filtered = getFiltered();
+  FC.availableLetters = [...new Set(filtered.map(l => alphaGroup(l.Land)))].sort();
+  if(!FC.selectedLetters.size) FC.selectedLetters = new Set(FC.availableLetters);
+
+  const allSelected = FC.selectedLetters.size === FC.availableLetters.length;
+  const count = filtered.filter(l => FC.selectedLetters.has(alphaGroup(l.Land))).length;
+
+  const letterBtns = FC.availableLetters.map(l =>
+    `<button class="fc-letter-btn${FC.selectedLetters.has(l) ? " active":""}" data-l="${l}">${l}</button>`
+  ).join("");
+
+  fcBox.innerHTML = `
+    <div class="fc-start-title">🃏 Lernkarten</div>
+    <div class="fc-mode-row">
+      <div class="fc-mode-label">Modus</div>
+      <div class="fc-mode-btns">
+        <button class="fc-mode-btn${FC.mode==="reveal"?" active":""}" data-mode="reveal">Aufdecken</button>
+        <button class="fc-mode-btn${FC.mode==="type"?" active":""}" data-mode="type">Eingabe</button>
+      </div>
+    </div>
+    <div class="fc-letters-row">
+      <div class="fc-letters-label">Buchstaben · ${count} Länder</div>
+      <div class="fc-letters-grid">
+        <button class="fc-letter-btn${allSelected?" active":""}" data-l="alle">Alle</button>
+        ${letterBtns}
+      </div>
+    </div>
+    ${btnRow([
+      {label:"Abbrechen", cls:"fc-btn-secondary", id:"fcCancelBtn"},
+      {label:"Starten",   cls:"fc-btn-primary",   id:"fcStartBtn"}
+    ])}`;
+
+  fcBox.querySelectorAll(".fc-mode-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      FC.mode = btn.dataset.mode;
+      fcBox.querySelectorAll(".fc-mode-btn").forEach(b => b.classList.toggle("active", b === btn));
+    });
+  });
+  fcBox.querySelectorAll(".fc-letter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const l = btn.dataset.l;
+      if(l === "alle"){
+        if(FC.selectedLetters.size === FC.availableLetters.length)
+          FC.selectedLetters.clear();
+        else
+          FC.selectedLetters = new Set(FC.availableLetters);
+      } else {
+        FC.selectedLetters.has(l) ? FC.selectedLetters.delete(l) : FC.selectedLetters.add(l);
+      }
+      renderStart();
+    });
+  });
+  document.getElementById("fcStartBtn").addEventListener("click", () => {
+    const pool = filtered.filter(l => FC.selectedLetters.has(alphaGroup(l.Land)));
+    if(!pool.length) return;
+    FC.pool = shuffle(pool);
+    FC.index = 0; FC.correct = 0; FC.wrong = 0;
+    renderCard_FC();
+  });
+  document.getElementById("fcCancelBtn").addEventListener("click", closeFC);
+}
+
+// ── Karte anzeigen ───────────────────────────────────────────
+function renderCard_FC(){
+  if(FC.index >= FC.pool.length){ renderResult(); return; }
+
+  const land = FC.pool[FC.index];
   const flag = FLAGS[land.Land] || "🌐";
-  if(fcMode === "reveal"){
-    fc.innerHTML = `<div class="flashcard-progress">${fcIndex+1} / ${fcData.length} · ✅ ${fcCorrect} · ❌ ${fcWrong}</div><span class="flashcard-flag">${flag}</span><div class="flashcard-question">Hauptstadt von<br><strong>${land.Land}</strong>?</div><div class="flashcard-answer" id="fcAnswer">${land.Hauptstadt}</div><div class="flashcard-btns" id="fcBtns"><button class="fc-btn fc-btn-close" id="fcCloseBtn">Abbrechen</button><button class="fc-btn fc-btn-reveal" id="fcRevealBtn">Antwort zeigen</button></div>`;
-    document.getElementById("fcRevealBtn").onclick = () => {
-      document.getElementById("fcAnswer").style.display = "block";
-      document.getElementById("fcBtns").innerHTML = `<button class="fc-btn fc-btn-wrong" id="fcNokBtn">✗ Nicht gewusst</button><button class="fc-btn fc-btn-correct" id="fcOkBtn">✓ Gewusst</button>`;
-      document.getElementById("fcOkBtn").onclick = () => { fcCorrect++; fcIndex++; showFlashcard(); };
-      document.getElementById("fcNokBtn").onclick = () => { fcWrong++; fcIndex++; showFlashcard(); };
-    };
-    document.getElementById("fcCloseBtn").onclick = closeFC;
+  const prog = `${FC.index+1} / ${FC.pool.length} · ✅ ${FC.correct} · ❌ ${FC.wrong}`;
+
+  if(FC.mode === "reveal"){
+    renderReveal(land, flag, prog);
   } else {
-    fc.innerHTML = `<div class="flashcard-progress">${fcIndex+1} / ${fcData.length} · ✅ ${fcCorrect} · ❌ ${fcWrong}</div><span class="flashcard-flag">${flag}</span><div class="flashcard-question">Hauptstadt von<br><strong>${land.Land}</strong>?</div><div class="fc-input-wrap"><input class="fc-input" id="fcInput" type="text" placeholder="Hauptstadt eingeben …" autocomplete="off" spellcheck="false"></div><div class="flashcard-answer" id="fcAnswer">Richtig: ${land.Hauptstadt}</div><div class="flashcard-btns" id="fcBtns"><button class="fc-btn fc-btn-close" id="fcCloseBtn">Abbrechen</button><button class="fc-btn fc-btn-reveal" id="fcCheckBtn">Prüfen</button></div>`;
-    const input = document.getElementById("fcInput"); input.focus();
-    const check = () => {
-      if(!input.value.trim()) return;
-      const ok = normalize(input.value) === normalize(land.Hauptstadt) || land.Hauptstadt.toLowerCase().includes(input.value.toLowerCase().trim());
-      input.classList.add(ok ? "correct" : "wrong");
-      document.getElementById("fcAnswer").style.display = "block";
-      if(ok) fcCorrect++; else fcWrong++;
-      document.getElementById("fcBtns").innerHTML = `<button class="fc-btn fc-btn-reveal" id="fcNextBtn">Weiter →</button>`;
-      document.getElementById("fcNextBtn").onclick = () => { fcIndex++; showFlashcard(); };
-    };
-    input.addEventListener("keydown", e => { if(e.key === "Enter") check(); });
-    document.getElementById("fcCheckBtn").onclick = check;
-    document.getElementById("fcCloseBtn").onclick = closeFC;
+    renderType(land, flag, prog);
   }
 }
+
+// ── Aufdecken-Modus ──────────────────────────────────────────
+function renderReveal(land, flag, prog){
+  fcBox.innerHTML = `
+    <div class="fc-progress">${prog}</div>
+    <span class="fc-flag">${flag}</span>
+    <div class="fc-question">Hauptstadt von<br><strong>${land.Land}</strong>?</div>
+    ${btnRow([
+      {label:"Abbrechen",      cls:"fc-btn-secondary", id:"fcAbortBtn"},
+      {label:"Antwort zeigen", cls:"fc-btn-reveal",    id:"fcRevealBtn"}
+    ])}`;
+
+  document.getElementById("fcRevealBtn").addEventListener("click", () => {
+    fcBox.innerHTML = `
+      <div class="fc-progress">${prog}</div>
+      <span class="fc-flag">${flag}</span>
+      <div class="fc-question">Hauptstadt von<br><strong>${land.Land}</strong>?</div>
+      <div class="fc-answer-box">${land.Hauptstadt}</div>
+      ${btnRow([
+        {label:"✗ Nicht gewusst", cls:"fc-btn-wrong",   id:"fcWrongBtn"},
+        {label:"✓ Gewusst",       cls:"fc-btn-correct", id:"fcOkBtn"}
+      ])}`;
+    document.getElementById("fcOkBtn").addEventListener("click",    () => { FC.correct++; FC.index++; renderCard_FC(); });
+    document.getElementById("fcWrongBtn").addEventListener("click", () => { FC.wrong++;   FC.index++; renderCard_FC(); });
+  });
+  document.getElementById("fcAbortBtn").addEventListener("click", closeFC);
+}
+
+// ── Eingabe-Modus ────────────────────────────────────────────
+function renderType(land, flag, prog){
+  fcBox.innerHTML = `
+    <div class="fc-progress">${prog}</div>
+    <span class="fc-flag">${flag}</span>
+    <div class="fc-question">Hauptstadt von<br><strong>${land.Land}</strong>?</div>
+    <input class="fc-input" id="fcInput" type="text" placeholder="Hauptstadt eingeben …" autocomplete="off" spellcheck="false">
+    <div class="fc-feedback" id="fcFeedback"></div>
+    ${btnRow([
+      {label:"Abbrechen", cls:"fc-btn-secondary", id:"fcAbortBtn"},
+      {label:"Prüfen",    cls:"fc-btn-reveal",    id:"fcCheckBtn"}
+    ])}`;
+
+  const input = document.getElementById("fcInput");
+  input.focus();
+
+  const check = () => {
+    const val = input.value.trim();
+    if(!val) return;
+    const ok = normalize(val) === normalize(land.Hauptstadt)
+            || land.Hauptstadt.toLowerCase().includes(val.toLowerCase());
+    input.classList.add(ok ? "correct" : "wrong");
+    input.disabled = true;
+    const fb = document.getElementById("fcFeedback");
+    fb.textContent = ok ? "✓ Richtig!" : `✗ Richtig: ${land.Hauptstadt}`;
+    fb.className = "fc-feedback " + (ok ? "correct" : "wrong");
+    if(ok) FC.correct++; else FC.wrong++;
+
+    // Buttons tauschen: nur noch "Weiter"
+    const actionsEl = fcBox.querySelector(".fc-actions");
+    actionsEl.innerHTML = `<button class="fc-btn fc-btn-primary" id="fcNextBtn">Weiter →</button>`;
+    document.getElementById("fcNextBtn").addEventListener("click", () => { FC.index++; renderCard_FC(); });
+  };
+
+  input.addEventListener("keydown", e => { if(e.key === "Enter") check(); });
+  document.getElementById("fcCheckBtn").addEventListener("click", check);
+  document.getElementById("fcAbortBtn").addEventListener("click", closeFC);
+}
+
+// ── Ergebnis ─────────────────────────────────────────────────
+function renderResult(){
+  const pct = Math.round(FC.correct / FC.pool.length * 100);
+  const emoji = pct >= 80 ? "🎉" : pct >= 50 ? "👍" : "📚";
+  fcBox.innerHTML = `
+    <span class="fc-result-emoji">${emoji}</span>
+    <div class="fc-result-title">Fertig!</div>
+    <div class="fc-result-sub">${FC.correct} richtig · ${FC.wrong} falsch · ${pct} %</div>
+    ${btnRow([
+      {label:"Schließen",  cls:"fc-btn-secondary", id:"fcDoneBtn"},
+      {label:"Nochmal",    cls:"fc-btn-primary",   id:"fcRetryBtn"}
+    ])}`;
+
+  document.getElementById("fcRetryBtn").addEventListener("click", () => {
+    FC.pool = shuffle(FC.pool);
+    FC.index = 0; FC.correct = 0; FC.wrong = 0;
+    renderCard_FC();
+  });
+  document.getElementById("fcDoneBtn").addEventListener("click", closeFC);
+}
+
+// ── Start-Trigger ─────────────────────────────────────────────
 document.getElementById("startFlashcardsBtn").addEventListener("click", () => {
-  const filtered = getFiltered();
-  const fc = document.getElementById("flashcard");
-  document.getElementById("flashcardOverlay").classList.add("active");
   moreMenu.classList.remove("open");
   moreBtn.classList.remove("active");
-
-  // Buchstaben ermitteln die in der aktuellen Auswahl vorkommen
-  const availableLetters = [...new Set(filtered.map(l => alphaGroup(l.Land)))].sort();
-  let selectedLetters = new Set(availableLetters); // alle vorausgewählt
-
-  function renderFcStart() {
-    const letterBtns = availableLetters.map(l =>
-      `<button class="fc-letter-btn${selectedLetters.has(l) ? ' active' : ''}" data-letter="${l}">${l}</button>`
-    ).join('');
-    const count = filtered.filter(l => selectedLetters.has(alphaGroup(l.Land))).length;
-    fc.innerHTML = `
-      <div class="fc-result" style="font-size:1.2rem;margin-bottom:8px">🃏 Lernkarten</div>
-      <div class="fc-mode-select">
-        <div class="fc-mode-label">Lernmodus:</div>
-        <div class="fc-mode-btns">
-          <button class="fc-mode-btn${fcMode==='reveal'?' active':''}" data-mode="reveal">Aufdecken</button>
-          <button class="fc-mode-btn${fcMode==='type'?' active':''}" data-mode="type">Eingabe</button>
-        </div>
-      </div>
-      <div class="fc-letter-filter">
-        <div class="fc-letter-label">Buchstaben (${count} Länder):</div>
-        <div class="fc-letter-btns" id="fcLetterBtns">
-          <button class="fc-letter-btn${selectedLetters.size===availableLetters.length?' active':''}" data-letter="alle">Alle</button>
-          ${letterBtns}
-        </div>
-      </div>
-      <div class="flashcard-btns" style="margin-top:16px">
-        <button class="fc-btn fc-btn-close" id="fcCancelBtn">Abbrechen</button>
-        <button class="fc-btn fc-btn-correct" id="fcStartBtn">Starten</button>
-      </div>`;
-
-    fc.querySelectorAll(".fc-mode-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        fc.querySelectorAll(".fc-mode-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active"); fcMode = btn.dataset.mode;
-      });
-    });
-    fc.querySelectorAll(".fc-letter-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const l = btn.dataset.letter;
-        if(l === "alle") {
-          if(selectedLetters.size === availableLetters.length) selectedLetters.clear();
-          else selectedLetters = new Set(availableLetters);
-        } else {
-          if(selectedLetters.has(l)) selectedLetters.delete(l);
-          else selectedLetters.add(l);
-        }
-        renderFcStart();
-      });
-    });
-    document.getElementById("fcStartBtn").onclick = () => {
-      const pool = filtered.filter(l => selectedLetters.has(alphaGroup(l.Land)));
-      if(!pool.length) return;
-      fcData = shuffle(pool); fcIndex = 0; fcCorrect = 0; fcWrong = 0;
-      showFlashcard();
-    };
-    document.getElementById("fcCancelBtn").onclick = closeFC;
-  }
-  renderFcStart();
+  FC.selectedLetters = new Set(); // zurücksetzen → renderStart wählt alle
+  fcOverlay.classList.add("active");
+  renderStart();
 });
-document.getElementById("flashcardOverlay").addEventListener("click", e => { if(e.target === document.getElementById("flashcardOverlay")) closeFC(); });
 
+// Overlay-Hintergrund schließt
+fcOverlay.addEventListener("click", e => {
+  if(e.target === fcOverlay) closeFC();
+});
 </script>
 </body>
 </html>
