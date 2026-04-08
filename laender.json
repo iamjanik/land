@@ -173,7 +173,7 @@
   },
   {
     "Land": "Bolivien",
-    "Hauptstadt": "Sucre",
+    "Hauptstadt": "Sucre (Verfassungshauptstadt)\nLa Paz (Regierungssitz)",
     "Kontinent": "Amerika",
     "Fläche": "1.098.581 km²",
     "Bevölkerung": "ca. 12 Mio.",
@@ -248,7 +248,8 @@
     "Kontinent": "Asien",
     "Fläche": "36.193 km²",
     "Bevölkerung": "ca. 23 Mio.",
-    "Fakt": "Taiwan produziert über 90 % der weltweit hergestellten Halbleiter (mit einer Strukturbreite unter 7 nm) und ist trotz geopolitischer Sonderlage eine der größten Volkswirtschaften Asiens."
+    "Fakt": "Taiwan produziert über 90 % der weltweit hergestellten Halbleiter (mit einer Strukturbreite unter 7 nm) und ist trotz geopolitischer Sonderlage eine der größten Volkswirtschaften Asiens.",
+    "UNMitglied": false
   },
   {
     "Land": "China, Volksrepublik",
@@ -689,7 +690,8 @@
     "Kontinent": "Europa",
     "Fläche": "10.908 km²",
     "Bevölkerung": "ca. 1,8 Mio.",
-    "Fakt": "Kosovo erklärte 2008 die Unabhängigkeit und ist eines der jüngsten Länder der Welt. Über 90 % der Bevölkerung sind albanischsprachig."
+    "Fakt": "Kosovo erklärte 2008 die Unabhängigkeit und ist eines der jüngsten Länder der Welt. Über 90 % der Bevölkerung sind albanischsprachig.",
+    "UNMitglied": false
   },
   {
     "Land": "Kroatien",
@@ -1292,7 +1294,7 @@
   },
   {
     "Land": "Südafrika",
-    "Hauptstadt": "Pretoria (Verwaltung) / Kapstadt (Parlament) / Bloemfontein (Justiz)",
+    "Hauptstadt": "Pretoria (Verwaltung)\nKapstadt (Parlament)\nBloemfontein (Justiz)",
     "Kontinent": "Afrika",
     "Fläche": "1.219.090 km²",
     "Bevölkerung": "ca. 60 Mio.",
@@ -1486,7 +1488,8 @@
     "Kontinent": "Europa",
     "Fläche": "0,44 km²",
     "Bevölkerung": "ca. 800",
-    "Fakt": "Der Vatikan ist der kleinste Staat der Welt und der einzige ohne reguläre Staatsbürger von Geburt – man wird durch Amt oder Funktion Bürger."
+    "Fakt": "Der Vatikan ist der kleinste Staat der Welt und der einzige ohne reguläre Staatsbürger von Geburt – man wird durch Amt oder Funktion Bürger.",
+    "UNMitglied": false
   },
   {
     "Land": "Venezuela",
