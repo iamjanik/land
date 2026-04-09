@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+<title>Länder</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+/* ── Dark-Mode-Toggle: Script läuft inline im <head>, bevor CSS rendert ── */
+/* Verhindert FOUC (Flash of unstyled content) */
+
+:root {
+  --bg:            #f4f1eb;
+  --surface:       #fffef9;
+  --surface2:      #f0ede4;
+  --border:        #ddd8cc;
+  --text:          #1a1814;
+  --text-muted:    #7a7468;
+  --accent:        #2d5a27;
+  --accent-light:  #e8f0e7;
+  --accent-hover:  #246020;
+
+  --tag-Europa-bg:   #e8eef7; --tag-Europa-fg:   #1a3a6b;
+  --tag-Asien-bg:    #f7e8e8; --tag-Asien-fg:    #6b1a1a;
+  --tag-Afrika-bg:   #f7f0d8; --tag-Afrika-fg:   #5a4000;
+  --tag-Amerika-bg:  #e8f4f0; --tag-Amerika-fg:  #1a5a4a;
+  --tag-Ozeanien-bg: #ede8f7; --tag-Ozeanien-fg: #3a1a6b;
+
+  --un-none-bg:    #fdf0e3;
+  --un-none-border:#e8a87a;
+  --un-none-text:  #7a3200;
+
+  --un-obs-bg:     #e8f0f7;
+  --un-obs-border: #7aaee8;
+  --un-obs-text:   #1a3a6b;
+
+  --un-part-bg:    #fdf7e3;
+  --un-part-border:#e8c97a;
+  --un-part-text:  #5a4000;
+
+  --shadow:       0 2px 12px rgba(0,0,0,.07);
+  --shadow-hover: 0 6px 24px rgba(0,0,0,.12);
+  --radius:       12px;
+  --transition:   .18s cubic-bezier(.4,0,.2,1);
+
+  /* Dark-Mode-Transition */
+  --theme-transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+
+/* ── Automatischer Dark Mode via Systemeinstellung ── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:           #181612;
+    --surface:      #1f1d19;
+    --surface2:     #272420;
+    --border:       #38342c;
+    --text:         #ede9e0;
+    --text-muted:   #948e84;
+    --accent:       #6aaa60;
+    --accent-light: #1a2b18;
+    --accent-hover: #7aba70;
+
+    --tag-Europa-bg:   #16243e; --tag-Europa-fg:   #7aa4e4;
+    --tag-Asien-bg:    #2a1616; --tag-Asien-fg:    #e08080;
+    --tag-Afrika-bg:   #2a2010; --tag-Afrika-fg:   #d4aa50;
+    --tag-Amerika-bg:  #102820; --tag-Amerika-fg:  #5aaa90;
+    --tag-Ozeanien-bg: #1c1030; --tag-Ozeanien-fg: #9a74d4;
+
+    --un-none-bg:    #2a1a0a;
+    --un-none-border:#8a4820;
+    --un-none-text:  #f0a870;
+
+    --un-obs-bg:     #0e1e30;
+    --un-obs-border: #3a6ea8;
+    --un-obs-text:   #7ab0e8;
+
+    --un-part-bg:    #2a2008;
+    --un-part-border:#8a7820;
+    --un-part-text:  #d4b850;
+
+    --shadow:       0 2px 12px rgba(0,0,0,.28);
+    --shadow-hover: 0 6px 24px rgba(0,0,0,.44);
+  }
+}
+
+/* ── Manuell gesetzter Dark Mode (überschreibt Systemeinstellung) ── */
+:root[data-theme="dark"] {
+  --bg:           #181612;
+  --surface:      #1f1d19;
+  --surface2:     #272420;
+  --border:       #38342c;
+  --text:         #ede9e0;
+  --text-muted:   #948e84;
+  --accent:       #6aaa60;
+  --accent-light: #1a2b18;
+  --accent-hover: #7aba70;
+
+  --tag-Europa-bg:   #16243e; --tag-Europa-fg:   #7aa4e4;
+  --tag-Asien-bg:    #2a1616; --tag-Asien-fg:    #e08080;
+  --tag-Afrika-bg:   #2a2010; --tag-Afrika-fg:   #d4aa50;
+  --tag-Amerika-bg:  #102820; --tag-Amerika-fg:  #5aaa90;
+  --tag-Ozeanien-bg: #1c1030; --tag-Ozeanien-fg: #9a74d4;
+
+  --un-none-bg:    #2a1a0a;
+  --un-none-border:#8a4820;
+  --un-none-text:  #f0a870;
+
+  --un-obs-bg:     #0e1e30;
+  --un-obs-border: #3a6ea8;
+  --un-obs-text:   #7ab0e8;
+
+  --un-part-bg:    #2a2008;
+  --un-part-border:#8a7820;
+  --un-part-text:  #d4b850;
+
+  --shadow:       0 2px 12px rgba(0,0,0,.28);
+  --shadow-hover: 0 6px 24px rgba(0,0,0,.44);
+}
+
+/* ── Manuell gesetzter Light Mode (überschreibt dunkle Systemeinstellung) ── */
+:root[data-theme="light"] {
+  --bg:            #f4f1eb;
+  --surface:       #fffef9;
+  --surface2:      #f0ede4;
+  --border:        #ddd8cc;
+  --text:          #1a1814;
+  --text-muted:    #7a7468;
+  --accent:        #2d5a27;
+  --accent-light:  #e8f0e7;
+  --accent-hover:  #246020;
+
+  --tag-Europa-bg:   #e8eef7; --tag-Europa-fg:   #1a3a6b;
+  --tag-Asien-bg:    #f7e8e8; --tag-Asien-fg:    #6b1a1a;
+  --tag-Afrika-bg:   #f7f0d8; --tag-Afrika-fg:   #5a4000;
+  --tag-Amerika-bg:  #e8f4f0; --tag-Amerika-fg:  #1a5a4a;
+  --tag-Ozeanien-bg: #ede8f7; --tag-Ozeanien-fg: #3a1a6b;
+
+  --un-none-bg:    #fdf0e3;
+  --un-none-border:#e8a87a;
+  --un-none-text:  #7a3200;
+
+  --un-obs-bg:     #e8f0f7;
+  --un-obs-border: #7aaee8;
+  --un-obs-text:   #1a3a6b;
+
+  --un-part-bg:    #fdf7e3;
+  --un-part-border:#e8c97a;
+  --un-part-text:  #5a4000;
+
+  --shadow:       0 2px 12px rgba(0,0,0,.07);
+  --shadow-hover: 0 6px 24px rgba(0,0,0,.12);
+}
+
+/* ── Smooth Transition beim Umschalten ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: var(--theme-transition);
+}
+
+/* Transition nur für theme-relevante Properties; Animationen nicht bremsen */
+.country-card, .card-trigger, .filter-btn, .icon-btn, .fc-btn, .fc-input,
+.info-block, .fakt-block, .un-block, header, main {
+  transition: background-color .25s ease, color .25s ease,
+              border-color .25s ease, box-shadow .25s ease;
+}
+
+/* Elemente, die eigene Transitions brauchen → Shorthand deaktivieren */
+.chevron { transition: transform .25s cubic-bezier(.4,0,.2,1) !important; }
+.country-card.open .chevron { transform: rotate(180deg); }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════ */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 68px;
+  gap: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.55rem;
+  letter-spacing: -.02em;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex-shrink: 1;
+  display: flex;
+  align-items: center;
+}
+
+.header-spacer { flex: 1; min-width: 4px; }
+
+.search-wrap {
+  position: relative;
+  flex-shrink: 1;
+  min-width: 0;
+}
+.search-wrap svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+input[type=search] {
+  padding: 8px 10px 8px 34px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .88rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--transition);
+  -webkit-appearance: none;
+  appearance: none;
+  width: 190px;
+  min-width: 80px;
+}
+input[type=search]::-webkit-search-cancel-button { display: none; }
+input[type=search]:focus { border-color: var(--accent); }
+
+@media (min-width: 600px) {
+  #searchWrapInline { display: block !important; }
+  #searchWrapMobile { display: none !important; }
+  #searchToggleBtn  { display: none !important; }
+}
+@media (max-width: 599px) {
+  #searchWrapInline { display: none !important; }
+  #searchWrapMobile {
+    display: none;
+    padding: 8px 12px 10px;
+    border-top: 1px solid var(--border);
+  }
+  #searchWrapMobile.open { display: block; }
+  #searchWrapMobile .search-inner { position: relative; }
+  #searchWrapMobile .search-inner svg {
+    position: absolute; left: 10px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted); pointer-events: none;
+  }
+  #searchWrapMobile input[type=search] {
+    width: 100%; min-width: 0;
+    padding-top: 9px; padding-bottom: 9px;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 7px 9px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .82rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.icon-btn:hover { background: var(--surface2); color: var(--text); }
+.icon-btn.active { color: var(--accent); background: var(--accent-light); }
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.icon-btn .btn-label { display: none; }
+@media (min-width: 820px) { .icon-btn .btn-label { display: inline; } }
+
+/* Dark-Mode-Button: Sonne/Mond leicht hervorgehoben */
+#themeToggleBtn {
+  position: relative;
+  overflow: hidden;
+}
+#themeToggleBtn .icon-sun,
+#themeToggleBtn .icon-moon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .2s ease, transform .3s cubic-bezier(.4,0,.2,1);
+}
+#themeToggleBtn .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+#themeToggleBtn .icon-moon { opacity: 0; transform: rotate(-90deg) scale(.6); }
+
+/* Im Dark Mode: Mond sichtbar, Sonne weg */
+[data-theme="dark"] #themeToggleBtn .icon-sun,
+.is-dark #themeToggleBtn .icon-sun {
+  opacity: 0; transform: rotate(90deg) scale(.6);
+}
+[data-theme="dark"] #themeToggleBtn .icon-moon,
+.is-dark #themeToggleBtn .icon-moon {
+  opacity: 1; transform: rotate(0deg) scale(1);
+}
+
+/* Fallback-Größe damit der Button nicht zusammenfällt */
+#themeToggleBtn { width: 34px; height: 34px; padding: 0; }
+
+.btn-flashcard {
+  color: var(--accent);
+  border: 1.5px solid var(--border);
+}
+.btn-flashcard:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+.hdr-divider {
+  width: 1px;
+  height: 22px;
+  background: var(--border);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+.filter-bar {
+  border-top: 1px solid var(--border);
+  padding: 0 20px;
+}
+.filter-inner {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 8px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.filter-inner::-webkit-scrollbar { display: none; }
+
+.filter-btn {
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .78rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+.filter-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.result-pill {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: .7rem;
+  color: var(--text-muted);
+  padding: 4px 10px;
+  background: var(--surface2);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  align-self: center;
+  display: none;
+}
+.result-pill.visible { display: block; }
+
+/* ═══════════════════════════════════════════
+   MAIN / CARDS
+═══════════════════════════════════════════ */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0px 14px 60px;
+}
+
+.loading {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  font-size: .95rem;
+}
+
+.alpha-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 8px;
+}
+.alpha-letter {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--accent);
+  min-width: 22px;
+}
+.alpha-line { flex: 1; height: 1px; background: var(--border); }
+
+.continent-group { margin-bottom: 24px; }
+.continent-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.continent-title {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.continent-line { flex: 1; height: 1px; background: var(--border); }
+.continent-count { font-size: .72rem; color: var(--text-muted); font-weight: 500; }
+
+.country-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 7px;
+  overflow: hidden;
+}
+.country-card:hover { box-shadow: var(--shadow-hover); border-color: #c5bfb5; }
+.country-card.open  { border-color: var(--accent); }
+
+[data-theme="dark"] .country-card:hover,
+.is-dark .country-card:hover { border-color: #504a40; }
+
+.country-card.un-nicht-anerkannt { border-color: var(--un-none-border); }
+.country-card.un-nicht-anerkannt:hover { border-color: #c86030; }
+.country-card.un-nicht-anerkannt.open  { border-color: var(--accent); }
+
+.country-card.un-beobachter { border-color: var(--un-obs-border); }
+.country-card.un-beobachter:hover { border-color: #4a8ed8; }
+.country-card.un-beobachter.open  { border-color: var(--accent); }
+
+.country-card.un-teilweise { border-color: var(--un-part-border); }
+.country-card.un-teilweise:hover { border-color: #c8a84a; }
+.country-card.un-teilweise.open  { border-color: var(--accent); }
+
+.card-trigger {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  cursor: pointer;
+  gap: 12px;
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  text-align: left;
+  color: var(--text);
+}
+.card-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: var(--radius);
+}
+
+.flag { font-size: 1.4rem; line-height: 1; flex-shrink: 0; width: 30px; text-align: center; }
+.country-name { font-weight: 600; font-size: .95rem; flex: 1; }
+
+.un-marker {
+  display: inline-block;
+  font-size: .75em;
+  font-weight: 700;
+  vertical-align: super;
+  line-height: 1;
+  margin-left: 1px;
+}
+.un-marker.un-marker--none { color: var(--un-none-text); }
+.un-marker.un-marker--obs  { color: var(--un-obs-text);  }
+.un-marker.un-marker--part { color: var(--un-part-text); }
+
+.continent-tag {
+  font-size: .68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.tag-Europa   { color: var(--tag-Europa-fg);   background: var(--tag-Europa-bg); }
+.tag-Asien    { color: var(--tag-Asien-fg);    background: var(--tag-Asien-bg); }
+.tag-Afrika   { color: var(--tag-Afrika-fg);   background: var(--tag-Afrika-bg); }
+.tag-Amerika  { color: var(--tag-Amerika-fg);  background: var(--tag-Amerika-bg); }
+.tag-Ozeanien { color: var(--tag-Ozeanien-fg); background: var(--tag-Ozeanien-bg); }
+
+.card-body {
+  display: none;
+  padding: 0 14px 14px 56px;
+  animation: slideDown .2s ease;
+}
+.country-card.open .card-body { display: block; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px;
+  margin-top: 2px;
+}
+.info-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+}
+.info-label {
+  font-size: .65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+.info-value {
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.35;
+}
+.info-value.multiline { white-space: pre-line; }
+
+.fakt-block {
+  background: var(--accent-light);
+  border: 1px solid #b8d4b5;
+  border-radius: 8px;
+  padding: 10px 13px;
+  grid-column: 1 / -1;
+}
+[data-theme="dark"] .fakt-block,
+.is-dark .fakt-block { border-color: #2a4a28; }
+
+.fakt-block .info-label { color: var(--accent); }
+.fakt-block .info-value {
+  font-size: .85rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.un-block {
+  border-radius: 8px;
+  padding: 10px 13px;
+  grid-column: 1 / -1;
+}
+.un-block .info-value { font-size: .85rem; font-weight: 400; line-height: 1.5; }
+
+.un-block--none { background: var(--un-none-bg); border: 1px solid var(--un-none-border); }
+.un-block--none .info-label { color: var(--un-none-text); }
+.un-block--none .info-value { color: var(--un-none-text); }
+
+.un-block--obs { background: var(--un-obs-bg); border: 1px solid var(--un-obs-border); }
+.un-block--obs .info-label { color: var(--un-obs-text); }
+.un-block--obs .info-value { color: var(--un-obs-text); }
+
+.un-block--part { background: var(--un-part-bg); border: 1px solid var(--un-part-border); }
+.un-block--part .info-label { color: var(--un-part-text); }
+.un-block--part .info-value { color: var(--un-part-text); }
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  display: none;
+}
+
+/* ═══════════════════════════════════════════
+   LERNKARTEN OVERLAY
+═══════════════════════════════════════════ */
+.fc-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20,18,12,.78);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.fc-overlay.active { display: flex; }
+
+.fc-box {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 32px 28px 28px;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(0,0,0,.3);
+  border: 1px solid var(--border);
+}
+
+.fc-progress { font-size: .75rem; color: var(--text-muted); margin-bottom: 20px; font-weight: 500; }
+.fc-flag { font-size: 2.6rem; line-height: 1; display: block; margin-bottom: 8px; }
+.fc-question {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.25rem, 5vw, 1.75rem);
+  margin-bottom: 24px;
+  line-height: 1.25;
+  color: var(--text);
+}
+.fc-answer-box {
+  background: var(--accent-light);
+  border: 2px solid var(--accent);
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 20px;
+  white-space: pre-line;
+}
+.fc-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--bg);
+  outline: none;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.fc-input:focus { border-color: var(--accent); }
+.fc-input.correct { border-color: #2d7a2d; background: #e8f5e8; color: #1a4a1a; }
+.fc-input.wrong   { border-color: #c0392b; background: #fdecea; color: #6a1a14; }
+
+[data-theme="dark"] .fc-input.correct,
+.is-dark .fc-input.correct { background: #0e2a0e; color: #6aca6a; }
+[data-theme="dark"] .fc-input.wrong,
+.is-dark .fc-input.wrong   { background: #2a0e0e; color: #e07070; }
+
+.fc-input:disabled { cursor: default; }
+.fc-feedback { font-size: .88rem; margin-bottom: 14px; font-weight: 500; min-height: 1.4em; color: var(--text-muted); }
+.fc-feedback.correct { color: #2d7a2d; }
+.fc-feedback.wrong   { color: #c0392b; }
+
+[data-theme="dark"] .fc-feedback.correct,
+.is-dark .fc-feedback.correct { color: #6aaa60; }
+[data-theme="dark"] .fc-feedback.wrong,
+.is-dark .fc-feedback.wrong   { color: #e07070; }
+
+.fc-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 4px; }
+.fc-btn {
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: 2px solid;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .88rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.fc-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.fc-btn-secondary { border-color: var(--border); color: var(--text-muted); background: transparent; }
+.fc-btn-secondary:hover { border-color: var(--text-muted); }
+.fc-btn-reveal    { border-color: var(--accent); color: var(--accent); background: transparent; }
+.fc-btn-reveal:hover { background: var(--accent-light); }
+.fc-btn-primary   { border-color: var(--accent); color: white; background: var(--accent); }
+.fc-btn-primary:hover { background: var(--accent-hover); }
+.fc-btn-correct   { border-color: #2d7a2d; color: white; background: #2d7a2d; }
+.fc-btn-correct:hover { background: #256025; }
+.fc-btn-wrong     { border-color: #c0392b; color: white; background: #c0392b; }
+.fc-btn-wrong:hover { background: #a93226; }
+
+.fc-warning { color: #c0392b; font-size: .82rem; margin-top: 8px; min-height: 1.2em; }
+[data-theme="dark"] .fc-warning,
+.is-dark .fc-warning { color: #e07070; }
+
+.fc-start-title { font-family: 'DM Serif Display', serif; font-size: 1.25rem; margin-bottom: 20px; color: var(--text); }
+.fc-mode-row { margin-bottom: 20px; }
+.fc-mode-label { font-size: .8rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+.fc-mode-btns { display: flex; gap: 8px; justify-content: center; }
+.fc-mode-btn {
+  padding: 7px 18px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .85rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+.fc-mode-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+.fc-letters-row { margin-bottom: 20px; }
+.fc-letters-label { font-size: .78rem; color: var(--text-muted); font-weight: 500; margin-bottom: 8px; }
+.fc-letters-grid { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+.fc-letter-btn {
+  padding: 3px 7px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .72rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+.fc-letter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.fc-letter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+.fc-result-emoji { font-size: 2.2rem; display: block; margin-bottom: 6px; }
+.fc-result-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 6px; color: var(--text); }
+.fc-result-sub   { font-size: .85rem; color: var(--text-muted); margin-bottom: 22px; }
+
+@media (max-width: 500px) {
+  .card-body { padding-left: 14px; }
+  .info-grid  { grid-template-columns: 1fr 1fr; }
+  .fc-btn     { padding: 9px 14px; font-size: .82rem; }
+}
+</style>
+
+<!-- Anti-FOUC: Theme vor dem ersten Paint setzen -->
+<script>
+(function() {
+  try {
+    var saved = localStorage.getItem('theme');
+    if (saved === 'dark' || saved === 'light') {
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+    // is-dark-Klasse für CSS-Selektoren (Systemeinstellung + gespeichert)
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var isDark = saved === 'dark' || (!saved && prefersDark);
+    if (isDark) document.documentElement.classList.add('is-dark');
+  } catch(e) {}
+})();
+</script>
+</head>
+<body>
+
+<header>
+  <div class="header-bar">
+    <h1>Länder</h1>
+    <div class="header-spacer"></div>
+
+    <div class="search-wrap" id="searchWrapInline" role="search">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="search" id="searchInput" placeholder="Suchen …" autocomplete="off" aria-label="Land oder Hauptstadt suchen">
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="searchToggleBtn" aria-label="Suche ein-/ausblenden" aria-expanded="false">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </button>
+
+      <div class="hdr-divider"></div>
+
+      <button class="icon-btn" id="toggleAllBtn" aria-label="Alle Karten aufklappen">
+        <svg id="toggleAllIcon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" style="transition: transform .3s cubic-bezier(.4,0,.2,1);">
+          <polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/>
+        </svg>
+        <span class="btn-label" id="toggleAllLabel">Aufklappen</span>
+      </button>
+
+      <div class="hdr-divider"></div>
+
+      <!-- Dark-Mode-Toggle -->
+      <button class="icon-btn" id="themeToggleBtn" aria-label="Dark Mode umschalten" aria-pressed="false">
+        <!-- Sonne (Light Mode) -->
+        <span class="icon-sun" aria-hidden="true">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1"  x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22"  x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1"  y1="12" x2="3"  y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36"/>
+            <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+          </svg>
+        </span>
+        <!-- Mond (Dark Mode) -->
+        <span class="icon-moon" aria-hidden="true">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </span>
+      </button>
+
+      <div class="hdr-divider"></div>
+
+      <button class="icon-btn btn-flashcard" id="startFlashcardsBtn" aria-label="Lernkarten starten">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/>
+        </svg>
+        <span class="btn-label">Lernkarten</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="searchWrapMobile" role="search">
+    <div class="search-inner">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="search" id="searchInputMobile" placeholder="Suchen …" autocomplete="off" aria-label="Land oder Hauptstadt suchen">
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <nav class="filter-inner" aria-label="Nach Kontinent filtern">
+      <button class="filter-btn active" data-filter="Alle">Alle</button>
+      <button class="filter-btn" data-filter="Afrika">Afrika</button>
+      <button class="filter-btn" data-filter="Amerika">Amerika</button>
+      <button class="filter-btn" data-filter="Asien">Asien</button>
+      <button class="filter-btn" data-filter="Europa">Europa</button>
+      <button class="filter-btn" data-filter="Ozeanien">Ozeanien</button>
+      <span class="result-pill" id="resultPill" aria-live="polite"></span>
+    </nav>
+  </div>
+</header>
+
+<main id="main" aria-live="polite">
+  <div class="loading" id="loadingMsg" role="status">Daten werden geladen …</div>
+  <div class="no-results" id="noResults" role="status" aria-atomic="true">
+    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <p>Keine Länder gefunden.</p>
+  </div>
+</main>
+
+<div class="fc-overlay" id="fcOverlay" role="dialog" aria-modal="true" aria-label="Lernkarten">
+  <div class="fc-box" id="fcBox"></div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════
+   THEME MANAGEMENT
+════════════════════════════════════════════ */
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+
+function getEffectiveTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark' || saved === 'light') return saved;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme, save) {
+  const isDark = theme === 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  document.documentElement.classList.toggle('is-dark', isDark);
+  themeToggleBtn.setAttribute('aria-pressed', String(isDark));
+  themeToggleBtn.setAttribute('aria-label', isDark ? 'Zum Light Mode wechseln' : 'Zum Dark Mode wechseln');
+  if (save) localStorage.setItem('theme', theme);
+}
+
+themeToggleBtn.addEventListener('click', () => {
+  const current = getEffectiveTheme();
+  applyTheme(current === 'dark' ? 'light' : 'dark', true);
+});
+
+// Systemeinstellung live mithören (wenn keine manuelle Überschreibung gespeichert)
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (!localStorage.getItem('theme')) {
+    applyTheme(e.matches ? 'dark' : 'light', false);
+  }
+});
+
+// Initial-State setzen (ohne localStorage-Schreiben, nur aria-Attribute)
+applyTheme(getEffectiveTheme(), false);
+
+
+/* ════════════════════════════════════════════
+   APP
+════════════════════════════════════════════ */
+const FLAGS = {
+  "Afghanistan":"🇦🇫","Albanien":"🇦🇱","Algerien":"🇩🇿","Andorra":"🇦🇩",
+  "Angola":"🇦🇴","Antigua und Barbuda":"🇦🇬","Argentinien":"🇦🇷",
+  "Armenien":"🇦🇲","Aserbaidschan":"🇦🇿","Australien":"🇦🇺",
+  "Bahamas":"🇧🇸","Bahrain":"🇧🇭","Bangladesch":"🇧🇩","Barbados":"🇧🇧",
+  "Belarus":"🇧🇾","Belgien":"🇧🇪","Belize":"🇧🇿","Benin":"🇧🇯",
+  "Bhutan":"🇧🇹","Bolivien":"🇧🇴","Bosnien und Herzegowina":"🇧🇦",
+  "Botswana":"🇧🇼","Brasilien":"🇧🇷","Brunei":"🇧🇳","Bulgarien":"🇧🇬",
+  "Burkina Faso":"🇧🇫","Burundi":"🇧🇮","Chile":"🇨🇱",
+  "China, Republik / Taiwan":"🇹🇼","China, Volksrepublik":"🇨🇳",
+  "Costa Rica":"🇨🇷","Dänemark":"🇩🇰","Deutschland":"🇩🇪",
+  "Dominica":"🇩🇲","Dominikanische Republik":"🇩🇴","Dschibuti":"🇩🇯",
+  "Ecuador":"🇪🇨","El Salvador":"🇸🇻","Elfenbeinküste":"🇨🇮",
+  "Eritrea":"🇪🇷","Estland":"🇪🇪","Eswatini":"🇸🇿","Fidschi":"🇫🇯",
+  "Finnland":"🇫🇮","Frankreich":"🇫🇷","Gabun":"🇬🇦","Gambia":"🇬🇲",
+  "Georgien":"🇬🇪","Ghana":"🇬🇭","Grenada":"🇬🇩","Griechenland":"🇬🇷",
+  "Guatemala":"🇬🇹","Guinea":"🇬🇳","Guinea-Bissau":"🇬🇼","Guyana":"🇬🇾",
+  "Haiti":"🇭🇹","Honduras":"🇭🇳","Indien":"🇮🇳","Indonesien":"🇮🇩",
+  "Irak":"🇮🇶","Iran":"🇮🇷","Irland":"🇮🇪","Island":"🇮🇸",
+  "Israel":"🇮🇱","Italien":"🇮🇹","Jamaika":"🇯🇲","Japan":"🇯🇵",
+  "Jemen":"🇾🇪","Jordanien":"🇯🇴","Kambodscha":"🇰🇭","Kamerun":"🇨🇲",
+  "Kanada":"🇨🇦","Kap Verde":"🇨🇻","Kasachstan":"🇰🇿","Katar":"🇶🇦",
+  "Kenia":"🇰🇪","Kirgisistan":"🇰🇬","Kiribati":"🇰🇮","Kolumbien":"🇨🇴",
+  "Komoren":"🇰🇲","Kongo, Demokratische Republik":"🇨🇩","Kongo, Republik":"🇨🇬",
+  "Korea, Nord (Nordkorea)":"🇰🇵","Korea, Süd (Südkorea)":"🇰🇷",
+  "Kosovo":"🇽🇰","Kroatien":"🇭🇷","Kuba":"🇨🇺","Kuwait":"🇰🇼",
+  "Laos":"🇱🇦","Lesotho":"🇱🇸","Lettland":"🇱🇻","Libanon":"🇱🇧",
+  "Liberia":"🇱🇷","Libyen":"🇱🇾","Liechtenstein":"🇱🇮","Litauen":"🇱🇹",
+  "Luxemburg":"🇱🇺","Madagaskar":"🇲🇬","Malawi":"🇲🇼","Malaysia":"🇲🇾",
+  "Malediven":"🇲🇻","Mali":"🇲🇱","Malta":"🇲🇹","Marokko":"🇲🇦",
+  "Marshallinseln":"🇲🇭","Mauretanien":"🇲🇷","Mauritius":"🇲🇺",
+  "Mexiko":"🇲🇽","Mikronesien":"🇫🇲","Moldau":"🇲🇩","Monaco":"🇲🇨",
+  "Mongolei":"🇲🇳","Montenegro":"🇲🇪","Mosambik":"🇲🇿","Myanmar":"🇲🇲",
+  "Namibia":"🇳🇦","Nauru":"🇳🇷","Nepal":"🇳🇵","Neuseeland":"🇳🇿",
+  "Nicaragua":"🇳🇮","Niederlande":"🇳🇱","Niger":"🇳🇪","Nigeria":"🇳🇬",
+  "Nordmazedonien":"🇲🇰","Norwegen":"🇳🇴","Oman":"🇴🇲",
+  "Osttimor / Timor-Leste":"🇹🇱","Österreich":"🇦🇹","Pakistan":"🇵🇰",
+  "Palau":"🇵🇼","Panama":"🇵🇦","Papua-Neuguinea":"🇵🇬","Paraguay":"🇵🇾",
+  "Peru":"🇵🇪","Philippinen":"🇵🇭","Polen":"🇵🇱","Portugal":"🇵🇹",
+  "Ruanda":"🇷🇼","Rumänien":"🇷🇴","Russland":"🇷🇺","Salomonen":"🇸🇧",
+  "Sambia":"🇿🇲","Samoa":"🇼🇸","San Marino":"🇸🇲",
+  "São Tomé und Príncipe":"🇸🇹","Saudi-Arabien":"🇸🇦","Schweden":"🇸🇪",
+  "Schweiz":"🇨🇭","Senegal":"🇸🇳","Serbien":"🇷🇸","Seychellen":"🇸🇨",
+  "Sierra Leone":"🇸🇱","Simbabwe":"🇿🇼","Singapur":"🇸🇬",
+  "Slowakei":"🇸🇰","Slowenien":"🇸🇮","Somalia":"🇸🇴","Spanien":"🇪🇸",
+  "Sri Lanka":"🇱🇰","St. Kitts und Nevis":"🇰🇳","St. Lucia":"🇱🇨",
+  "St. Vincent und die Grenadinen":"🇻🇨","Sudan":"🇸🇩","Suriname":"🇸🇷",
+  "Syrien":"🇸🇾","Südafrika":"🇿🇦","Südsudan":"🇸🇸",
+  "Tadschikistan":"🇹🇯","Tansania":"🇹🇿","Thailand":"🇹🇭","Togo":"🇹🇬",
+  "Tonga":"🇹🇴","Trinidad und Tobago":"🇹🇹","Tschad":"🇹🇩",
+  "Tschechien":"🇨🇿","Tunesien":"🇹🇳","Turkmenistan":"🇹🇲",
+  "Tuvalu":"🇹🇻","Türkei":"🇹🇷","Uganda":"🇺🇬","Ukraine":"🇺🇦",
+  "Ungarn":"🇭🇺","Uruguay":"🇺🇾","Usbekistan":"🇺🇿","Vanuatu":"🇻🇺",
+  "Vatikanstadt":"🇻🇦","Venezuela":"🇻🇪",
+  "Vereinigte Arabische Emirate":"🇦🇪","Vereinigte Staaten":"🇺🇸",
+  "Vereinigtes Königreich":"🇬🇧","Vietnam":"🇻🇳",
+  "Zentralafrikanische Republik":"🇨🇫","Zypern":"🇨🇾",
+  "Ägypten":"🇪🇬","Äquatorialguinea":"🇬🇶","Äthiopien":"🇪🇹"
+};
+
+const UN_STATUS_CONFIG = {
+  "nicht_anerkannt": {
+    cardClass: "un-nicht-anerkannt",
+    markerClass: "un-marker--none",
+    blockClass: "un-block--none",
+    icon: "🚫",
+    label: "UN-Status"
+  },
+  "beobachter": {
+    cardClass: "un-beobachter",
+    markerClass: "un-marker--obs",
+    blockClass: "un-block--obs",
+    icon: "👁",
+    label: "UN-Status"
+  },
+  "teilweise_anerkannt": {
+    cardClass: "un-teilweise",
+    markerClass: "un-marker--part",
+    blockClass: "un-block--part",
+    icon: "⚠️",
+    label: "UN-Status"
+  }
+};
+
+function getFlag(n) { return FLAGS[n] || "🌐"; }
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function normalize(s) {
+  return s.toLowerCase().trim().replace(/\s+/g, "").replace(/[^a-z0-9äöüéèàâêîôûñ]/g, "");
+}
+
+function getHauptstadtVarianten(hauptstadt) {
+  return hauptstadt
+    .split(/[\n/,]/)
+    .map(s => s.replace(/\(.*?\)/g, "").trim())
+    .filter(Boolean);
+}
+
+function debounce(fn, delay = 150) {
+  let timer;
+  return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); };
+}
+
+function alphaGroup(land) {
+  const c = land[0].toUpperCase();
+  return { "Ä":"A","Ö":"O","Ü":"U","É":"E","È":"E","Ñ":"N" }[c] ?? c;
+}
+
+function btnRowHTML(items) {
+  return `<div class="fc-actions">${items.map(b =>
+    `<button class="fc-btn ${b.cls}" ${b.id ? `id="${b.id}"` : ""} type="button">${b.label}</button>`
+  ).join("")}</div>`;
+}
+
+function escapeHTML(str = "") {
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function cssId(name) { return name.replace(/[^a-z0-9]/gi,"_").toLowerCase(); }
+
+let LAENDER = [];
+let currentFilter = "Alle";
+let currentSearch  = "";
+const activeCards  = new Set();
+
+async function loadData() {
+  try {
+    const resp = await fetch("laender.json");
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    if (!Array.isArray(data) || !data.length) throw new Error("Leere Daten");
+    return data;
+  } catch (err) {
+    const isFile = location.protocol === "file:";
+    document.getElementById("loadingMsg").innerHTML = isFile
+      ? "⚠️ Direktes Öffnen via <code>file://</code> blockiert den Datei-Zugriff.<br>Bitte einen lokalen Server verwenden."
+      : `⚠️ <code>laender.json</code> konnte nicht geladen werden.<br><small>${err.message}</small>`;
+    return null;
+  }
+}
+
+function getFiltered() {
+  const q = currentSearch.toLowerCase();
+  return LAENDER.filter(l => {
+    const mc = currentFilter === "Alle" || l.Kontinent === currentFilter;
+    const ms = !q || l.Land.toLowerCase().includes(q) || l.Hauptstadt.toLowerCase().includes(q);
+    return mc && ms;
+  });
+}
+
+function renderList() {
+  const filtered = getFiltered();
+  const main      = document.getElementById("main");
+  const noResults = document.getElementById("noResults");
+  const pill      = document.getElementById("resultPill");
+
+  if (filtered.length === LAENDER.length) {
+    pill.textContent = ""; pill.classList.remove("visible");
+  } else {
+    pill.textContent = `${filtered.length} von ${LAENDER.length}`;
+    pill.classList.add("visible");
+  }
+
+  Array.from(main.children).forEach(child => {
+    if (child.id !== "noResults" && child.id !== "loadingMsg") child.remove();
+  });
+
+  if (!filtered.length) { noResults.style.display = "block"; return; }
+  noResults.style.display = "none";
+
+  if (currentFilter === "Alle") {
+    let lastGroup = "";
+    filtered.forEach(land => {
+      const g = alphaGroup(land.Land);
+      if (g !== lastGroup) {
+        lastGroup = g;
+        const div = document.createElement("div");
+        div.className = "alpha-divider";
+        div.setAttribute("aria-hidden", "true");
+        div.innerHTML = `<span class="alpha-letter">${g}</span><span class="alpha-line"></span>`;
+        main.insertBefore(div, noResults);
+      }
+      main.insertBefore(buildCard(land), noResults);
+    });
+  } else {
+    const group = document.createElement("div");
+    group.className = "continent-group";
+    group.innerHTML = `<div class="continent-header">
+      <span class="continent-title">${currentFilter}</span>
+      <span class="continent-line"></span>
+      <span class="continent-count">${filtered.length} Länder</span>
+    </div>`;
+    filtered.forEach(l => group.appendChild(buildCard(l)));
+    main.insertBefore(group, noResults);
+  }
+}
+
+function buildCard(land) {
+  const flag   = getFlag(land.Land);
+  const isOpen = activeCards.has(land.Land);
+  const status = land.UNStatus ? UN_STATUS_CONFIG[land.UNStatus] : null;
+  const card   = document.createElement("article");
+
+  let cardClasses = "country-card" + (isOpen ? " open" : "");
+  if (status) cardClasses += " " + status.cardClass;
+  card.className = cardClasses;
+  card.dataset.land = land.Land;
+
+  const unMarker = status
+    ? `<span class="un-marker ${status.markerClass}" aria-hidden="true">*</span>`
+    : "";
+
+  const hatMehrereHauptstaedte = land.Hauptstadt.includes("\n");
+  const hauptstadtHTML = `<div class="info-value${hatMehrereHauptstaedte ? " multiline" : ""}">${escapeHTML(land.Hauptstadt)}</div>`;
+
+  let unBlockHTML = "";
+  if (status && land.UNStatusText) {
+    unBlockHTML = `<div class="info-block un-block ${status.blockClass}">
+      <div class="info-label">${status.icon} ${status.label}</div>
+      <div class="info-value">${escapeHTML(land.UNStatusText)}</div>
+    </div>`;
+  }
+
+  const faktHTML = land.Fakt
+    ? `<div class="info-block fakt-block">
+         <div class="info-label">💡 Wusstest du?</div>
+         <div class="info-value">${escapeHTML(land.Fakt)}</div>
+       </div>` : "";
+
+  card.innerHTML = `
+    <button class="card-trigger" aria-expanded="${isOpen}"
+            aria-controls="body-${cssId(land.Land)}" type="button">
+      <span class="flag" aria-hidden="true">${flag}</span>
+      <span class="country-name">${escapeHTML(land.Land)}${unMarker}</span>
+      <span class="continent-tag tag-${land.Kontinent}">${land.Kontinent}</span>
+      <svg class="chevron" width="17" height="17" fill="none" stroke="currentColor"
+           stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
+    <div class="card-body" id="body-${cssId(land.Land)}" role="region" aria-label="${escapeHTML(land.Land)}">
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="info-label">🏛 Hauptstadt</div>
+          ${hauptstadtHTML}
+        </div>
+        <div class="info-block">
+          <div class="info-label">👥 Bevölkerung</div>
+          <div class="info-value">${escapeHTML(land.Bevölkerung)}</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">📐 Fläche</div>
+          <div class="info-value">${escapeHTML(land["Fläche"])}</div>
+        </div>
+        ${unBlockHTML}
+        ${faktHTML}
+      </div>
+    </div>`;
+
+  card.querySelector(".card-trigger").addEventListener("click", () => {
+    const open = card.classList.toggle("open");
+    card.querySelector(".card-trigger").setAttribute("aria-expanded", String(open));
+    if (open) activeCards.add(land.Land); else activeCards.delete(land.Land);
+    updateToggleAllBtn();
+  });
+  return card;
+}
+
+/* ── Header interactions ── */
+const searchWrapMobile = document.getElementById("searchWrapMobile");
+const searchInput      = document.getElementById("searchInput");
+const searchInputMob   = document.getElementById("searchInputMobile");
+const searchToggleBtn  = document.getElementById("searchToggleBtn");
+
+function closeSearchMobile() {
+  searchWrapMobile.classList.remove("open");
+  searchToggleBtn.setAttribute("aria-expanded", "false");
+  searchToggleBtn.classList.remove("active");
+  searchInputMob.value = "";
+  currentSearch = "";
+  renderList();
+}
+
+searchToggleBtn.addEventListener("click", () => {
+  const isOpen = searchWrapMobile.classList.contains("open");
+  if (isOpen) {
+    closeSearchMobile();
+  } else {
+    searchWrapMobile.classList.add("open");
+    searchToggleBtn.setAttribute("aria-expanded", "true");
+    searchToggleBtn.classList.add("active");
+    searchInputMob.focus();
+  }
+});
+
+searchInput.addEventListener("input", debounce(e => { currentSearch = e.target.value; renderList(); }, 150));
+searchInputMob.addEventListener("input", debounce(e => { currentSearch = e.target.value; renderList(); }, 150));
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => { b.classList.remove("active"); b.removeAttribute("aria-current"); });
+    btn.classList.add("active");
+    btn.setAttribute("aria-current", "true");
+    currentFilter = btn.dataset.filter;
+    renderList();
+    updateToggleAllBtn();
+  });
+});
+
+function updateToggleAllBtn() {
+  const anyOpen = getFiltered().some(l => activeCards.has(l.Land));
+  const btn   = document.getElementById("toggleAllBtn");
+  const icon  = document.getElementById("toggleAllIcon");
+  const label = document.getElementById("toggleAllLabel");
+  if (anyOpen) {
+    btn.setAttribute("aria-label", "Alle Karten zuklappen");
+    if (label) label.textContent = "Zuklappen";
+    icon.style.transform = "rotate(180deg)";
+  } else {
+    btn.setAttribute("aria-label", "Alle Karten aufklappen");
+    if (label) label.textContent = "Aufklappen";
+    icon.style.transform = "rotate(0deg)";
+  }
+}
+
+document.getElementById("toggleAllBtn").addEventListener("click", () => {
+  const anyOpen = getFiltered().some(l => activeCards.has(l.Land));
+  if (anyOpen) {
+    getFiltered().forEach(l => activeCards.delete(l.Land));
+  } else {
+    getFiltered().forEach(l => activeCards.add(l.Land));
+  }
+  renderList();
+  updateToggleAllBtn();
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && searchWrapMobile.classList.contains("open")) {
+    closeSearchMobile(); searchToggleBtn.focus();
+  }
+});
+
+/* ── Lernkarten ── */
+const fcOverlay = document.getElementById("fcOverlay");
+const fcBox     = document.getElementById("fcBox");
+const FC = { pool:[], index:0, correct:0, wrong:0, mode:"reveal", selectedLetters:new Set(), availableLetters:[], initialized:false };
+
+function openFC()  { fcOverlay.classList.add("active"); fcBox.focus(); }
+function closeFC() { fcOverlay.classList.remove("active"); }
+
+function renderStart() {
+  const filtered = getFiltered();
+  FC.availableLetters = [...new Set(filtered.map(l => alphaGroup(l.Land)))].sort();
+  if (!FC.initialized) {
+    FC.selectedLetters = new Set(FC.availableLetters);
+    FC.initialized = true;
+  } else {
+    for (const l of FC.selectedLetters) {
+      if (!FC.availableLetters.includes(l)) FC.selectedLetters.delete(l);
+    }
+  }
+  const poolSize    = filtered.filter(l => FC.selectedLetters.has(alphaGroup(l.Land))).length;
+  const allSelected = FC.selectedLetters.size === FC.availableLetters.length;
+  const letterBtns  = FC.availableLetters.map(l =>
+    `<button class="fc-letter-btn${FC.selectedLetters.has(l)?" active":""}" data-l="${escapeHTML(l)}" type="button" aria-pressed="${FC.selectedLetters.has(l)}">${l}</button>`
+  ).join("");
+
+  fcBox.innerHTML = `
+    <div class="fc-start-title">Lernkarten</div>
+    <div class="fc-mode-row">
+      <div class="fc-mode-label">Modus</div>
+      <div class="fc-mode-btns">
+        <button class="fc-mode-btn${FC.mode==="reveal"?" active":""}" data-mode="reveal" type="button" aria-pressed="${FC.mode==="reveal"}">Aufdecken</button>
+        <button class="fc-mode-btn${FC.mode==="type"?" active":""}" data-mode="type" type="button" aria-pressed="${FC.mode==="type"}">Eingabe</button>
+      </div>
+    </div>
+    <div class="fc-letters-row">
+      <div class="fc-letters-label">Buchstaben · <strong>${poolSize}</strong> Länder</div>
+      <div class="fc-letters-grid">
+        <button class="fc-letter-btn${allSelected?" active":""}" data-l="alle" type="button" aria-pressed="${allSelected}">Alle</button>
+        ${letterBtns}
+      </div>
+    </div>
+    <div class="fc-warning" id="fcStartWarning" role="alert" aria-live="polite"></div>
+    ${btnRowHTML([
+      { label:"Abbrechen", cls:"fc-btn-secondary", id:"fcCancelBtn" },
+      { label:"Starten",   cls:"fc-btn-primary",   id:"fcStartBtn"  },
+    ])}`;
+
+  fcBox.querySelectorAll(".fc-mode-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      FC.mode = btn.dataset.mode;
+      fcBox.querySelectorAll(".fc-mode-btn").forEach(b => { b.classList.toggle("active", b===btn); b.setAttribute("aria-pressed", String(b===btn)); });
+    });
+  });
+  fcBox.querySelectorAll(".fc-letter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const l = btn.dataset.l;
+      if (l === "alle") {
+        FC.selectedLetters = FC.selectedLetters.size === FC.availableLetters.length ? new Set() : new Set(FC.availableLetters);
+      } else {
+        FC.selectedLetters.has(l) ? FC.selectedLetters.delete(l) : FC.selectedLetters.add(l);
+      }
+      renderStart();
+    });
+  });
+  document.getElementById("fcStartBtn").addEventListener("click", () => {
+    const pool = filtered.filter(l => FC.selectedLetters.has(alphaGroup(l.Land)));
+    if (!pool.length) { document.getElementById("fcStartWarning").textContent = "⚠️ Bitte mindestens einen Buchstaben auswählen."; return; }
+    FC.pool = shuffle(pool); FC.index = 0; FC.correct = 0; FC.wrong = 0;
+    renderCard_FC();
+  });
+  document.getElementById("fcCancelBtn").addEventListener("click", closeFC);
+}
+
+function renderCard_FC() {
+  if (FC.index >= FC.pool.length) { renderResult(); return; }
+  const land = FC.pool[FC.index];
+  const flag = getFlag(land.Land);
+  const prog = `${FC.index+1} / ${FC.pool.length} · ✅ ${FC.correct} · ❌ ${FC.wrong}`;
+  if (FC.mode === "reveal") renderReveal(land, flag, prog);
+  else renderType(land, flag, prog);
+}
+
+function renderReveal(land, flag, prog) {
+  fcBox.innerHTML = `
+    <div class="fc-progress">${prog}</div>
+    <span class="fc-flag" aria-hidden="true">${flag}</span>
+    <div class="fc-question" aria-live="polite">Hauptstadt von<br><strong>${escapeHTML(land.Land)}</strong>?</div>
+    ${btnRowHTML([
+      { label:"Abbrechen",      cls:"fc-btn-secondary", id:"fcAbortBtn"  },
+      { label:"Antwort zeigen", cls:"fc-btn-reveal",    id:"fcRevealBtn" },
+    ])}`;
+  document.getElementById("fcRevealBtn").addEventListener("click", () => {
+    fcBox.innerHTML = `
+      <div class="fc-progress">${prog}</div>
+      <span class="fc-flag" aria-hidden="true">${flag}</span>
+      <div class="fc-question">Hauptstadt von<br><strong>${escapeHTML(land.Land)}</strong>?</div>
+      <div class="fc-answer-box" role="status" aria-live="polite">${escapeHTML(land.Hauptstadt)}</div>
+      ${btnRowHTML([
+        { label:"✗ Nicht gewusst", cls:"fc-btn-wrong",   id:"fcWrongBtn" },
+        { label:"✓ Gewusst",       cls:"fc-btn-correct", id:"fcOkBtn"    },
+      ])}`;
+    document.getElementById("fcOkBtn").addEventListener("click",    () => { FC.correct++; FC.index++; renderCard_FC(); });
+    document.getElementById("fcWrongBtn").addEventListener("click", () => { FC.wrong++;   FC.index++; renderCard_FC(); });
+  });
+  document.getElementById("fcAbortBtn").addEventListener("click", closeFC);
+}
+
+function renderType(land, flag, prog) {
+  fcBox.innerHTML = `
+    <div class="fc-progress">${prog}</div>
+    <span class="fc-flag" aria-hidden="true">${flag}</span>
+    <div class="fc-question" aria-live="polite">Hauptstadt von<br><strong>${escapeHTML(land.Land)}</strong>?</div>
+    <input class="fc-input" id="fcInput" type="text" placeholder="Hauptstadt eingeben …"
+           autocomplete="off" spellcheck="false" aria-label="Deine Antwort">
+    <div class="fc-feedback" id="fcFeedback" role="status" aria-live="polite"></div>
+    ${btnRowHTML([
+      { label:"Abbrechen", cls:"fc-btn-secondary", id:"fcAbortBtn" },
+      { label:"Prüfen",    cls:"fc-btn-reveal",    id:"fcCheckBtn" },
+    ])}`;
+  const input = document.getElementById("fcInput");
+  input.focus();
+  const check = () => {
+    const val = input.value.trim();
+    if (!val) return;
+    const ni        = normalize(val);
+    const varianten = getHauptstadtVarianten(land.Hauptstadt);
+    const ok        = varianten.some(v => normalize(v) === ni);
+    input.classList.add(ok ? "correct" : "wrong");
+    input.disabled = true;
+    const fb = document.getElementById("fcFeedback");
+    const antwortText = varianten.length > 1 ? varianten.join(" / ") : land.Hauptstadt;
+    fb.textContent = ok ? "✓ Richtig!" : `✗ Richtig wäre: ${antwortText}`;
+    fb.className   = "fc-feedback " + (ok ? "correct" : "wrong");
+    if (ok) FC.correct++; else FC.wrong++;
+    fcBox.querySelector(".fc-actions").innerHTML =
+      `<button class="fc-btn fc-btn-primary" id="fcNextBtn" type="button">Weiter →</button>`;
+    document.getElementById("fcNextBtn").addEventListener("click", () => { FC.index++; renderCard_FC(); });
+    document.getElementById("fcNextBtn").focus();
+  };
+  input.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
+  document.getElementById("fcCheckBtn").addEventListener("click", check);
+  document.getElementById("fcAbortBtn").addEventListener("click", closeFC);
+}
+
+function renderResult() {
+  const total = FC.pool.length;
+  const pct   = total > 0 ? Math.round(FC.correct / total * 100) : 0;
+  const emoji = pct >= 80 ? "🎉" : pct >= 50 ? "👍" : "📚";
+  fcBox.innerHTML = `
+    <span class="fc-result-emoji" aria-hidden="true">${emoji}</span>
+    <div class="fc-result-title">Fertig!</div>
+    <div class="fc-result-sub" role="status">${FC.correct} richtig · ${FC.wrong} falsch · ${pct}&nbsp;%</div>
+    ${btnRowHTML([
+      { label:"Schließen", cls:"fc-btn-secondary", id:"fcDoneBtn"  },
+      { label:"Nochmal",   cls:"fc-btn-primary",   id:"fcRetryBtn" },
+    ])}`;
+  document.getElementById("fcRetryBtn").addEventListener("click", () => {
+    FC.pool = shuffle(FC.pool); FC.index = 0; FC.correct = 0; FC.wrong = 0; renderCard_FC();
+  });
+  document.getElementById("fcDoneBtn").addEventListener("click", closeFC);
+}
+
+document.getElementById("startFlashcardsBtn").addEventListener("click", () => {
+  FC.initialized = false; openFC(); renderStart();
+});
+fcOverlay.addEventListener("click", e => { if (e.target === fcOverlay) closeFC(); });
+fcOverlay.addEventListener("keydown", e => { if (e.key === "Escape") closeFC(); });
+
+(async () => {
+  const data = await loadData();
+  if (!data) return;
+  LAENDER = data;
+  document.getElementById("loadingMsg").style.display = "none";
+  renderList();
+  updateToggleAllBtn();
+})();
+</script>
+</body>
+</html>
