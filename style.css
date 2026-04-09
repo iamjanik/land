@@ -26,15 +26,27 @@
   --tt: background-color .25s ease, color .25s ease, border-color .25s ease;
 }
 
-/* ── Tokens: Dark ── */
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --is-dark: 1; } }
-:root[data-theme="dark"] { --is-dark: 1; }
+/* ── Tokens: Dark (manuell) ── */
+:root[data-theme="dark"] {
+  --bg:           #181612; --surface: #1f1d19; --surface2: #272420;
+  --border:       #38342c; --text:    #ede9e0; --text-muted: #948e84;
+  --accent:       #6aaa60; --accent-light: #1a2b18; --accent-hover: #7aba70;
 
-:root[data-theme="dark"],
-:root:not([data-theme="light"]):has(body.is-dark) { /* tokens set below */ }
+  --tag-Europa-bg:   #16243e; --tag-Europa-fg:   #7aa4e4;
+  --tag-Asien-bg:    #2a1616; --tag-Asien-fg:    #e08080;
+  --tag-Afrika-bg:   #2a2010; --tag-Afrika-fg:   #d4aa50;
+  --tag-Amerika-bg:  #102820; --tag-Amerika-fg:  #5aaa90;
+  --tag-Ozeanien-bg: #1c1030; --tag-Ozeanien-fg: #9a74d4;
 
-/* Apply dark tokens both via attribute and system preference */
-:root[data-theme="dark"],
+  --un-none-bg: #2a1a0a; --un-none-bd: #8a4820; --un-none-tx: #f0a870;
+  --un-obs-bg:  #0e1e30; --un-obs-bd:  #3a6ea8; --un-obs-tx:  #7ab0e8;
+  --un-part-bg: #2a2008; --un-part-bd: #8a7820; --un-part-tx: #d4b850;
+
+  --shadow:       0 2px 12px rgba(0,0,0,.28);
+  --shadow-hover: 0 6px 24px rgba(0,0,0,.44);
+}
+
+/* ── Tokens: Dark (Systemeinstellung) ── */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg:           #181612; --surface: #1f1d19; --surface2: #272420;
