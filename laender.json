@@ -14,7 +14,7 @@
     "Hauptstadt": "Kairo",
     "Kontinent": "Afrika",
     "Fläche": "1.001.449 km²",
-    "Bevölkerung": "ca. 105 Mio.",
+    "Bevölkerung": "ca. 116 Mio.",
     "Fakt": "95 % der Ägypter leben auf nur 5 % der Landesfläche – entlang des Nils. Kairo ist die größte Stadt Afrikas und Arabiens."
   },
   {
@@ -259,8 +259,8 @@
     "Fläche": "36.193 km²",
     "Bevölkerung": "ca. 23 Mio.",
     "Fakt": "Taiwan produziert über 90 % der weltweit hergestellten Halbleiter und ist trotz geopolitischer Sonderlage eine der größten Volkswirtschaften Asiens.",
-    "UNStatus": "nicht_anerkannt",
-    "UNStatusText": "Kein UN-Mitglied. Die Republik China (Taiwan) wird wegen des Alleinvertretungsanspruchs der Volksrepublik China von den meisten Staaten offiziell nicht als unabhängiger Staat anerkannt. Derzeit erkennen nur noch rund 11 Staaten sowie der Heilige Stuhl Taiwan an (Stand: 2024). 1971 verlor Taiwan seinen UN-Sitz an die Volksrepublik China (Resolution 2758). De facto ist Taiwan ein unabhängiger, demokratisch regierter Staat."
+    "UNStatus": "teilweise_anerkannt",
+    "UNStatusText": "Kein UN-Mitglied. Die Republik China (Taiwan) wird wegen des Alleinvertretungsanspruchs der Volksrepublik China von den meisten Staaten offiziell nicht als unabhängiger Staat anerkannt. Derzeit erkennen nur noch 12 Staaten (11 UN-Mitglieder und der Heilige Stuhl) Taiwan an (Stand: 2026). 1971 verlor Taiwan seinen UN-Sitz an die Volksrepublik China (Resolution 2758). De facto ist Taiwan ein unabhängiger, demokratisch regierter Staat."
   },
   {
     "Land": "China, Volksrepublik",
@@ -276,9 +276,9 @@
     "Kontinent": "Ozeanien",
     "Fläche": "236 km²",
     "Bevölkerung": "ca. 17.000",
-    "Fakt": "Die Cookinseln befinden sich in freier Assoziierung mit Neuseeland. Über 50 Staaten, darunter Deutschland (2001), erkennen sie als unabhängigen Staat an.",
+    "Fakt": "Die Cookinseln befinden sich in freier Assoziierung mit Neuseeland. Über 60 Staaten, darunter Deutschland (2001), erkennen sie als unabhängigen Staat an.",
     "UNStatus": "teilweise_anerkannt",
-    "UNStatusText": "Kein UN-Mitglied im herkömmlichen Sinne. Die Cookinseln sind ein selbstverwaltetes Territorium in freier Assoziierung mit Neuseeland. Sie sind nach der Drei-Elemente-Lehre unabhängig; mehr als 50 Staaten, darunter Deutschland (seit 2001), haben sie als unabhängigen Staat anerkannt. Die Vereinten Nationen warten mit der Vollmitgliedschaft, bis die Cookinseln die Assoziierung mit Neuseeland eigenständig auflösen."
+    "UNStatusText": "Kein UN-Mitglied im herkömmlichen Sinne. Die Cookinseln sind ein selbstverwaltetes Territorium in freier Assoziierung mit Neuseeland. Sie sind nach der Drei-Elemente-Lehre unabhängig; über 60 Staaten, darunter Deutschland (seit 2001), haben sie als unabhängigen Staat anerkannt. Die Vereinten Nationen warten mit der Vollmitgliedschaft, bis die Cookinseln die Assoziierung mit Neuseeland eigenständig auflösen."
   },
   {
     "Land": "Costa Rica",
@@ -286,7 +286,7 @@
     "Kontinent": "Amerika",
     "Fläche": "51.100 km²",
     "Bevölkerung": "ca. 5,2 Mio.",
-    "Fakt": "Costa Rica schaffte 1948 seine Armee ab und erzeugt heute über 99 % seines Stroms aus erneuerbaren Energien."
+    "Fakt": "Costa Rica schaffte 1948 seine Armee ab und erzeugt heute typischerweise über 98 % seines Stroms aus erneuerbaren Energien."
   },
   {
     "Land": "Dänemark",
@@ -300,7 +300,7 @@
     "Land": "Deutschland",
     "Hauptstadt": "Berlin",
     "Kontinent": "Europa",
-    "Fläche": "357.114 km²",
+    "Fläche": "357.588 km²",
     "Bevölkerung": "ca. 84 Mio.",
     "Fakt": "Deutschland hat mehr als 1.500 Biersorten und ca. 1.300 Brauereien. Berlin hat mehr Brücken als Venedig."
   },
@@ -397,7 +397,7 @@
     "Kontinent": "Europa",
     "Fläche": "551.695 km²",
     "Bevölkerung": "ca. 68 Mio.",
-    "Fakt": "Frankreich ist das meistbesuchte Land der Welt mit über 90 Millionen Touristen pro Jahr und das größte Land der EU."
+    "Fakt": "Frankreich ist das meistbesuchte Land der Welt mit über 90 Millionen Touristen pro Jahr und das größte Land der EU. Die Flächenangabe bezieht sich auf Metropolitan-Frankreich; inklusive Überseegebieten sind es rund 643.801 km²."
   },
   {
     "Land": "Gabun",
@@ -503,7 +503,7 @@
   },
   {
     "Land": "Indonesien",
-    "Hauptstadt": "Jakarta",
+    "Hauptstadt": "Nusantara (de jure)\nJakarta (de facto)",
     "Kontinent": "Asien",
     "Fläche": "1.904.569 km²",
     "Bevölkerung": "ca. 278 Mio.",
@@ -716,7 +716,7 @@
     "Bevölkerung": "ca. 1,8 Mio.",
     "Fakt": "Kosovo erklärte 2008 die Unabhängigkeit und ist eines der jüngsten Länder der Welt. Über 90 % der Bevölkerung sind albanischsprachig.",
     "UNStatus": "teilweise_anerkannt",
-    "UNStatusText": "Kein UN-Mitglied. Kosovo erklärte am 17. Februar 2008 einseitig die Unabhängigkeit von Serbien. Bisher wird er von 115 der 193 UN-Mitgliedstaaten anerkannt (Stand: 2024), darunter Deutschland, Österreich, die Schweiz und die meisten EU-Staaten. Serbien, Russland, China und weitere Staaten verweigern die Anerkennung. Der Internationale Gerichtshof stellte 2010 fest, dass die Unabhängigkeitserklärung nicht gegen Völkerrecht verstoße."
+    "UNStatusText": "Kein UN-Mitglied. Kosovo erklärte am 17. Februar 2008 einseitig die Unabhängigkeit von Serbien. Bisher wird er von über 100 der 193 UN-Mitgliedstaaten anerkannt (Stand: 2026; einige Staaten haben ihre Anerkennung zurückgezogen), darunter Deutschland, Österreich, die Schweiz und die meisten EU-Staaten. Serbien, Russland, China und weitere Staaten verweigern die Anerkennung. Der Internationale Gerichtshof stellte 2010 fest, dass die Unabhängigkeitserklärung nicht gegen Völkerrecht verstoße."
   },
   {
     "Land": "Kroatien",
@@ -795,7 +795,7 @@
     "Kontinent": "Europa",
     "Fläche": "160 km²",
     "Bevölkerung": "ca. 39.000",
-    "Fakt": "Liechtenstein ist eines von nur zwei Ländern, die vollständig von Binnenstaaten umschlossen sind. Es hat mehr registrierte Firmen als Einwohner."
+    "Fakt": "Liechtenstein ist eines von nur zwei Ländern, die vollständig von Binnenstaaten umschlossen sind. Es hat mehr registrierte Firmen als Einwohner. Vaduz ist formal kein Stadt, sondern ein Hauptort – das Dorf hat kein Stadtrecht."
   },
   {
     "Land": "Litauen",
@@ -1181,7 +1181,7 @@
     "Kontinent": "Europa",
     "Fläche": "17.098.242 km²",
     "Bevölkerung": "ca. 144 Mio.",
-    "Fakt": "Russland erstreckt sich über 11 Zeitzonen. Der Baikalsee enthält ca. 20 % des gesamten Süßwassers der Erde."
+    "Fakt": "Russland erstreckt sich über 11 Zeitzonen. Der Baikalsee enthält ca. 20 % des gesamten Süßwassers der Erde. Russland ist ein transkontinentales Land – rund 77 % seiner Fläche liegen in Asien, doch politisch, kulturell und historisch wird es meist Europa zugeordnet."
   },
   {
     "Land": "Salomonen",
@@ -1316,7 +1316,7 @@
     "Bevölkerung": "ca. 5,7 Mio.",
     "Fakt": "Somaliland erklärte 1991 nach dem Zusammenbruch Somalias die Unabhängigkeit und hat seitdem stabile Institutionen aufgebaut – mit eigener Währung, Polizei und demokratischen Wahlen.",
     "UNStatus": "nicht_anerkannt",
-    "UNStatusText": "Kein UN-Mitglied. Somaliland erklärte 1991 einseitig die Unabhängigkeit von Somalia. Die internationale Staatengemeinschaft erkennt es bisher nicht als unabhängigen Staat an – es gilt völkerrechtlich als Teil Somalias. Somaliland ist seit 2004 Mitglied der Interessenvertretung UNPO."
+    "UNStatusText": "Kein UN-Mitglied. Somaliland erklärte 1991 einseitig die Unabhängigkeit von Somalia. Die internationale Staatengemeinschaft erkennt es bisher nicht als unabhängigen Staat an – es gilt völkerrechtlich als Teil Somalias. Somaliland ist seit 2004 Mitglied der Interessenvertretung UNPO. Im Dezember 2025 erkannte Israel Somaliland als erstes UN-Mitglied offiziell als unabhängigen Staat an."
   },
   {
     "Land": "Spanien",
@@ -1427,7 +1427,7 @@
     "Hauptstadt": "Dodoma (de jure)\nDaressalam (de facto)",
     "Kontinent": "Afrika",
     "Fläche": "945.087 km²",
-    "Bevölkerung": "ca. 63 Mio.",
+    "Bevölkerung": "ca. 70 Mio.",
     "Fakt": "Der Kilimandscharo (5.895 m) ist der höchste freistehende Berg der Welt. Die Serengeti beherbergt die größte Wildtiermigration der Erde."
   },
   {
@@ -1532,7 +1532,7 @@
     "Hauptstadt": "Kiew",
     "Kontinent": "Europa",
     "Fläche": "603.550 km²",
-    "Bevölkerung": "ca. 44 Mio.",
+    "Bevölkerung": "ca. 38 Mio.",
     "Fakt": "Die Ukraine besitzt die fruchtbarsten Böden der Welt (Schwarzerde/Tschornozem) und wird als \"Kornkammer Europas\" bezeichnet."
   },
   {
