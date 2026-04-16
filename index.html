@@ -544,7 +544,7 @@ function renderStart(){
     <div class="fc-list" id="fcList" role="listbox" aria-multiselectable="true" aria-label="Staaten auswählen"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <span class="fc-pick-count" id="fcCount">${selCount} von ${sorted.length} ausgewählt</span>
-      <span style="font-size:.72rem;color:var(--muted);" id="fcRangeHint">Pfeil-Icon: Bereich wählen</span>
+      <span style="font-size:.72rem;color:var(--muted);" id="fcRangeHint">Mehrfachauswahl: 1. Land wählen</span>
     </div>
     <div class="fc-warn" id="fcW" role="alert" aria-live="polite"></div>
     ${brow([{t:"Abbrechen",c:"fc-sec",id:"fcCancel"},{t:"Starten",c:"fc-pri",id:"fcStart"}])}
@@ -642,7 +642,7 @@ function updateRangeHint(sorted){
   const h=document.getElementById("fcRangeHint");
   if(!h)return;
   if(FC.rangeStart<0){
-    h.textContent="Pfeil-Icon: Bereich wählen";
+    h.textContent="Mehrfachauswahl: 1. Land wählen";
   } else {
     h.textContent="Start: "+sorted[FC.rangeStart].Land+" – Endpunkt wählen";
   }
