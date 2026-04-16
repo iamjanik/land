@@ -1096,12 +1096,8 @@ function renderList() {
   const noResults = document.getElementById("noResults");
   const pill      = document.getElementById("resultPill");
 
-  if (filtered.length === LAENDER.length) {
-    pill.textContent = ""; pill.classList.remove("visible");
-  } else {
-    pill.textContent = `${filtered.length} von ${LAENDER.length}`;
-    pill.classList.add("visible");
-  }
+  pill.textContent = `${filtered.length} von ${LAENDER.length}`;
+  pill.classList.add("visible");
 
   Array.from(main.children).forEach(child => {
     if (child.id !== "noResults" && child.id !== "loadingMsg") child.remove();
@@ -1119,7 +1115,8 @@ function renderList() {
         const div = document.createElement("div");
         div.className = "alpha-divider";
         div.setAttribute("aria-hidden", "true");
-        div.innerHTML = `<span class="alpha-letter">${g}</span><span class="alpha-line"></span>`;
+        const groupCount = filtered.filter(l => alphaGroup(l.Land) === g).length;
+        div.innerHTML = `<span class="alpha-letter">${g}</span><span class="alpha-line"></span><span class="continent-count">${groupCount}</span>`;
         main.insertBefore(div, noResults);
       }
       main.insertBefore(buildCard(land), noResults);
