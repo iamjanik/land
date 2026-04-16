@@ -766,6 +766,21 @@ main {
 .fc-result-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 6px; color: var(--text); }
 .fc-result-sub   { font-size: .85rem; color: var(--text-muted); margin-bottom: 22px; }
 
+/* ═══════════════════════════════════════════
+   INFO OVERLAY
+═══════════════════════════════════════════ */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.info-section p {
+  margin: 0;
+  font-size: .875rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
 @media (max-width: 500px) {
   .card-body { padding-left: 14px; }
   .info-grid  { grid-template-columns: 1fr 1fr; }
@@ -804,13 +819,11 @@ main {
     </div>
 
     <div class="header-actions">
-      <button class="icon-btn" id="searchToggleBtn" aria-label="Suche ein-/ausblenden" aria-expanded="false">
+<button class="icon-btn" id="searchToggleBtn" aria-label="Suche ein-/ausblenden" aria-expanded="false">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
       </button>
-
-      <div class="hdr-divider"></div>
 
       <button class="icon-btn" id="toggleAllBtn" aria-label="Alle Karten aufklappen">
         <svg id="toggleAllIcon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" style="transition: transform .3s cubic-bezier(.4,0,.2,1);">
@@ -845,13 +858,21 @@ main {
         </span>
       </button>
 
-      <div class="hdr-divider"></div>
-
       <button class="icon-btn btn-flashcard" id="startFlashcardsBtn" aria-label="Lernkarten starten">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <rect x="2" y="4" width="20" height="16" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/>
         </svg>
         <span class="btn-label">Lernkarten</span>
+      </button>
+
+      <!-- Info-Button -->
+      <button class="icon-btn" id="infoBtn" aria-label="Hinweise und Informationen">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12.01" y2="8" stroke-linecap="round" stroke-width="2.5"/>
+          <polyline points="11 12 12 12 12 16"/>
+        </svg>
+        <span class="btn-label">Info</span>
       </button>
     </div>
   </div>
@@ -888,8 +909,53 @@ main {
   </div>
 </main>
 
+<!-- Lernkarten-Overlay -->
 <div class="fc-overlay" id="fcOverlay" role="dialog" aria-modal="true" aria-label="Lernkarten">
   <div class="fc-box" id="fcBox"></div>
+</div>
+
+<!-- Info-Overlay -->
+<div class="fc-overlay" id="infoOverlay" role="dialog" aria-modal="true" aria-label="Informationen">
+  <div class="fc-box" style="text-align:left; max-width:520px; max-height:90vh; overflow-y:auto;">
+    <div class="fc-start-title" style="margin-bottom:20px;">Hinweise &amp; Informationen</div>
+
+    <div style="display:flex; flex-direction:column; gap:16px;">
+
+      <div class="info-section">
+        <div class="info-label" style="margin-bottom:4px;">📋 Datengrundlage</div>
+        <p>Alle Länderdaten basieren auf der <a href="https://de.wikipedia.org/wiki/Liste_der_Staaten_der_Erde" target="_blank">Liste der Staaten der Erde</a>. Bevölkerungszahlen sind gerundete Schätzwerte.</p>
+      </div>
+
+      <div class="info-section">
+        <div class="info-label" style="margin-bottom:4px;">🇺🇳 UN-Status-Kennzeichnung</div>
+        <p>Länder ohne reguläre UN-Mitgliedschaft sind mit einem <strong>*</strong> markiert und farbig hervorgehoben:</p>
+        <p style="margin-top:6px;">
+          <span style="color:var(--un-none-text); font-weight:600;">● Nicht anerkannt</span> – kein UN-Mitglied, kaum internationale Anerkennung<br>
+          <span style="color:var(--un-part-text); font-weight:600;">● Teilweise anerkannt</span> – von einigen UN-Staaten anerkannt<br>
+          <span style="color:var(--un-obs-text); font-weight:600;">● UN-Beobachter</span> – ständiger Beobachterstatus ohne Stimmrecht
+        </p>
+      </div>
+
+      <div class="info-section">
+        <div class="info-label" style="margin-bottom:4px;">🏛 Mehrere Hauptstädte</div>
+        <p>Einige Länder haben mehrere Hauptstädte (de jure / de facto). Im Lernkarten-Eingabemodus werden alle Varianten als korrekte Antwort akzeptiert.</p>
+         <p style="margin-top:6px;">
+          <span style="font-weight:600;">● de jure</span> – rechtlich festgelegten Zustand<br>
+          <span style="font-weight:600;">● de facto</span> – tatsächlich gelebten Zustand<br>
+        </p>
+      </div>
+
+      <div class="info-section">
+        <div class="info-label" style="margin-bottom:4px;">⚠️ Bekannte Lücken</div>
+        <p>Palästina fehlt aktuell im Datensatz, obwohl der Vatikan als UN-Beobachter enthalten ist. Das soll in einer späteren Version ergänzt werden.</p>
+      </div>
+
+    </div>
+
+    <div class="fc-actions" style="margin-top:24px;">
+      <button class="fc-btn fc-btn-primary" id="infoCloseBtn" type="button">Schließen</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1446,6 +1512,13 @@ document.getElementById("startFlashcardsBtn").addEventListener("click", () => {
 });
 fcOverlay.addEventListener("click", e => { if (e.target === fcOverlay) closeFC(); });
 fcOverlay.addEventListener("keydown", e => { if (e.key === "Escape") closeFC(); });
+
+/* ── Info-Overlay ── */
+const infoOverlay = document.getElementById("infoOverlay");
+document.getElementById("infoBtn").addEventListener("click", () => infoOverlay.classList.add("active"));
+document.getElementById("infoCloseBtn").addEventListener("click", () => infoOverlay.classList.remove("active"));
+infoOverlay.addEventListener("click", e => { if (e.target === infoOverlay) infoOverlay.classList.remove("active"); });
+infoOverlay.addEventListener("keydown", e => { if (e.key === "Escape") infoOverlay.classList.remove("active"); });
 
 (async () => {
   const data = await loadData();
