@@ -1116,7 +1116,7 @@ function renderList() {
         div.className = "alpha-divider";
         div.setAttribute("aria-hidden", "true");
         const groupCount = filtered.filter(l => alphaGroup(l.Land) === g).length;
-        div.innerHTML = `<span class="alpha-letter">${g}</span><span class="alpha-line"></span><span class="continent-count">${groupCount}</span>`;
+        div.innerHTML = `<span class="alpha-letter">${g}</span><span class="alpha-line"></span><span class="continent-count">${groupCount} ${groupCount === 1 ? 'Land' : 'Länder'}</span>`;
         main.insertBefore(div, noResults);
       }
       main.insertBefore(buildCard(land), noResults);
