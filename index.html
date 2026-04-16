@@ -71,7 +71,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 /* ══ HEADER ══ */
 header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:var(--sh);}
-.hbar{display:flex;align-items:center;padding:0 16px;height:54px;gap:6px;max-width:800px;margin:0 auto;width:100%;min-width:0;}
+.hbar{display:flex;align-items:center;padding:0 16px;height:56px;gap:6px;max-width:800px;margin:0 auto;width:100%;min-width:0;}
+@media(max-width:599px){.hbar{height:60px;}}
 h1{font-family:'DM Serif Display',serif;font-size:1.38rem;letter-spacing:-.02em;line-height:1;white-space:nowrap;flex-shrink:1;min-width:0;overflow:hidden;text-overflow:ellipsis;}
 .hspc{flex:1;min-width:4px;}
 .swrap{position:relative;flex-shrink:1;min-width:0;}
@@ -82,13 +83,15 @@ input[type=search]:focus{border-color:var(--acc);}
 @media(min-width:600px){#sWrapI{display:block!important;}#sWrapM{display:none!important;}#sTglBtn{display:none!important;}}
 @media(max-width:599px){#sWrapI{display:none!important;}#sWrapM{display:none;padding:7px 12px 9px;border-top:1px solid var(--border);}#sWrapM.open{display:block;}#sWrapM .si{position:relative;}#sWrapM .si svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;}#sWrapM input[type=search]{width:100%;min-width:0;}}
 .hacts{display:flex;align-items:center;gap:1px;flex-shrink:0;}
-.icon-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:6px 8px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:500;white-space:nowrap;}
+.icon-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:8px 9px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:5px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:500;white-space:nowrap;min-width:36px;min-height:36px;}
+@media(max-width:599px){.icon-btn{min-width:42px;min-height:42px;padding:8px;}}
 .icon-btn:hover{background:var(--surface2);color:var(--text);}
 .icon-btn.active{color:var(--acc);background:var(--acc-light);}
 .icon-btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px;}
 .icon-btn .lbl{display:none;}
 @media(min-width:860px){.icon-btn .lbl{display:inline;}}
-#thBtn{position:relative;overflow:hidden;width:32px;height:32px;padding:0;}
+#thBtn{position:relative;overflow:hidden;width:36px;height:36px;padding:0;}
+@media(max-width:599px){#thBtn{width:42px;height:42px;}}
 #thBtn .sun,#thBtn .moon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s,transform .3s cubic-bezier(.4,0,.2,1);}
 #thBtn .sun{opacity:1;transform:rotate(0) scale(1);}
 #thBtn .moon{opacity:0;transform:rotate(-90deg) scale(.6);}
@@ -253,13 +256,17 @@ main{max-width:800px;margin:0 auto;padding:10px 14px 60px;}
 .fc-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--acc);cursor:pointer;flex-shrink:0;}
 .fc-item .fi{font-size:1.1rem;flex-shrink:0;}
 .fc-item .fn{flex:1;font-weight:500;}
-.fc-item .fk{font-size:.7rem;color:var(--muted);}
+.fc-item .fk{display:none;}
 .fc-result-e{font-size:2.2rem;display:block;margin-bottom:6px;}
 .fc-result-t{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:6px;color:var(--text);}
 .fc-result-s{font-size:.85rem;color:var(--muted);margin-bottom:22px;}
 .info-sec{display:flex;flex-direction:column;gap:4px;}
 .info-sec p{margin:0;font-size:.875rem;line-height:1.65;color:var(--text);}
 @media(max-width:500px){.cbody{padding-left:14px;}.igrid{grid-template-columns:1fr 1fr;}.fc-btn{padding:9px 14px;font-size:.82rem;}}
+.fc-range-btn{font-size:.68rem;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;flex-shrink:0;white-space:nowrap;}
+.fc-range-btn:hover{border-color:var(--acc);color:var(--acc);}
+.fc-range-btn.range-active{background:var(--acc);border-color:var(--acc);color:white;}
+.fc-item.range-from{background:var(--acc-light);}
 a.nice-link{color:var(--acc);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;font-weight:500;}
 a.nice-link:hover{opacity:.75;}
 </style>
@@ -349,8 +356,8 @@ a.nice-link:hover{opacity:.75;}
       </div>
       <div class="info-sec">
         <div class="ilabel" style="margin-bottom:4px;">Datengrundlage</div>
-        <p>Alle Daten basieren auf der <a class="nice-link" href="https://de.wikipedia.org/wiki/Liste_der_Staaten_der_Erde" target="_blank">Wikipedia · Liste der Staaten der Erde</a>. Die Liste umfasst die 193 UN-Mitgliedstaaten, 2 UN-Beobachterstaaten sowie weitere teilweise anerkannte und De-facto-Staaten – insgesamt 205 Einträge. Bevölkerungszahlen sind gerundete Schätzwerte.</p>
-        <p style="margin-top:8px;font-size:.8rem;color:var(--muted);">Datenstand: April 2026 &nbsp;·&nbsp; Version 1.2</p>
+        <p>Alle Daten basieren auf der <a class="nice-link" href="https://de.wikipedia.org/wiki/Liste_der_Staaten_der_Erde" target="_blank">Liste der Staaten der Erde</a> (Wikipedia). Die Liste umfasst die 193 UN-Mitgliedstaaten, 2 UN-Beobachterstaaten sowie weitere teilweise anerkannte und De-facto-Staaten – insgesamt 205 Einträge. Bevölkerungszahlen sind gerundete Schätzwerte.</p>
+        <p style="margin-top:8px;font-size:.8rem;color:var(--muted);">Datenstand: April 2026</p>
       </div>
       <div class="info-sec">
         <div class="ilabel" style="margin-bottom:4px;">UN-Status-Filter</div>
@@ -379,6 +386,7 @@ a.nice-link:hover{opacity:.75;}
     <div class="fcrow" style="margin-top:22px;">
       <button class="fc-btn fc-pri" id="infoClose">Schließen</button>
     </div>
+    <p style="text-align:center;margin-top:14px;font-size:.72rem;color:var(--muted);">Version 1.2</p>
   </div>
 </div>
 
@@ -513,7 +521,7 @@ document.getElementById("togAllBtn").addEventListener("click",()=>{const any=get
 
 /* ══ FLASHCARDS ══ */
 const fcOv=document.getElementById("fcOv"),fcBox=document.getElementById("fcBox");
-const FC={pool:[],idx:0,ok:0,wr:0,mode:"reveal",sel:new Set(),lastClick:-1};
+const FC={pool:[],idx:0,ok:0,wr:0,mode:"reveal",sel:new Set(),rangeStart:-1};
 function openFC(){fcOv.classList.add("active");fcBox.focus();}
 function closeFC(){fcOv.classList.remove("active");}
 
@@ -545,7 +553,7 @@ function renderStart(){
     <div class="fc-list" id="fcList" role="listbox" aria-multiselectable="true" aria-label="Staaten auswählen"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <span class="fc-pick-count" id="fcCount">${selCount} von ${sorted.length} ausgewählt</span>
-      <span style="font-size:.72rem;color:var(--muted);">Shift+Klick für Bereich</span>
+      <span style="font-size:.72rem;color:var(--muted);" id="fcRangeHint">Von–bis-Auswahl möglich</span>
     </div>
     <div class="fc-warn" id="fcW" role="alert" aria-live="polite"></div>
     ${brow([{t:"Abbrechen",c:"fc-sec",id:"fcCancel"},{t:"Starten",c:"fc-pri",id:"fcStart"}])}
@@ -558,18 +566,38 @@ function renderStart(){
     row.dataset.name=l.Land;row.dataset.idx=i;
     row.setAttribute("role","option");
     row.setAttribute("aria-selected",String(FC.sel.has(l.Land)));
-    row.innerHTML=`<input type="checkbox" ${FC.sel.has(l.Land)?"checked":""} tabindex="-1" aria-hidden="true"><span class="fi">${gF(l.Land)}</span><span class="fn">${esc(l.Land)}</span><span class="fk">${esc(l.Hauptstadt.split("\n")[0].replace(/\(.*?\)/g,"").trim())}</span>`;
+    row.innerHTML='<input type="checkbox" '+(FC.sel.has(l.Land)?'checked':'')+' tabindex="-1" aria-hidden="true"><span class="fi">'+gF(l.Land)+'</span><span class="fn">'+esc(l.Land)+'</span><button class="fc-range-btn" data-idx="'+i+'" type="button">Von</button>';
     row.addEventListener("click",e=>{
+      if(e.target.classList.contains("fc-range-btn")) return; // handled separately
       const name=l.Land;
-      if(e.shiftKey&&FC.lastClick>=0){
-        const a=Math.min(i,FC.lastClick),b=Math.max(i,FC.lastClick);
+      if(e.shiftKey&&FC.rangeStart>=0){
+        const a=Math.min(i,FC.rangeStart),b=Math.max(i,FC.rangeStart);
         const adding=!FC.sel.has(name);
         for(let x=a;x<=b;x++){if(adding)FC.sel.add(sorted[x].Land);else FC.sel.delete(sorted[x].Land);}
+        FC.rangeStart=-1;
       } else {
         if(FC.sel.has(name))FC.sel.delete(name);else FC.sel.add(name);
       }
-      FC.lastClick=i;
       refreshPickList(sorted);
+    });
+    row.querySelector(".fc-range-btn").addEventListener("click",e=>{
+      e.stopPropagation();
+      if(FC.rangeStart<0){
+        // set range start
+        FC.rangeStart=i;
+        updateRangeHint(sorted,i);
+      } else if(FC.rangeStart===i){
+        // cancel
+        FC.rangeStart=-1;
+        updateRangeHint(sorted,-1);
+      } else {
+        // apply range
+        const a=Math.min(i,FC.rangeStart),b=Math.max(i,FC.rangeStart);
+        for(let x=a;x<=b;x++) FC.sel.add(sorted[x].Land);
+        FC.rangeStart=-1;
+        updateRangeHint(sorted,-1);
+        refreshPickList(sorted);
+      }
     });
     list.appendChild(row);
   });
@@ -592,9 +620,20 @@ function refreshPickList(sorted){
     const on=FC.sel.has(name);
     row.querySelector("input").checked=on;
     row.setAttribute("aria-selected",String(on));
+    row.classList.toggle("range-from",i===FC.rangeStart);
+    const btn=row.querySelector(".fc-range-btn");
+    if(btn)btn.classList.toggle("range-active",i===FC.rangeStart);
   });
   const c=document.getElementById("fcCount");
   if(c)c.textContent=`${FC.sel.size} von ${sorted.length} ausgewählt`;
+}
+function updateRangeHint(sorted,fromIdx){
+  const h=document.getElementById("fcRangeHint");
+  if(!h)return;
+  if(fromIdx<0){h.textContent='Von–bis: Bereich wählbar';}
+  else{h.textContent='Von: '+sorted[fromIdx].Land+' – jetzt Ziel wählen';}
+  // also refresh visual
+  refreshPickList(sorted);
 }
 
 function renderCard(){
@@ -626,7 +665,7 @@ function renderResult(){
   document.getElementById("fcRedo").addEventListener("click",()=>{FC.pool=shuffle(FC.pool);FC.idx=0;FC.ok=0;FC.wr=0;renderCard();});
   document.getElementById("fcDone").addEventListener("click",closeFC);
 }
-document.getElementById("fcBtn").addEventListener("click",()=>{FC.sel=new Set();FC.lastClick=-1;openFC();renderStart();});
+document.getElementById("fcBtn").addEventListener("click",()=>{FC.sel=new Set();FC.rangeStart=-1;openFC();renderStart();});
 fcOv.addEventListener("click",e=>{if(e.target===fcOv)closeFC();});
 fcOv.addEventListener("keydown",e=>{if(e.key==="Escape")closeFC();});
 
@@ -638,7 +677,15 @@ iOv.addEventListener("click",e=>{if(e.target===iOv)iOv.classList.remove("active"
 iOv.addEventListener("keydown",e=>{if(e.key==="Escape")iOv.classList.remove("active");});
 
 /* ── Boot ── */
-(async()=>{const d=await loadData();if(!d)return;LD=d;document.getElementById("loadMsg").style.display="none";renderList();updateTogAll();})();
+(async()=>{
+  const d=await loadData();if(!d)return;LD=d;
+  document.getElementById("loadMsg").style.display="none";
+  // pre-select UN members filter
+  curU.add("un_member");
+  const chip=document.querySelector('.un-chip[data-u="un_member"]');
+  if(chip){chip.classList.add("active");chip.setAttribute("aria-current","true");}
+  renderList();updateTogAll();
+})();
 </script>
 </body>
 </html>
