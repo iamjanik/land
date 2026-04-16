@@ -104,8 +104,6 @@ input[type=search]:focus{border-color:var(--acc);}
 /* ══ FILTER AREA ══ */
 .filter-area{border-top:1px solid var(--border);}
 .filter-inner{max-width:800px;margin:0 auto;padding:0 16px;}
-
-/* Row 1: Continent chips — same style as UN row */
 .seg-row{display:flex;align-items:center;gap:5px;padding:7px 0 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .seg-row::-webkit-scrollbar{display:none;}
 .seg-btn{display:inline-flex;align-items:center;padding:3px 11px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;color:var(--muted);white-space:nowrap;flex-shrink:0;touch-action:manipulation;}
@@ -115,14 +113,11 @@ input[type=search]:focus{border-color:var(--acc);}
 .pill-spc{flex:1;min-width:8px;}
 .result-pill{flex-shrink:0;font-size:.68rem;color:var(--muted);padding:3px 10px;background:var(--surface2);border-radius:20px;border:1px solid var(--border);display:none;}
 .result-pill.vis{display:block;}
-
-/* Row 2: UN status chips */
 .un-row{display:flex;align-items:center;gap:5px;padding:0 0 7px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .un-row::-webkit-scrollbar{display:none;}
 .un-row-label{font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;flex-shrink:0;padding-right:2px;}
 .un-chip{display:inline-flex;align-items:center;padding:3px 11px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;color:var(--muted);white-space:nowrap;flex-shrink:0;touch-action:manipulation;}
 .un-chip:focus-visible{outline:2px solid var(--acc);outline-offset:2px;}
-/* hover always shows label in its own color */
 .un-chip.cm:hover{border-color:var(--un-m-tx);color:var(--un-m-tx);}
 .un-chip.cm.active{background:var(--un-m-tx);border-color:var(--un-m-tx);color:white;}
 .un-chip.co:hover{border-color:var(--un-o-tx);color:var(--un-o-tx);}
@@ -192,7 +187,6 @@ main{max-width:800px;margin:0 auto;padding:10px 14px 60px;}
 .un-block.un-o .ilabel,.un-block.un-o .ivalue{color:var(--un-o-tx);}
 .un-block.un-p{background:var(--un-p-bg);border:1px solid var(--un-p-bd);}
 .un-block.un-p .ilabel,.un-block.un-p .ivalue{color:var(--un-p-tx);}
-/* UNHinweis block for full UN members with footnote */
 .un-hint{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 13px;grid-column:1/-1;}
 .un-hint .ilabel{color:var(--muted);}
 .un-hint .ivalue{font-size:.85rem;font-weight:400;line-height:1.5;color:var(--text);}
@@ -239,7 +233,6 @@ main{max-width:800px;margin:0 auto;padding:10px 14px 60px;}
 .fc-mode-btns{display:flex;gap:7px;justify-content:center;}
 .fc-mbtn{padding:6px 16px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:500;cursor:pointer;color:var(--muted);}
 .fc-mbtn.active{border-color:var(--acc);color:var(--acc);background:var(--acc-light);}
-/* ── Country picker for flashcards ── */
 .fc-pick-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .fc-pick-lbl{font-size:.78rem;color:var(--muted);font-weight:500;}
 .fc-pick-actions{display:flex;gap:6px;}
@@ -252,18 +245,17 @@ main{max-width:800px;margin:0 auto;padding:10px 14px 60px;}
 .fc-item{display:flex;align-items:center;gap:9px;padding:7px 12px;cursor:pointer;font-size:.84rem;color:var(--text);user-select:none;border-bottom:1px solid var(--border);}
 .fc-item:last-child{border-bottom:none;}
 .fc-item:hover{background:var(--surface2);}
-.fc-item.range-hint{background:var(--acc-light);}
 .fc-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--acc);cursor:pointer;flex-shrink:0;}
 .fc-item .fi{font-size:1.1rem;flex-shrink:0;}
 .fc-item .fn{flex:1;font-weight:500;}
-.fc-item .fk{display:none;}
 .fc-result-e{font-size:2.2rem;display:block;margin-bottom:6px;}
 .fc-result-t{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:6px;color:var(--text);}
 .fc-result-s{font-size:.85rem;color:var(--muted);margin-bottom:22px;}
 .info-sec{display:flex;flex-direction:column;gap:4px;}
 .info-sec p{margin:0;font-size:.875rem;line-height:1.65;color:var(--text);}
 @media(max-width:500px){.cbody{padding-left:14px;}.igrid{grid-template-columns:1fr 1fr;}.fc-btn{padding:9px 14px;font-size:.82rem;}}
-.fc-range-btn{font-size:.68rem;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;flex-shrink:0;white-space:nowrap;}
+/* Range-Button: kleines Icon-Button rechts in jeder Zeile */
+.fc-range-btn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;flex-shrink:0;background:var(--surface2);border:1px solid var(--border);border-radius:6px;cursor:pointer;color:var(--muted);padding:0;}
 .fc-range-btn:hover{border-color:var(--acc);color:var(--acc);}
 .fc-range-btn.range-active{background:var(--acc);border-color:var(--acc);color:white;}
 .fc-item.range-from{background:var(--acc-light);}
@@ -314,7 +306,6 @@ a.nice-link:hover{opacity:.75;}
   </div>
   <div class="filter-area">
     <div class="filter-inner">
-      <!-- Row 1: Continents as chips -->
       <div class="seg-row" role="group" aria-label="Nach Kontinent filtern">
         <span class="un-row-label">Kontinent</span>
         <button class="seg-btn" data-k="Afrika">Afrika</button>
@@ -325,7 +316,6 @@ a.nice-link:hover{opacity:.75;}
         <div class="pill-spc"></div>
         <span class="result-pill" id="rPill" aria-live="polite"></span>
       </div>
-      <!-- Row 2: UN status chips -->
       <div class="un-row" role="group" aria-label="Nach UN-Status filtern">
         <span class="un-row-label">UN-Status</span>
         <button class="un-chip cm" data-u="un_member">UN-Mitglieder</button>
@@ -402,6 +392,12 @@ applyTheme(getTheme(),false);
 /* ── Helpers ── */
 const FLAGS={"Abchasien":"🏴","Afghanistan":"🇦🇫","Albanien":"🇦🇱","Algerien":"🇩🇿","Andorra":"🇦🇩","Angola":"🇦🇴","Antigua und Barbuda":"🇦🇬","Argentinien":"🇦🇷","Armenien":"🇦🇲","Aserbaidschan":"🇦🇿","Australien":"🇦🇺","Bahamas":"🇧🇸","Bahrain":"🇧🇭","Bangladesch":"🇧🇩","Barbados":"🇧🇧","Belarus":"🇧🇾","Belgien":"🇧🇪","Belize":"🇧🇿","Benin":"🇧🇯","Bhutan":"🇧🇹","Bolivien":"🇧🇴","Bosnien und Herzegowina":"🇧🇦","Botswana":"🇧🇼","Brasilien":"🇧🇷","Brunei":"🇧🇳","Bulgarien":"🇧🇬","Burkina Faso":"🇧🇫","Burundi":"🇧🇮","Chile":"🇨🇱","China, Republik / Taiwan":"🇹🇼","China, Volksrepublik":"🇨🇳","Cookinseln":"🇨🇰","Costa Rica":"🇨🇷","Dänemark":"🇩🇰","Deutschland":"🇩🇪","Dominica":"🇩🇲","Dominikanische Republik":"🇩🇴","Dschibuti":"🇩🇯","Ecuador":"🇪🇨","El Salvador":"🇸🇻","Elfenbeinküste":"🇨🇮","Eritrea":"🇪🇷","Estland":"🇪🇪","Eswatini":"🇸🇿","Fidschi":"🇫🇯","Finnland":"🇫🇮","Frankreich":"🇫🇷","Gabun":"🇬🇦","Gambia":"🇬🇲","Georgien":"🇬🇪","Ghana":"🇬🇭","Grenada":"🇬🇩","Griechenland":"🇬🇷","Guatemala":"🇬🇹","Guinea":"🇬🇳","Guinea-Bissau":"🇬🇼","Guyana":"🇬🇾","Haiti":"🇭🇹","Honduras":"🇭🇳","Indien":"🇮🇳","Indonesien":"🇮🇩","Irak":"🇮🇶","Iran":"🇮🇷","Irland":"🇮🇪","Island":"🇮🇸","Israel":"🇮🇱","Italien":"🇮🇹","Jamaika":"🇯🇲","Japan":"🇯🇵","Jemen":"🇾🇪","Jordanien":"🇯🇴","Kambodscha":"🇰🇭","Kamerun":"🇨🇲","Kanada":"🇨🇦","Kap Verde":"🇨🇻","Kasachstan":"🇰🇿","Katar":"🇶🇦","Kenia":"🇰🇪","Kirgisistan":"🇰🇬","Kiribati":"🇰🇮","Kolumbien":"🇨🇴","Komoren":"🇰🇲","Kongo, Demokratische Republik":"🇨🇩","Kongo, Republik":"🇨🇬","Korea, Nord (Nordkorea)":"🇰🇵","Korea, Süd (Südkorea)":"🇰🇷","Kosovo":"🇽🇰","Kroatien":"🇭🇷","Kuba":"🇨🇺","Kuwait":"🇰🇼","Laos":"🇱🇦","Lesotho":"🇱🇸","Lettland":"🇱🇻","Libanon":"🇱🇧","Liberia":"🇱🇷","Libyen":"🇱🇾","Liechtenstein":"🇱🇮","Litauen":"🇱🇹","Luxemburg":"🇱🇺","Madagaskar":"🇲🇬","Malawi":"🇲🇼","Malaysia":"🇲🇾","Malediven":"🇲🇻","Mali":"🇲🇱","Malta":"🇲🇹","Marokko":"🇲🇦","Marshallinseln":"🇲🇭","Mauretanien":"🇲🇷","Mauritius":"🇲🇺","Mexiko":"🇲🇽","Mikronesien":"🇫🇲","Moldau":"🇲🇩","Monaco":"🇲🇨","Mongolei":"🇲🇳","Montenegro":"🇲🇪","Mosambik":"🇲🇿","Myanmar":"🇲🇲","Namibia":"🇳🇦","Nauru":"🇳🇷","Nepal":"🇳🇵","Neuseeland":"🇳🇿","Nicaragua":"🇳🇮","Niederlande":"🇳🇱","Niger":"🇳🇪","Nigeria":"🇳🇬","Niue":"🇳🇺","Nordmazedonien":"🇲🇰","Nordzypern":"🏴","Norwegen":"🇳🇴","Oman":"🇴🇲","Osttimor / Timor-Leste":"🇹🇱","Österreich":"🇦🇹","Pakistan":"🇵🇰","Palästina":"🇵🇸","Palau":"🇵🇼","Panama":"🇵🇦","Papua-Neuguinea":"🇵🇬","Paraguay":"🇵🇾","Peru":"🇵🇪","Philippinen":"🇵🇭","Polen":"🇵🇱","Portugal":"🇵🇹","Ruanda":"🇷🇼","Rumänien":"🇷🇴","Russland":"🇷🇺","Salomonen":"🇸🇧","Sambia":"🇿🇲","Samoa":"🇼🇸","San Marino":"🇸🇲","São Tomé und Príncipe":"🇸🇹","Saudi-Arabien":"🇸🇦","Schweden":"🇸🇪","Schweiz":"🇨🇭","Senegal":"🇸🇳","Serbien":"🇷🇸","Seychellen":"🇸🇨","Sierra Leone":"🇸🇱","Simbabwe":"🇿🇼","Singapur":"🇸🇬","Slowakei":"🇸🇰","Slowenien":"🇸🇮","Somalia":"🇸🇴","Somaliland":"🏴","Spanien":"🇪🇸","Sri Lanka":"🇱🇰","St. Kitts und Nevis":"🇰🇳","St. Lucia":"🇱🇨","St. Vincent und die Grenadinen":"🇻🇨","Sudan":"🇸🇩","Suriname":"🇸🇷","Syrien":"🇸🇾","Südafrika":"🇿🇦","Südossetien":"🏴","Südsudan":"🇸🇸","Tadschikistan":"🇹🇯","Tansania":"🇹🇿","Thailand":"🇹🇭","Togo":"🇹🇬","Tonga":"🇹🇴","Transnistrien":"🏴","Trinidad und Tobago":"🇹🇹","Tschad":"🇹🇩","Tschechien":"🇨🇿","Tunesien":"🇹🇳","Turkmenistan":"🇹🇲","Tuvalu":"🇹🇻","Türkei":"🇹🇷","Uganda":"🇺🇬","Ukraine":"🇺🇦","Ungarn":"🇭🇺","Uruguay":"🇺🇾","Usbekistan":"🇺🇿","Vanuatu":"🇻🇺","Vatikanstadt":"🇻🇦","Venezuela":"🇻🇪","Vereinigte Arabische Emirate":"🇦🇪","Vereinigte Staaten":"🇺🇸","Vereinigtes Königreich":"🇬🇧","Vietnam":"🇻🇳","Westsahara":"🏴","Zentralafrikanische Republik":"🇨🇫","Zypern":"🇨🇾","Ägypten":"🇪🇬","Äquatorialguinea":"🇬🇶","Äthiopien":"🇪🇹"};
 const UN_CFG={"nicht_anerkannt":{cc:"un-n",mc:"dn",bc:"un-n",icon:"",label:"UN-Status"},"beobachter":{cc:"un-o",mc:"do",bc:"un-o",icon:"",label:"UN-Status"},"teilweise_anerkannt":{cc:"un-p",mc:"dp",bc:"un-p",icon:"",label:"UN-Status"}};
+
+/* SVG-Icons für Range-Button */
+const ICON_START='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="5 12 19 12"/><polyline points="14 7 19 12 14 17"/></svg>';
+const ICON_END='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="19 12 5 12"/><polyline points="10 17 5 12 10 7"/></svg>';
+const ICON_CANCEL='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
 function gF(n){return FLAGS[n]||"🌐";}
 function shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
 function norm(s){return s.toLowerCase().trim().replace(/\s+/g,"").replace(/[^a-z0-9äöüéèàâêîôûñ]/g,"");}
@@ -417,7 +413,7 @@ const openCards=new Set();
 
 async function loadData(){
   try{const r=await fetch("laender.json");if(!r.ok)throw new Error(`HTTP ${r.status}`);const d=await r.json();if(!Array.isArray(d)||!d.length)throw new Error("Leer");return d;}
-  catch(e){document.getElementById("loadMsg").innerHTML=location.protocol==="file:"?"⚠️ Bitte lokalen Server verwenden.":` ⚠️ Fehler beim Laden.<br><small>${e.message}</small>`;return null;}
+  catch(e){document.getElementById("loadMsg").innerHTML=location.protocol==="file:"?"⚠️ Bitte lokalen Server verwenden.":`⚠️ Fehler beim Laden.<br><small>${e.message}</small>`;return null;}
 }
 
 function getFilt(){
@@ -468,14 +464,11 @@ function buildCard(l){
   let cc="country-card"+(isO?" open":"");
   if(st)cc+=" "+st.cc;
   card.className=cc;card.dataset.land=l.Land;
-  // status indicator: colored dot
   const dot=st?`<span class="un-dot ${st.mc}" aria-hidden="true"></span>`:"";
   const multi=l.Hauptstadt.includes("\n");
   const hHTML=`<div class="ivalue${multi?" ml":""}">${esc(l.Hauptstadt)}</div>`;
-  // UN status block
   let unB="";
   if(st&&l.UNStatusText)unB=`<div class="iblock un-block ${st.bc}"><div class="ilabel">${st.label}</div><div class="ivalue">${esc(l.UNStatusText)}</div></div>`;
-  // UN hint block (for full UN members with territorial footnote)
   let hintB="";
   if(l.UNHinweis&&l.UNHinweisText)hintB=`<div class="iblock un-hint"><div class="ilabel">Hinweis</div><div class="ivalue">${esc(l.UNHinweisText)}</div></div>`;
   const faktB=l.Fakt?`<div class="iblock fakt-b"><div class="ilabel">Wusstest du?</div><div class="ivalue">${esc(l.Fakt)}</div></div>`:"";
@@ -527,12 +520,11 @@ function closeFC(){fcOv.classList.remove("active");}
 
 function renderStart(){
   const filt=getFilt();
-  // build ordered list (alphabetical)
   const sorted=[...filt].sort((a,b)=>{const ka=ag(a.Land)+a.Land,kb=ag(b.Land)+b.Land;return ka<kb?-1:ka>kb?1:0;});
-  // init selection: all
-  if(FC.sel.size===0||![...FC.sel].every(n=>sorted.some(l=>l.Land===n))){
-    FC.sel=new Set(sorted.map(l=>l.Land));
-  }
+
+  /* Standardmäßig keine Auswahl; ungültige Einträge bereinigen */
+  FC.sel=new Set([...FC.sel].filter(n=>sorted.some(l=>l.Land===n)));
+
   const selCount=FC.sel.size;
   fcBox.innerHTML=`
     <div class="fc-title">Lernkarten</div>
@@ -553,12 +545,12 @@ function renderStart(){
     <div class="fc-list" id="fcList" role="listbox" aria-multiselectable="true" aria-label="Staaten auswählen"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <span class="fc-pick-count" id="fcCount">${selCount} von ${sorted.length} ausgewählt</span>
-      <span style="font-size:.72rem;color:var(--muted);" id="fcRangeHint">Von–bis-Auswahl möglich</span>
+      <span style="font-size:.72rem;color:var(--muted);" id="fcRangeHint">Pfeil-Icon: Bereich wählen</span>
     </div>
     <div class="fc-warn" id="fcW" role="alert" aria-live="polite"></div>
     ${brow([{t:"Abbrechen",c:"fc-sec",id:"fcCancel"},{t:"Starten",c:"fc-pri",id:"fcStart"}])}
   `;
-  // render list
+
   const list=document.getElementById("fcList");
   sorted.forEach((l,i)=>{
     const row=document.createElement("div");
@@ -566,9 +558,14 @@ function renderStart(){
     row.dataset.name=l.Land;row.dataset.idx=i;
     row.setAttribute("role","option");
     row.setAttribute("aria-selected",String(FC.sel.has(l.Land)));
-    row.innerHTML='<input type="checkbox" '+(FC.sel.has(l.Land)?'checked':'')+' tabindex="-1" aria-hidden="true"><span class="fi">'+gF(l.Land)+'</span><span class="fn">'+esc(l.Land)+'</span><button class="fc-range-btn" data-idx="'+i+'" type="button">Von</button>';
+    row.innerHTML=
+      '<input type="checkbox" '+(FC.sel.has(l.Land)?'checked':'')+' tabindex="-1" aria-hidden="true">'+
+      '<span class="fi">'+gF(l.Land)+'</span>'+
+      '<span class="fn">'+esc(l.Land)+'</span>'+
+      '<button class="fc-range-btn" data-idx="'+i+'" type="button" title="Bereich starten" aria-label="Bereich starten">'+ICON_START+'</button>';
+
     row.addEventListener("click",e=>{
-      if(e.target.classList.contains("fc-range-btn")) return; // handled separately
+      if(e.target.closest(".fc-range-btn"))return;
       const name=l.Land;
       if(e.shiftKey&&FC.rangeStart>=0){
         const a=Math.min(i,FC.rangeStart),b=Math.max(i,FC.rangeStart);
@@ -580,28 +577,25 @@ function renderStart(){
       }
       refreshPickList(sorted);
     });
+
     row.querySelector(".fc-range-btn").addEventListener("click",e=>{
       e.stopPropagation();
       if(FC.rangeStart<0){
-        // set range start
         FC.rangeStart=i;
-        updateRangeHint(sorted,i);
       } else if(FC.rangeStart===i){
-        // cancel
         FC.rangeStart=-1;
-        updateRangeHint(sorted,-1);
       } else {
-        // apply range
         const a=Math.min(i,FC.rangeStart),b=Math.max(i,FC.rangeStart);
-        for(let x=a;x<=b;x++) FC.sel.add(sorted[x].Land);
+        for(let x=a;x<=b;x++)FC.sel.add(sorted[x].Land);
         FC.rangeStart=-1;
-        updateRangeHint(sorted,-1);
-        refreshPickList(sorted);
       }
+      refreshPickList(sorted);
+      updateRangeHint(sorted);
     });
+
     list.appendChild(row);
   });
-  // mode buttons
+
   fcBox.querySelectorAll(".fc-mbtn").forEach(b=>b.addEventListener("click",()=>{FC.mode=b.dataset.m;fcBox.querySelectorAll(".fc-mbtn").forEach(x=>x.classList.toggle("active",x===b));}));
   document.getElementById("fcSelAll").addEventListener("click",()=>{FC.sel=new Set(sorted.map(l=>l.Land));refreshPickList(sorted);});
   document.getElementById("fcSelNone").addEventListener("click",()=>{FC.sel=new Set();refreshPickList(sorted);});
@@ -615,6 +609,7 @@ function renderStart(){
 
 function refreshPickList(sorted){
   const list=document.getElementById("fcList");
+  const hasStart=FC.rangeStart>=0;
   list.querySelectorAll(".fc-item").forEach((row,i)=>{
     const name=sorted[i].Land;
     const on=FC.sel.has(name);
@@ -622,18 +617,36 @@ function refreshPickList(sorted){
     row.setAttribute("aria-selected",String(on));
     row.classList.toggle("range-from",i===FC.rangeStart);
     const btn=row.querySelector(".fc-range-btn");
-    if(btn)btn.classList.toggle("range-active",i===FC.rangeStart);
+    if(btn){
+      const isActive=i===FC.rangeStart;
+      btn.classList.toggle("range-active",isActive);
+      if(isActive){
+        btn.title="Bereich abbrechen";
+        btn.setAttribute("aria-label","Bereich abbrechen");
+        btn.innerHTML=ICON_CANCEL;
+      } else if(hasStart){
+        btn.title="Bis hier auswählen";
+        btn.setAttribute("aria-label","Bis hier auswählen");
+        btn.innerHTML=ICON_END;
+      } else {
+        btn.title="Bereich starten";
+        btn.setAttribute("aria-label","Bereich starten");
+        btn.innerHTML=ICON_START;
+      }
+    }
   });
   const c=document.getElementById("fcCount");
   if(c)c.textContent=`${FC.sel.size} von ${sorted.length} ausgewählt`;
 }
-function updateRangeHint(sorted,fromIdx){
+
+function updateRangeHint(sorted){
   const h=document.getElementById("fcRangeHint");
   if(!h)return;
-  if(fromIdx<0){h.textContent='Von–bis: Bereich wählbar';}
-  else{h.textContent='Von: '+sorted[fromIdx].Land+' – jetzt Ziel wählen';}
-  // also refresh visual
-  refreshPickList(sorted);
+  if(FC.rangeStart<0){
+    h.textContent="Pfeil-Icon: Bereich wählen";
+  } else {
+    h.textContent="Start: "+sorted[FC.rangeStart].Land+" – Endpunkt wählen";
+  }
 }
 
 function renderCard(){
@@ -665,7 +678,14 @@ function renderResult(){
   document.getElementById("fcRedo").addEventListener("click",()=>{FC.pool=shuffle(FC.pool);FC.idx=0;FC.ok=0;FC.wr=0;renderCard();});
   document.getElementById("fcDone").addEventListener("click",closeFC);
 }
-document.getElementById("fcBtn").addEventListener("click",()=>{FC.sel=new Set();FC.rangeStart=-1;openFC();renderStart();});
+
+document.getElementById("fcBtn").addEventListener("click",()=>{
+  /* Selektion zurücksetzen beim Öffnen */
+  FC.sel=new Set();
+  FC.rangeStart=-1;
+  openFC();
+  renderStart();
+});
 fcOv.addEventListener("click",e=>{if(e.target===fcOv)closeFC();});
 fcOv.addEventListener("keydown",e=>{if(e.key==="Escape")closeFC();});
 
@@ -680,7 +700,6 @@ iOv.addEventListener("keydown",e=>{if(e.key==="Escape")iOv.classList.remove("act
 (async()=>{
   const d=await loadData();if(!d)return;LD=d;
   document.getElementById("loadMsg").style.display="none";
-  // pre-select UN members filter
   curU.add("un_member");
   const chip=document.querySelector('.un-chip[data-u="un_member"]');
   if(chip){chip.classList.add("active");chip.setAttribute("aria-current","true");}
