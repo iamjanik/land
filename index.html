@@ -420,6 +420,7 @@ main {
   align-items: center;
   gap: 10px;
   margin: 10px 0 8px;
+  min-height: 24px;
 }
 
 .alpha-divider:first-child,
@@ -437,12 +438,20 @@ main {
 .alpha-line { flex: 1; height: 1px; background: var(--border); }
 
 .continent-group { margin-bottom: 24px; }
+  
 .continent-header {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 8px;
+  min-height: 24px;
+  margin-top: 10px;
 }
+
+.continent-group:first-child .continent-header {
+  margin-top: 0;
+}
+
 .continent-title {
   font-size: .78rem;
   font-weight: 600;
