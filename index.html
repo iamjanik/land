@@ -72,7 +72,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* ══ HEADER ══ */
 header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:var(--sh);}
 .hbar{display:flex;align-items:center;padding:0 16px;height:56px;gap:6px;max-width:800px;margin:0 auto;width:100%;min-width:0;}
-@media(max-width:599px){.hbar{height:60px;}}
 h1{font-family:'DM Serif Display',serif;font-size:1.38rem;letter-spacing:-.02em;line-height:1;white-space:nowrap;flex-shrink:1;min-width:0;overflow:hidden;text-overflow:ellipsis;}
 .hspc{flex:1;min-width:4px;}
 .swrap{position:relative;flex-shrink:1;min-width:0;}
@@ -89,7 +88,6 @@ input[type=search]:focus{border-color:var(--acc);}
 .icon-btn.active{color:var(--acc);background:var(--acc-light);}
 .icon-btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px;}
 .icon-btn .lbl{display:none;}
-@media(min-width:860px){.icon-btn .lbl{display:inline;}}
 #thBtn{position:relative;overflow:hidden;width:36px;height:36px;padding:0;}
 @media(max-width:599px){#thBtn{width:42px;height:42px;}}
 #thBtn .sun,#thBtn .moon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s,transform .3s cubic-bezier(.4,0,.2,1);}
@@ -106,7 +104,7 @@ input[type=search]:focus{border-color:var(--acc);}
 .filter-inner{max-width:800px;margin:0 auto;padding:0 16px;}
 .seg-row{display:flex;align-items:center;gap:5px;padding:7px 0 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .seg-row::-webkit-scrollbar{display:none;}
-.seg-btn{display:inline-flex;align-items:center;padding:3px 11px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;color:var(--muted);white-space:nowrap;flex-shrink:0;touch-action:manipulation;}
+.seg-btn{display:inline-flex;align-items:center;padding:5px 13px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;color:var(--muted);white-space:nowrap;flex-shrink:0;touch-action:manipulation;}
 .seg-btn:hover{border-color:var(--acc);color:var(--acc);}
 .seg-btn.active{background:var(--acc);border-color:var(--acc);color:white;font-weight:600;}
 .seg-btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px;}
@@ -116,7 +114,7 @@ input[type=search]:focus{border-color:var(--acc);}
 .un-row{display:flex;align-items:center;gap:5px;padding:0 0 7px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .un-row::-webkit-scrollbar{display:none;}
 .un-row-label{font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;flex-shrink:0;padding-right:2px;}
-.un-chip{display:inline-flex;align-items:center;padding:3px 11px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;color:var(--muted);white-space:nowrap;flex-shrink:0;touch-action:manipulation;}
+.un-chip{display:inline-flex;align-items:center;padding:5px 13px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;color:var(--muted);white-space:nowrap;flex-shrink:0;touch-action:manipulation;}
 .un-chip:focus-visible{outline:2px solid var(--acc);outline-offset:2px;}
 .un-chip.cm:hover{border-color:var(--un-m-tx);color:var(--un-m-tx);}
 .un-chip.cm.active{background:var(--un-m-tx);border-color:var(--un-m-tx);color:white;}
@@ -260,10 +258,7 @@ main{max-width:800px;margin:0 auto;padding:10px 14px 60px;}
 
 .info-sec p{margin:0;font-size:.875rem;line-height:1.65;color:var(--text);}
 @media(max-width:500px){.cbody{padding-left:14px;}.igrid{grid-template-columns:1fr 1fr;}.fc-btn{padding:9px 14px;font-size:.82rem;}}
-/* Range-Button: kleines Icon-Button rechts in jeder Zeile */
-.fc-range-btn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;flex-shrink:0;background:var(--surface2);border:1px solid var(--border);border-radius:6px;cursor:pointer;color:var(--muted);padding:0;}
-.fc-range-btn:hover{border-color:var(--acc);color:var(--acc);}
-.fc-range-btn.range-active{background:var(--acc);border-color:var(--acc);color:white;}
+/* Range-Auswahl: Startpunkt-Hervorhebung */
 .fc-item.range-from{background:var(--acc-light);}
 a.nice-link{color:var(--acc);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;font-weight:500;}
 a.nice-link:hover{opacity:.75;}
@@ -289,14 +284,14 @@ a.nice-link:hover{opacity:.75;}
         <svg id="togAllIco" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="transition:transform .3s cubic-bezier(.4,0,.2,1)"><polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/></svg>
         <span class="lbl" id="togAllLbl">Aufklappen</span>
       </button>
+      <button class="icon-btn btnFC" id="fcBtn" aria-label="Lernkarten">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <span class="lbl">Lernkarten</span>
+      </button>
       <div class="hdiv"></div>
       <button class="icon-btn" id="thBtn" aria-label="Dark Mode" aria-pressed="false">
         <span class="sun"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
         <span class="moon"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-      </button>
-      <button class="icon-btn btnFC" id="fcBtn" aria-label="Lernkarten">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        <span class="lbl">Lernkarten</span>
       </button>
       <button class="icon-btn" id="infoBtn" aria-label="Info">
         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12.01" y2="8" stroke-linecap="round" stroke-width="2.5"/><polyline points="11 12 12 12 12 16"/></svg>
@@ -319,8 +314,6 @@ a.nice-link:hover{opacity:.75;}
         <button class="seg-btn" data-k="Asien">Asien</button>
         <button class="seg-btn" data-k="Europa">Europa</button>
         <button class="seg-btn" data-k="Ozeanien">Ozeanien</button>
-        <div class="pill-spc"></div>
-        <span class="result-pill" id="rPill" aria-live="polite"></span>
       </div>
       <div class="un-row" role="group" aria-label="Nach UN-Status filtern">
         <span class="un-row-label">UN-Status</span>
@@ -413,10 +406,6 @@ applyTheme(getTheme(),false);
 const FLAGS={"Abchasien":"🏴","Afghanistan":"🇦🇫","Albanien":"🇦🇱","Algerien":"🇩🇿","Andorra":"🇦🇩","Angola":"🇦🇴","Antigua und Barbuda":"🇦🇬","Argentinien":"🇦🇷","Armenien":"🇦🇲","Aserbaidschan":"🇦🇿","Australien":"🇦🇺","Bahamas":"🇧🇸","Bahrain":"🇧🇭","Bangladesch":"🇧🇩","Barbados":"🇧🇧","Belarus":"🇧🇾","Belgien":"🇧🇪","Belize":"🇧🇿","Benin":"🇧🇯","Bhutan":"🇧🇹","Bolivien":"🇧🇴","Bosnien und Herzegowina":"🇧🇦","Botswana":"🇧🇼","Brasilien":"🇧🇷","Brunei":"🇧🇳","Bulgarien":"🇧🇬","Burkina Faso":"🇧🇫","Burundi":"🇧🇮","Chile":"🇨🇱","China, Republik / Taiwan":"🇹🇼","China, Volksrepublik":"🇨🇳","Cookinseln":"🇨🇰","Costa Rica":"🇨🇷","Dänemark":"🇩🇰","Deutschland":"🇩🇪","Dominica":"🇩🇲","Dominikanische Republik":"🇩🇴","Dschibuti":"🇩🇯","Ecuador":"🇪🇨","El Salvador":"🇸🇻","Elfenbeinküste":"🇨🇮","Eritrea":"🇪🇷","Estland":"🇪🇪","Eswatini":"🇸🇿","Fidschi":"🇫🇯","Finnland":"🇫🇮","Frankreich":"🇫🇷","Gabun":"🇬🇦","Gambia":"🇬🇲","Georgien":"🇬🇪","Ghana":"🇬🇭","Grenada":"🇬🇩","Griechenland":"🇬🇷","Guatemala":"🇬🇹","Guinea":"🇬🇳","Guinea-Bissau":"🇬🇼","Guyana":"🇬🇾","Haiti":"🇭🇹","Honduras":"🇭🇳","Indien":"🇮🇳","Indonesien":"🇮🇩","Irak":"🇮🇶","Iran":"🇮🇷","Irland":"🇮🇪","Island":"🇮🇸","Israel":"🇮🇱","Italien":"🇮🇹","Jamaika":"🇯🇲","Japan":"🇯🇵","Jemen":"🇾🇪","Jordanien":"🇯🇴","Kambodscha":"🇰🇭","Kamerun":"🇨🇲","Kanada":"🇨🇦","Kap Verde":"🇨🇻","Kasachstan":"🇰🇿","Katar":"🇶🇦","Kenia":"🇰🇪","Kirgisistan":"🇰🇬","Kiribati":"🇰🇮","Kolumbien":"🇨🇴","Komoren":"🇰🇲","Kongo, Demokratische Republik":"🇨🇩","Kongo, Republik":"🇨🇬","Korea, Nord (Nordkorea)":"🇰🇵","Korea, Süd (Südkorea)":"🇰🇷","Kosovo":"🇽🇰","Kroatien":"🇭🇷","Kuba":"🇨🇺","Kuwait":"🇰🇼","Laos":"🇱🇦","Lesotho":"🇱🇸","Lettland":"🇱🇻","Libanon":"🇱🇧","Liberia":"🇱🇷","Libyen":"🇱🇾","Liechtenstein":"🇱🇮","Litauen":"🇱🇹","Luxemburg":"🇱🇺","Madagaskar":"🇲🇬","Malawi":"🇲🇼","Malaysia":"🇲🇾","Malediven":"🇲🇻","Mali":"🇲🇱","Malta":"🇲🇹","Marokko":"🇲🇦","Marshallinseln":"🇲🇭","Mauretanien":"🇲🇷","Mauritius":"🇲🇺","Mexiko":"🇲🇽","Mikronesien":"🇫🇲","Moldau":"🇲🇩","Monaco":"🇲🇨","Mongolei":"🇲🇳","Montenegro":"🇲🇪","Mosambik":"🇲🇿","Myanmar":"🇲🇲","Namibia":"🇳🇦","Nauru":"🇳🇷","Nepal":"🇳🇵","Neuseeland":"🇳🇿","Nicaragua":"🇳🇮","Niederlande":"🇳🇱","Niger":"🇳🇪","Nigeria":"🇳🇬","Niue":"🇳🇺","Nordmazedonien":"🇲🇰","Nordzypern":"🏴","Norwegen":"🇳🇴","Oman":"🇴🇲","Osttimor / Timor-Leste":"🇹🇱","Österreich":"🇦🇹","Pakistan":"🇵🇰","Palästina":"🇵🇸","Palau":"🇵🇼","Panama":"🇵🇦","Papua-Neuguinea":"🇵🇬","Paraguay":"🇵🇾","Peru":"🇵🇪","Philippinen":"🇵🇭","Polen":"🇵🇱","Portugal":"🇵🇹","Ruanda":"🇷🇼","Rumänien":"🇷🇴","Russland":"🇷🇺","Salomonen":"🇸🇧","Sambia":"🇿🇲","Samoa":"🇼🇸","San Marino":"🇸🇲","São Tomé und Príncipe":"🇸🇹","Saudi-Arabien":"🇸🇦","Schweden":"🇸🇪","Schweiz":"🇨🇭","Senegal":"🇸🇳","Serbien":"🇷🇸","Seychellen":"🇸🇨","Sierra Leone":"🇸🇱","Simbabwe":"🇿🇼","Singapur":"🇸🇬","Slowakei":"🇸🇰","Slowenien":"🇸🇮","Somalia":"🇸🇴","Somaliland":"🏴","Spanien":"🇪🇸","Sri Lanka":"🇱🇰","St. Kitts und Nevis":"🇰🇳","St. Lucia":"🇱🇨","St. Vincent und die Grenadinen":"🇻🇨","Sudan":"🇸🇩","Suriname":"🇸🇷","Syrien":"🇸🇾","Südafrika":"🇿🇦","Südossetien":"🏴","Südsudan":"🇸🇸","Tadschikistan":"🇹🇯","Tansania":"🇹🇿","Thailand":"🇹🇭","Togo":"🇹🇬","Tonga":"🇹🇴","Transnistrien":"🏴","Trinidad und Tobago":"🇹🇹","Tschad":"🇹🇩","Tschechien":"🇨🇿","Tunesien":"🇹🇳","Turkmenistan":"🇹🇲","Tuvalu":"🇹🇻","Türkei":"🇹🇷","Uganda":"🇺🇬","Ukraine":"🇺🇦","Ungarn":"🇭🇺","Uruguay":"🇺🇾","Usbekistan":"🇺🇿","Vanuatu":"🇻🇺","Vatikanstadt":"🇻🇦","Venezuela":"🇻🇪","Vereinigte Arabische Emirate":"🇦🇪","Vereinigte Staaten":"🇺🇸","Vereinigtes Königreich":"🇬🇧","Vietnam":"🇻🇳","Westsahara":"🏴","Zentralafrikanische Republik":"🇨🇫","Zypern":"🇨🇾","Ägypten":"🇪🇬","Äquatorialguinea":"🇬🇶","Äthiopien":"🇪🇹"};
 const UN_CFG={"nicht_anerkannt":{cc:"un-n",mc:"dn",bc:"un-n",icon:"",label:"UN-Status"},"beobachter":{cc:"un-o",mc:"do",bc:"un-o",icon:"",label:"UN-Status"},"teilweise_anerkannt":{cc:"un-p",mc:"dp",bc:"un-p",icon:"",label:"UN-Status"}};
 
-/* SVG-Icons für Range-Button */
-const ICON_START='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="5 12 19 12"/><polyline points="14 7 19 12 14 17"/></svg>';
-const ICON_END='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="19 12 5 12"/><polyline points="10 17 5 12 10 7"/></svg>';
-const ICON_CANCEL='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
 function gF(n){return FLAGS[n]||"🌐";}
 function shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
@@ -455,9 +444,6 @@ function renderList(){
   const f=getFilt();
   const main=document.getElementById("main");
   const noR=document.getElementById("noRes");
-  const pill=document.getElementById("rPill");
-  pill.textContent=`${f.length} / ${LD.length}`;
-  pill.classList.add("vis");
   Array.from(main.children).forEach(c=>{if(c.id!=="noRes"&&c.id!=="loadMsg")c.remove();});
   if(!f.length){noR.style.display="block";return;}
   noR.style.display="none";
@@ -526,7 +512,7 @@ document.getElementById("togAllBtn").addEventListener("click",()=>{const any=get
 
 /* ══ FLASHCARDS ══ */
 const fcOv=document.getElementById("fcOv"),fcBox=document.getElementById("fcBox");
-const FC={pool:[],origPool:[],idx:0,ok:0,wr:0,wrong:[],mode:"reveal",sel:new Set(),rangeStart:-1};
+const FC={pool:[],origPool:[],idx:0,ok:0,wr:0,wrong:[],mode:"type",sel:new Set(),rangeStart:-1,rangeEnd:-1};
 function openFC(){fcOv.classList.add("active");fcBox.focus();}
 function closeFC(){fcOv.classList.remove("active");}
 
@@ -555,10 +541,11 @@ function renderStart(){
       </div>
     </div>
     <div class="fc-list" id="fcList" role="listbox" aria-multiselectable="true" aria-label="Staaten auswählen"></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;min-height:26px;">
       <span class="fc-pick-count" id="fcCount">${selCount} von ${sorted.length} ausgewählt</span>
-      <span style="font-size:.72rem;color:var(--muted);" id="fcRangeHint">Mehrfachauswahl: 1. Land wählen</span>
+      <button class="fc-pick-action" id="fcRangeApply" type="button" style="display:none;">Bereich auswählen</button>
     </div>
+    <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px;min-height:1.2em;" id="fcRangeHint"></div>
     <div class="fc-warn" id="fcW" role="alert" aria-live="polite"></div>
     ${brow([{t:"Abbrechen",c:"fc-sec",id:"fcCancel"},{t:"Starten",c:"fc-pri",id:"fcStart"}])}
   `;
@@ -573,44 +560,31 @@ function renderStart(){
     row.innerHTML=
       '<input type="checkbox" '+(FC.sel.has(l.Land)?'checked':'')+' tabindex="-1" aria-hidden="true">'+
       '<span class="fi">'+gF(l.Land)+'</span>'+
-      '<span class="fn">'+esc(l.Land)+'</span>'+
-      '<button class="fc-range-btn" data-idx="'+i+'" type="button" title="Bereich starten" aria-label="Bereich starten">'+ICON_START+'</button>';
+      '<span class="fn">'+esc(l.Land)+'</span>';
 
     row.addEventListener("click",e=>{
-      if(e.target.closest(".fc-range-btn"))return;
       const name=l.Land;
-      if(e.shiftKey&&FC.rangeStart>=0){
-        const a=Math.min(i,FC.rangeStart),b=Math.max(i,FC.rangeStart);
-        const adding=!FC.sel.has(name);
-        for(let x=a;x<=b;x++){if(adding)FC.sel.add(sorted[x].Land);else FC.sel.delete(sorted[x].Land);}
-        FC.rangeStart=-1;
-      } else {
-        if(FC.sel.has(name))FC.sel.delete(name);else FC.sel.add(name);
-      }
-      refreshPickList(sorted);
-    });
-
-    row.querySelector(".fc-range-btn").addEventListener("click",e=>{
-      e.stopPropagation();
-      if(FC.rangeStart<0){
-        FC.rangeStart=i;
+      if(FC.rangeStart>=0&&FC.rangeStart!==i){
+        /* Zweiter Klick: Endpunkt merken, aber noch nicht auswählen */
+        FC.rangeEnd=i;
       } else if(FC.rangeStart===i){
-        FC.rangeStart=-1;
+        /* Startpunkt erneut klicken: Auswahl aufheben */
+        FC.rangeStart=-1;FC.rangeEnd=-1;
+        if(FC.sel.has(name))FC.sel.delete(name);else FC.sel.add(name);
       } else {
-        const a=Math.min(i,FC.rangeStart),b=Math.max(i,FC.rangeStart);
-        for(let x=a;x<=b;x++)FC.sel.add(sorted[x].Land);
-        FC.rangeStart=-1;
+        /* Normaler Klick: togglen und als möglichen Startpunkt merken */
+        if(FC.sel.has(name)){FC.sel.delete(name);FC.rangeStart=-1;FC.rangeEnd=-1;}
+        else{FC.sel.add(name);FC.rangeStart=i;FC.rangeEnd=-1;}
       }
       refreshPickList(sorted);
-      updateRangeHint(sorted);
     });
 
     list.appendChild(row);
   });
 
   fcBox.querySelectorAll(".fc-mbtn").forEach(b=>b.addEventListener("click",()=>{FC.mode=b.dataset.m;fcBox.querySelectorAll(".fc-mbtn").forEach(x=>x.classList.toggle("active",x===b));}));
-  document.getElementById("fcSelAll").addEventListener("click",()=>{FC.sel=new Set(sorted.map(l=>l.Land));refreshPickList(sorted);});
-  document.getElementById("fcSelNone").addEventListener("click",()=>{FC.sel=new Set();refreshPickList(sorted);});
+  document.getElementById("fcSelAll").addEventListener("click",()=>{FC.sel=new Set(sorted.map(l=>l.Land));FC.rangeStart=-1;FC.rangeEnd=-1;refreshPickList(sorted);});
+  document.getElementById("fcSelNone").addEventListener("click",()=>{FC.sel=new Set();FC.rangeStart=-1;FC.rangeEnd=-1;refreshPickList(sorted);});
   document.getElementById("fcStart").addEventListener("click",()=>{
     const pool=sorted.filter(l=>FC.sel.has(l.Land));
     if(!pool.length){document.getElementById("fcW").textContent="Bitte mindestens einen Staat auswählen.";return;}
@@ -621,45 +595,45 @@ function renderStart(){
 
 function refreshPickList(sorted){
   const list=document.getElementById("fcList");
-  const hasStart=FC.rangeStart>=0;
   list.querySelectorAll(".fc-item").forEach((row,i)=>{
     const name=sorted[i].Land;
     const on=FC.sel.has(name);
     row.querySelector("input").checked=on;
     row.setAttribute("aria-selected",String(on));
-    row.classList.toggle("range-from",i===FC.rangeStart);
-    const btn=row.querySelector(".fc-range-btn");
-    if(btn){
-      const isActive=i===FC.rangeStart;
-      btn.classList.toggle("range-active",isActive);
-      if(isActive){
-        btn.title="Bereich abbrechen";
-        btn.setAttribute("aria-label","Bereich abbrechen");
-        btn.innerHTML=ICON_CANCEL;
-      } else if(hasStart){
-        btn.title="Bis hier auswählen";
-        btn.setAttribute("aria-label","Bis hier auswählen");
-        btn.innerHTML=ICON_END;
-      } else {
-        btn.title="Bereich starten";
-        btn.setAttribute("aria-label","Bereich starten");
-        btn.innerHTML=ICON_START;
-      }
-    }
+    const isStart=i===FC.rangeStart;
+    const isEnd=FC.rangeEnd>=0&&i===FC.rangeEnd;
+    row.classList.toggle("range-from",isStart||isEnd);
   });
+
+  /* Zeige "Bereich auswählen"-Button wenn Start und Ende gesetzt */
+  const applyBtn=document.getElementById("fcRangeApply");
+  const hint=document.getElementById("fcRangeHint");
+  if(applyBtn){
+    if(FC.rangeStart>=0&&FC.rangeEnd>=0&&FC.rangeStart!==FC.rangeEnd){
+      const a=Math.min(FC.rangeStart,FC.rangeEnd),b=Math.max(FC.rangeStart,FC.rangeEnd);
+      const count=b-a+1;
+      applyBtn.style.display="inline";
+      applyBtn.textContent=`Bereich auswählen (${count})`;
+      applyBtn.onclick=()=>{
+        for(let x=a;x<=b;x++)FC.sel.add(sorted[x].Land);
+        FC.rangeStart=-1;FC.rangeEnd=-1;
+        refreshPickList(sorted);
+      };
+      if(hint)hint.textContent=`Von „${sorted[FC.rangeStart].Land}" bis „${sorted[FC.rangeEnd].Land}"`;
+    } else if(FC.rangeStart>=0){
+      applyBtn.style.display="none";
+      if(hint)hint.textContent=`Startpunkt: „${sorted[FC.rangeStart].Land}" – jetzt Endpunkt anklicken`;
+    } else {
+      applyBtn.style.display="none";
+      if(hint)hint.textContent="Bereichsauswahl: erstes Land anklicken, dann letztes";
+    }
+  }
+
   const c=document.getElementById("fcCount");
   if(c)c.textContent=`${FC.sel.size} von ${sorted.length} ausgewählt`;
 }
 
-function updateRangeHint(sorted){
-  const h=document.getElementById("fcRangeHint");
-  if(!h)return;
-  if(FC.rangeStart<0){
-    h.textContent="Mehrfachauswahl: 1. Land wählen";
-  } else {
-    h.textContent="Start: "+sorted[FC.rangeStart].Land+" – Endpunkt wählen";
-  }
-}
+
 
 function renderCard(){
   if(FC.idx>=FC.pool.length){renderResult();return;}
@@ -710,6 +684,7 @@ document.getElementById("fcBtn").addEventListener("click",()=>{
   /* Selektion zurücksetzen beim Öffnen */
   FC.sel=new Set();
   FC.rangeStart=-1;
+  FC.rangeEnd=-1;
   openFC();
   renderStart();
 });
