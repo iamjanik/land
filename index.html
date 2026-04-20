@@ -258,6 +258,11 @@ main{max-width:800px;margin:0 auto;padding:10px 14px 60px;}
 
 .info-sec p{margin:0;font-size:.875rem;line-height:1.65;color:var(--text);}
 @media(max-width:500px){.cbody{padding-left:14px;}.igrid{grid-template-columns:1fr 1fr;}.fc-btn{padding:9px 14px;font-size:.82rem;}}
+.fc-wrong-row .fc-wrong-eingabe{color:var(--un-n-tx);font-style:italic;flex-shrink:0;}
+.fc-alpha-sep{display:flex;align-items:center;gap:8px;padding:6px 12px 3px;pointer-events:none;}
+.fc-alpha-letter{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.06em;flex-shrink:0;}
+.fc-alpha-line{flex:1;height:1px;background:var(--border);}
+.fc-alpha-count{font-size:.7rem;color:var(--muted);flex-shrink:0;}
 /* Range-Auswahl: Startpunkt-Hervorhebung */
 .fc-item.range-from{background:var(--acc-light);}
 a.nice-link{color:var(--acc);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;font-weight:500;}
@@ -550,7 +555,18 @@ function renderStart(){
   `;
 
   const list=document.getElementById("fcList");
+  let lastG="";
   sorted.forEach((l,i)=>{
+    const g=ag(l.Land);
+    if(g!==lastG){
+      lastG=g;
+      const gc=sorted.filter(x=>ag(x.Land)===g).length;
+      const sep=document.createElement("div");
+      sep.className="fc-alpha-sep";
+      sep.setAttribute("aria-hidden","true");
+      sep.innerHTML=`<span class="fc-alpha-letter">${g}</span><span class="fc-alpha-line"></span><span class="fc-alpha-count">${gc}</span>`;
+      list.appendChild(sep);
+    }
     const row=document.createElement("div");
     row.className="fc-item"+(FC.sel.has(l.Land)?" checked":"");
     row.dataset.name=l.Land;row.dataset.idx=i;
@@ -583,8 +599,8 @@ function renderStart(){
 
 function refreshPickList(sorted){
   const list=document.getElementById("fcList");
-  list.querySelectorAll(".fc-item").forEach((row,i)=>{
-    const name=sorted[i].Land;
+  list.querySelectorAll(".fc-item").forEach(row=>{
+    const name=row.dataset.name;
     const on=FC.sel.has(name);
     row.querySelector("input").checked=on;
     row.setAttribute("aria-selected",String(on));
@@ -638,7 +654,7 @@ function renderReveal(l,flag,prog){
 function renderType(l,flag,prog){
   fcBox.innerHTML=`<div class="fc-prog">${prog}</div><span class="fc-flag">${flag}</span><div class="fc-q">Hauptstadt von<br><strong>${esc(l.Land)}</strong>?</div><input class="fc-inp" id="fcIn" type="text" placeholder="Hauptstadt eingeben …" autocomplete="off" spellcheck="false"><div class="fc-fb" id="fcFb" role="status" aria-live="polite"></div>${brow([{t:"Abbrechen",c:"fc-sec",id:"fcAb"},{t:"Prüfen",c:"fc-rev",id:"fcCk"}])}`;
   const inp=document.getElementById("fcIn");inp.focus();
-  const check=()=>{const v=inp.value.trim();if(!v)return;const ni=norm(v);const vs=hsvs(l.Hauptstadt);const ok=vs.some(x=>norm(x)===ni);inp.classList.add(ok?"ok":"err");inp.disabled=true;const fb=document.getElementById("fcFb");fb.textContent=ok?"Richtig!":"Richtig wäre: "+(vs.length>1?vs.join(" / "):l.Hauptstadt);fb.className="fc-fb "+(ok?"ok":"err");if(ok)FC.ok++;else{FC.wr++;FC.wrong.push(l);}fcBox.querySelector(".fcrow").innerHTML=`<button class="fc-btn fc-pri" id="fcNx" type="button">Weiter</button>`;document.getElementById("fcNx").addEventListener("click",()=>{FC.idx++;renderCard();});document.getElementById("fcNx").focus();};
+  const check=()=>{const v=inp.value.trim();if(!v)return;const ni=norm(v);const vs=hsvs(l.Hauptstadt);const ok=vs.some(x=>norm(x)===ni);inp.classList.add(ok?"ok":"err");inp.disabled=true;const fb=document.getElementById("fcFb");fb.textContent=ok?"Richtig!":"Richtig wäre: "+(vs.length>1?vs.join(" / "):l.Hauptstadt);fb.className="fc-fb "+(ok?"ok":"err");if(ok)FC.ok++;else{FC.wr++;FC.wrong.push({...l,_eingabe:v});}fcBox.querySelector(".fcrow").innerHTML=`<button class="fc-btn fc-pri" id="fcNx" type="button">Weiter</button>`;document.getElementById("fcNx").addEventListener("click",()=>{FC.idx++;renderCard();});document.getElementById("fcNx").focus();};
   inp.addEventListener("keydown",e=>{if(e.key==="Enter")check();});
   document.getElementById("fcCk").addEventListener("click",check);
   document.getElementById("fcAb").addEventListener("click",closeFC);
@@ -650,7 +666,8 @@ function renderResult(){
   if(hasWrong){
     const rows=FC.wrong.map(l=>{
       const cap=esc(l.Hauptstadt).replace(/\n/g," / ");
-      return `<div class="fc-wrong-row"><span class="fi" aria-hidden="true">${gF(l.Land)}</span><span class="fn">${esc(l.Land)}</span><span class="fc-sep">·</span><span class="fa">${cap}</span></div>`;
+      const eingabe=l._eingabe?`<span class="fc-wrong-eingabe">„${esc(l._eingabe)}"</span><span class="fc-sep">→</span>`:"";
+      return `<div class="fc-wrong-row"><span class="fi" aria-hidden="true">${gF(l.Land)}</span><span class="fn">${esc(l.Land)}</span><span class="fc-sep">·</span>${eingabe}<span class="fa">${cap}</span></div>`;
     }).join("");
     wrongBox=`<div class="fc-wrong-box"><div class="fc-wrong-hdr">Nicht gewusst (${FC.wrong.length})</div><div class="fc-wrong-list">${rows}</div></div>`;
   }
