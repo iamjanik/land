@@ -311,6 +311,10 @@ a.nice-link:hover{opacity:.75;}
 .st-weak-pct{font-size:.7rem;color:var(--muted);width:28px;text-align:right;flex-shrink:0;}
 .st-weak-tries{font-size:.65rem;color:var(--muted);width:22px;text-align:right;flex-shrink:0;opacity:.7;}
 .st-empty{font-size:.83rem;color:var(--muted);text-align:center;padding:16px 0;}
+.st-pct-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.st-pct-bar-wrap{flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden;}
+.st-pct-bar{height:7px;border-radius:4px;background:var(--acc);transition:width .5s ease;}
+.st-pct-lbl{font-size:.75rem;font-weight:600;color:var(--acc);white-space:nowrap;}
 /* ── Falsch-Filter Chip in Auswahl ── */
 .fc-filter-row{display:flex;gap:6px;margin-bottom:10px;}
 .fc-fchip{padding:4px 12px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;color:var(--muted);}
@@ -463,11 +467,23 @@ const UN_CFG={"nicht_anerkannt":{cc:"un-n",mc:"dn",bc:"un-n",icon:"",label:"UN-S
 
 function gF(n){return FLAGS[n]||"🌐";}
 function shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+/* Schwache Karten zuerst, dann unbekannte, dann bekannte – innerhalb jeder Gruppe geshuffelt */
+function weightedSort(pool){
+  const p=loadProg();
+  const grpWeak=[],grpNew=[],grpOk=[];
+  pool.forEach(l=>{
+    const v=p[l.Land];
+    if(!v||v.ok+v.wr===0)grpNew.push(l);
+    else if(isWeak(v))grpWeak.push(l);
+    else grpOk.push(l);
+  });
+  return [...shuffle(grpWeak),...shuffle(grpNew),...shuffle(grpOk)];
+}
 function norm(s){return s.toLowerCase().trim().replace(/\s+/g,"").replace(/[^a-z0-9äöüéèàâêîôûñ]/g,"");}
 function hsvs(h){return h.split(/[\n/,]/).map(s=>s.replace(/\(.*?\)/g,"").trim()).filter(Boolean);}
 function deb(fn,d=150){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),d);};}
 function ag(l){const c=l[0].toUpperCase();return{"Ä":"A","Ö":"O","Ü":"U","É":"E","È":"E","Ñ":"N"}[c]??c;}
-function brow(items){return`<div class="fcrow">${items.map(b=>`<button class="fc-btn ${b.c}"${b.id?` id="${b.id}"`:""}type="button">${b.t}</button>`).join("")}</div>`;}
+function brow(items){return`<div class="fcrow">${items.map(b=>`<button class="fc-btn ${b.c}"${b.id?` id="${b.id}"`:""} type="button">${b.t}</button>`).join("")}</div>`;}
 function esc(s=""){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 function cid(n){return n.replace(/[^a-z0-9]/gi,"_").toLowerCase();}
 
@@ -526,10 +542,11 @@ function renderStats(container){
   container.innerHTML=`
     <div class="st-grid">
       <div class="st-tile"><div class="st-val">${totalAns}</div><div class="st-lbl">Antworten gesamt</div></div>
-      <div class="st-tile"><div class="st-val">${totalUniq}</div><div class="st-lbl">Einzigartige Länder</div></div>
+      <div class="st-tile"><div class="st-val">${totalUniq}</div><div class="st-lbl">Länder geübt</div></div>
       <div class="st-tile"><div class="st-val">${totalOk}</div><div class="st-lbl">Richtig</div></div>
       <div class="st-tile st-red"><div class="st-val">${totalWr}</div><div class="st-lbl">Falsch</div></div>
     </div>
+    <div class="st-pct-row"><div class="st-pct-bar-wrap"><div class="st-pct-bar" style="width:${pct}%"></div></div><span class="st-pct-lbl">${pct}\u00a0% richtig</span></div>
     <div class="st-highlight">
       <div class="st-hl-tile st-best"><div class="st-hl-label">🏆 Bestes Land</div>${bestHTML}</div>
       <div class="st-hl-tile st-worst"><div class="st-hl-label">⚠️ Schlechtestes Land</div>${worstHTML}</div>
@@ -730,7 +747,7 @@ function renderStart(tab){
   document.getElementById("fcStart").addEventListener("click",()=>{
     const pool=listSrc.filter(l=>FC.sel.has(l.Land));
     if(!pool.length){document.getElementById("fcW").textContent="Bitte mindestens einen Staat auswählen.";return;}
-    FC.pool=shuffle(pool);FC.origPool=[...FC.pool];FC.idx=0;FC.ok=0;FC.wr=0;FC.wrong=[];renderCard();
+    FC.pool=weightedSort(pool);FC.origPool=[...FC.pool];FC.idx=0;FC.ok=0;FC.wr=0;FC.wrong=[];renderCard();
   });
   document.getElementById("fcCancel").addEventListener("click",closeFC);
 }
@@ -762,7 +779,9 @@ function refreshPickList(listSrc){
 function renderCard(){
   if(FC.idx>=FC.pool.length){renderResult();return;}
   const l=FC.pool[FC.idx];const flag=gF(l.Land);
-  const prog=`${FC.idx+1} / ${FC.pool.length} · ✓ ${FC.ok} · ✗ ${FC.wr}`;
+  const p=loadProg();const v=p[l.Land];
+  const weakMark=v&&isWeak(v)?` · ⚠️`:"";
+  const prog=`${FC.idx+1} / ${FC.pool.length} · ✓ ${FC.ok} · ✗ ${FC.wr}${weakMark}`;
   if(FC.mode==="reveal")renderReveal(l,flag,prog);else if(FC.mode==="mc")renderMC(l,flag,prog);else renderType(l,flag,prog);
 }
 function renderReveal(l,flag,prog){
@@ -821,7 +840,7 @@ function renderResult(){
     ? [{t:"Schließen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-sec",id:"fcRedo"},{t:`Falsche wiederholen (${FC.wrong.length})`,c:"fc-pri",id:"fcRetryWrong"}]
     : [{t:"Schließen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-pri",id:"fcRedo"}];
   fcBox.innerHTML=`<span class="fc-result-e">${e}</span><div class="fc-result-t">Fertig!</div><div class="fc-result-s">${FC.ok} richtig · ${FC.wr} falsch · ${p}\u00a0%</div>${wrongBox}${brow(btns)}`;
-  document.getElementById("fcRedo").addEventListener("click",()=>{FC.pool=shuffle([...FC.origPool]);FC.idx=0;FC.ok=0;FC.wr=0;FC.wrong=[];renderCard();});
+  document.getElementById("fcRedo").addEventListener("click",()=>{FC.pool=weightedSort([...FC.origPool]);FC.idx=0;FC.ok=0;FC.wr=0;FC.wrong=[];renderCard();});
   document.getElementById("fcDone").addEventListener("click",closeFC);
   const retry=document.getElementById("fcRetryWrong");
   if(retry)retry.addEventListener("click",()=>{FC.pool=shuffle([...FC.wrong]);FC.origPool=[...FC.pool];FC.idx=0;FC.ok=0;FC.wr=0;FC.wrong=[];renderCard();});
