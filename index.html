@@ -309,6 +309,7 @@ a.nice-link:hover{opacity:.75;}
 .st-weak-bar{height:5px;border-radius:3px;background:#c0392b;}
 [data-theme="dark"] .st-weak-bar,.is-dark .st-weak-bar{background:#e07070;}
 .st-weak-pct{font-size:.7rem;color:var(--muted);width:28px;text-align:right;flex-shrink:0;}
+.st-weak-tries{font-size:.65rem;color:var(--muted);width:22px;text-align:right;flex-shrink:0;opacity:.7;}
 .st-empty{font-size:.83rem;color:var(--muted);text-align:center;padding:16px 0;}
 /* ── Falsch-Filter Chip in Auswahl ── */
 .fc-filter-row{display:flex;gap:6px;margin-bottom:10px;}
@@ -480,9 +481,10 @@ function recordResult(land,ok){
   if(ok)p[land].ok++;else p[land].wr++;
   saveProg(p);
 }
+function isWeak(v){const t=v.ok+v.wr;return t>=2&&(v.wr/t)>=0.3;}
 function getWeakLands(){
   const p=loadProg();
-  return Object.entries(p).filter(([,v])=>v.wr>0).map(([k,v])=>k);
+  return Object.entries(p).filter(([,v])=>isWeak(v)).map(([k])=>k);
 }
 
 /* ── Statistik ── */
@@ -499,14 +501,14 @@ function renderStats(container){
   /* Bestes Land: nur richtig, mind. 1 Antwort, kein Fehler */
   const perfect=entries.filter(([,v])=>v.wr===0&&v.ok>0).sort((a,b)=>b[1].ok-a[1].ok);
   const bestLand=perfect.length?perfect[0]:null;
-  /* Schlechtestes Land: höchste absolute Fehleranzahl */
-  const worst=entries.filter(([,v])=>v.wr>0).sort((a,b)=>b[1].wr-a[1].wr);
+  /* Schlechtestes Land: höchste Fehlerrate (mind. 2 Versuche) */
+  const worst=entries.filter(([,v])=>v.ok+v.wr>=2&&v.wr>0).sort((a,b)=>(b[1].wr/(b[1].ok+b[1].wr))-(a[1].wr/(a[1].ok+a[1].wr)));
   const worstLand=worst.length?worst[0]:null;
 
-  /* Top-10 schwächste nach Fehlerquote */
+  /* Top-10 schwächste nach Fehlerquote (mind. 2 Versuche) */
   const weak=entries
-    .filter(([,v])=>v.wr>0)
-    .map(([k,v])=>({land:k,ok:v.ok,wr:v.wr,rate:v.wr/(v.ok+v.wr)}))
+    .filter(([,v])=>v.wr>0&&(v.ok+v.wr)>=2)
+    .map(([k,v])=>({land:k,ok:v.ok,wr:v.wr,total:v.ok+v.wr,rate:v.wr/(v.ok+v.wr)}))
     .sort((a,b)=>b.rate-a.rate)
     .slice(0,10);
 
@@ -514,11 +516,11 @@ function renderStats(container){
     ?`<div class="st-hl-val">${gF(bestLand[0])} ${esc(bestLand[0])}</div><div class="st-hl-sub">${bestLand[1].ok}× richtig</div>`
     :`<div class="st-hl-val" style="color:var(--muted)">–</div>`;
   const worstHTML=worstLand
-    ?`<div class="st-hl-val">${gF(worstLand[0])} ${esc(worstLand[0])}</div><div class="st-hl-sub">${worstLand[1].wr}× falsch</div>`
+    ?`<div class="st-hl-val">${gF(worstLand[0])} ${esc(worstLand[0])}</div><div class="st-hl-sub">${Math.round(worstLand[1].wr/(worstLand[1].ok+worstLand[1].wr)*100)}\u00a0% falsch (${worstLand[1].ok+worstLand[1].wr} Versuche)</div>`
     :`<div class="st-hl-val" style="color:var(--muted)">–</div>`;
 
   const weakRows=weak.length
-    ?weak.map(w=>{const pW=Math.round(w.rate*100);return `<div class="st-weak-row"><span class="fi">${gF(w.land)}</span><span class="fn">${esc(w.land)}</span><div class="st-weak-bar-wrap"><div class="st-weak-bar" style="width:${pW}%"></div></div><span class="st-weak-pct">${pW}\u00a0%</span></div>`;}).join("")
+    ?weak.map(w=>{const pW=Math.round(w.rate*100);return `<div class="st-weak-row"><span class="fi">${gF(w.land)}</span><span class="fn">${esc(w.land)}</span><div class="st-weak-bar-wrap"><div class="st-weak-bar" style="width:${pW}%"></div></div><span class="st-weak-pct">${pW}\u00a0%</span><span class="st-weak-tries">${w.total}×</span></div>`;}).join("")
     :`<div class="st-empty">Noch keine Fehler – weiter so! 🎉</div>`;
 
   container.innerHTML=`
@@ -685,7 +687,7 @@ function renderStart(tab){
     </div>
     <div class="fc-filter-row">
       <button class="fc-fchip${FC.listFilter==="all"?" active":""}" data-f="all" type="button">Alle (${sorted.length})</button>
-      <button class="fc-fchip${FC.listFilter==="wrong"?" active":""}" data-f="wrong" type="button"${weakInPool.length===0?" disabled":""}>Falsch gemacht (${weakInPool.length})</button>
+      <button class="fc-fchip${FC.listFilter==="wrong"?" active":""}" data-f="wrong" type="button"${weakInPool.length===0?" disabled":""} title="Länder mit ≥\u202f30\u00a0% Fehlerrate (mind. 2 Versuche)">Schwächen (${weakInPool.length})</button>
     </div>
     <div class="fc-list" id="fcList" role="listbox" aria-multiselectable="true" aria-label="Staaten auswählen"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;min-height:26px;">
