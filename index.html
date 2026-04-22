@@ -544,16 +544,21 @@ function renderStats(container){
   const openWithStreak=open.filter(([,v])=>v.streak>0);
   const avgStreak=openWithStreak.length?Math.round(openWithStreak.reduce((s,[,v])=>s+v.streak,0)/openWithStreak.length*10)/10:0;
 
+  const progress=totalUniq>0?Math.round(mastered.length/totalUniq*100):0;
+
   const openRows=open.length
     ?open.map(([k,v])=>`<div class="st-land-row"><span class="fi">${gF(k)}</span><span class="fn">${esc(k)}</span>${streakDots(Math.min(v.streak,STREAK_GOAL))}</div>`).join("")
     :`<div class="st-empty">Keine offenen Länder – alles gemeistert! 🎉</div>`;
 
   container.innerHTML=`
-    <div class="st-grid">
+    <div class="st-grid" style="margin-bottom:12px;">
+      <div class="st-tile"><div class="st-val">${progress}\u00a0%</div><div class="st-lbl">Lernfortschritt</div></div>
       <div class="st-tile"><div class="st-val">${totalUniq}</div><div class="st-lbl">Länder geübt</div></div>
+    </div>
+    <div class="st-pct-row"><div class="st-pct-bar-wrap"><div class="st-pct-bar" style="width:${progress}%"></div></div></div>
+    <div class="st-grid" style="margin-bottom:14px;">
       <div class="st-tile"><div class="st-val">${mastered.length}</div><div class="st-lbl">Gemeistert</div></div>
       <div class="st-tile st-red"><div class="st-val">${open.length}</div><div class="st-lbl">Noch offen</div></div>
-      <div class="st-tile"><div class="st-val">${pct}\u00a0%</div><div class="st-lbl">Trefferquote</div></div>
     </div>
     <div class="st-section-hdr">Noch offen (${open.length})</div>
     <div class="st-land-list">${openRows}</div>
@@ -800,7 +805,9 @@ function recordAnswer(land,ok){
   saveProg(p);
 }
 
+function _clearAdv(){if(FC._advClick){fcBox.removeEventListener("click",FC._advClick);FC._advClick=null;}if(FC._advKey){document.removeEventListener("keydown",FC._advKey);FC._advKey=null;}}
 function renderCard(){
+  _clearAdv();
   if(FC.idx>=FC.pool.length){renderResult();return;}
   const l=FC.pool[FC.idx];const flag=gF(l.Land);
   const prog=buildProgLabel();
@@ -857,11 +864,11 @@ function renderType(l,flag,prog){
     fb.textContent=ok?"Richtig!":"Richtig w\u00e4re: "+(vs.length>1?vs.join(" / "):l.Hauptstadt);
     fb.className="fc-fb "+(ok?"ok":"err");
     onAnswer(l,ok,ok?null:val);
-    /* Enter oder Klick irgendwo → weiter */
-    const advance=()=>renderCard();
-    setTimeout(()=>{
-      fcBox.addEventListener("click",advance,{once:true});
-      document.addEventListener("keydown",function _key(e){if(e.key==="Enter"){document.removeEventListener("keydown",_key);fcBox.removeEventListener("click",advance);renderCard();}},{once:true});
+    let t=setTimeout(()=>{
+      FC._advClick=()=>{if(FC._advKey)document.removeEventListener("keydown",FC._advKey);FC._advClick=FC._advKey=null;renderCard();};
+      FC._advKey=(e)=>{if(e.key==="Enter"){fcBox.removeEventListener("click",FC._advClick);FC._advClick=FC._advKey=null;document.removeEventListener("keydown",FC._advKey);renderCard();}};
+      fcBox.addEventListener("click",FC._advClick,{once:true});
+      document.addEventListener("keydown",FC._advKey);
     },300);
   };
   inp.addEventListener("keydown",e=>{if(e.key==="Enter")check();});
