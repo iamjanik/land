@@ -316,9 +316,10 @@ a.nice-link:hover{opacity:.75;}
 .fc-res-box::-webkit-scrollbar{width:4px;}
 .fc-res-box::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
 .fc-res-hdr{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;}
-.fc-res-ok{background:var(--acc-light);border:1px solid #b8d4b5;}
-.fc-res-ok .fc-res-hdr{color:var(--acc);}
-[data-theme="dark"] .fc-res-ok,.is-dark .fc-res-ok{border-color:#2a4a28;}
+.fc-res-mastered{background:var(--acc-light);border:1px solid #b8d4b5;}
+.fc-res-mastered .fc-res-hdr{color:var(--acc);}
+[data-theme="dark"] .fc-res-mastered,.is-dark .fc-res-mastered{border-color:#2a4a28;}
+
 .fc-res-wr{background:var(--un-n-bg);border:1px solid var(--un-n-bd);}
 .fc-res-wr .fc-res-hdr{color:var(--un-n-tx);}
 
@@ -890,7 +891,13 @@ function renderResult(){
   const pct=total>0?Math.round(FC.ok/total*100):0;
   const e=pct>=80?"🎉":pct>=50?"👍":"📚";
 
-  /* Richtig-Box */
+  /* Neu gemeisterte Länder dieser Runde */
+  const prog=loadProg();
+  const newlyMastered=FC.okList.filter(l=>isMastered(prog[l.Land]));
+  const masteredBox=newlyMastered.length>0
+    ?`<div class="fc-res-box fc-res-mastered"><div class="fc-res-hdr">\u2605 Gemeistert (${newlyMastered.length})</div><div class="fc-wrong-list">${newlyMastered.map(l=>`<div class="fc-wrong-row"><span class="fi" aria-hidden="true">${gF(l.Land)}</span><span class="fn">${esc(l.Land)}</span>${streakDots(STREAK_GOAL)}</div>`).join("")}</div></div>`
+    :"";
+
   /* Falsch-Box */
   const wrBox=FC.wrongList.length>0
     ?`<div class="fc-res-box fc-res-wr"><div class="fc-res-hdr">\u2717 Falsch (${FC.wrongList.length})</div><div class="fc-wrong-list">${FC.wrongList.map(l=>landRow(l,false)).join("")}</div></div>`
@@ -898,13 +905,12 @@ function renderResult(){
 
   /* Buttons */
   const btns=FC.wrongList.length>0
-    ?[{t:"Schlie\u00dfen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-sec",id:"fcRedo"},{t:`Falsche wiederholen (${FC.wrongList.length})`,c:"fc-pri",id:"fcRetry"}]
-    :[{t:"Schlie\u00dfen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-pri",id:"fcRedo"}];
+    ?[{t:"Zur\u00fcck",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-sec",id:"fcRedo"},{t:`Falsche wiederholen (${FC.wrongList.length})`,c:"fc-pri",id:"fcRetry"}]
+    :[{t:"Zur\u00fcck",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-pri",id:"fcRedo"}];
 
-  fcBox.innerHTML=`<span class="fc-result-e">${e}</span><div class="fc-result-t">Fertig!</div><div class="fc-result-s">${FC.ok} richtig \u00b7 ${FC.wr} falsch \u00b7 ${pct}\u00a0%</div>${wrBox}${brow(btns)}<div style="text-align:center;margin-top:10px;"><button class="fc-pick-action" id="fcToStats" type="button">Zur Statistik</button></div>`;
+  fcBox.innerHTML=`<span class="fc-result-e">${e}</span><div class="fc-result-t">Fertig!</div><div class="fc-result-s">${FC.ok} richtig \u00b7 ${FC.wr} falsch \u00b7 ${pct}\u00a0%</div>${masteredBox}${wrBox}${brow(btns)}`;
 
-  document.getElementById("fcDone").addEventListener("click",closeFC);
-  document.getElementById("fcToStats").addEventListener("click",()=>renderStart("stats"));
+  document.getElementById("fcDone").addEventListener("click",()=>renderStart("learn"));
   document.getElementById("fcRedo").addEventListener("click",()=>{
     const origPool=[...FC.okList,...FC.wrongList].map(l=>({Land:l.Land,Hauptstadt:l.Hauptstadt,Kontinent:l.Kontinent}));
     FC.pool=shuffle(origPool);FC.idx=0;FC.ok=0;FC.wr=0;FC.okList=[];FC.wrongList=[];FC.isRetry=false;renderCard();
