@@ -557,7 +557,7 @@ function renderStats(container){
 
   const openRows=open.length
     ?open.map(([k,v])=>`<div class="st-land-row"><span class="fi">${gF(k)}</span><span class="fn">${esc(k)}</span>${streakDots(Math.min(v.streak,STREAK_GOAL))}</div>`).join("")
-    :`<div class="st-empty">Keine offenen Länder – alles gemeistert! 🎉</div>`;
+    :`<div class="st-empty">Keine offenen Länder – alles gemeistert!</div>`;
 
   container.innerHTML=`
     <div class="st-grid" style="margin-bottom:12px;">
@@ -899,7 +899,7 @@ function renderResult(){
   _clearAdv();
   const total=FC.ok+FC.wr;
   const pct=total>0?Math.round(FC.ok/total*100):0;
-  const e=pct>=80?"🎉":pct>=50?"👍":"📚";
+  const e="";
 
   const prog=loadProg();
   const newlyMastered=FC.okList.filter(l=>isMastered(prog[l.Land])&&(FC.streakSnapshot[l.Land]||0)<STREAK_GOAL);
@@ -917,7 +917,7 @@ function renderResult(){
     ?[{t:"Schlie\u00dfen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-sec",id:"fcRedo"},{t:`Falsche wiederholen (${FC.wrongList.length})`,c:"fc-pri",id:"fcRetry"}]
     :[{t:"Schlie\u00dfen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-pri",id:"fcRedo"}];
 
-  fcBox.innerHTML=`<span class="fc-result-e">${e}</span><div class="fc-result-t">Fertig!</div><div class="fc-result-s">${FC.ok} richtig \u00b7 ${FC.wr} falsch \u00b7 ${pct}\u00a0%</div>${masteredBox}${wrBox}${brow(btns)}`;
+  fcBox.innerHTML=`<div class="fc-result-t">Fertig!</div><div class="fc-result-s">${FC.ok} richtig \u00b7 ${FC.wr} falsch \u00b7 ${pct}\u00a0%</div>${masteredBox}${wrBox}${brow(btns)}`;
 
   document.getElementById("fcDone").addEventListener("click",closeFC);
   document.getElementById("fcRedo").addEventListener("click",()=>{
