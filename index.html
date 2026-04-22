@@ -542,22 +542,20 @@ function renderStats(container){
   const open=entries.filter(([,v])=>!isMastered(v)&&(v.totalOk+v.totalWr)>0).sort((a,b)=>b[1].streak-a[1].streak||a[0].localeCompare(b[0],"de"));
 
   const openRows=open.length
-    ?open.map(([k,v])=>`<div class="st-land-row"><span class="fi">${gF(k)}</span><span class="fn">${esc(k)}</span><span class="st-land-counts">${v.totalOk}✓ ${v.totalWr}✗</span>${streakDots(Math.min(v.streak,STREAK_GOAL))}</div>`).join("")
+    ?open.map(([k,v])=>`<div class="st-land-row"><span class="fi">${gF(k)}</span><span class="fn">${esc(k)}</span>${streakDots(Math.min(v.streak,STREAK_GOAL))}</div>`).join("")
     :`<div class="st-empty">Noch keine offenen Länder.</div>`;
 
   const masteredRows=mastered.length
-    ?mastered.map(([k,v])=>`<div class="st-land-row"><span class="fi">${gF(k)}</span><span class="fn">${esc(k)}</span><span class="st-land-counts">${v.totalOk}✓ ${v.totalWr}✗</span><span class="st-mastered-mark">✓✓✓✓✓</span></div>`).join("")
+    ?mastered.map(([k])=>`<div class="st-land-row"><span class="fi">${gF(k)}</span><span class="fn">${esc(k)}</span>${streakDots(STREAK_GOAL)}</div>`).join("")
     :`<div class="st-empty">Noch keine Länder gemeistert.</div>`;
 
   container.innerHTML=`
     <div class="st-grid">
-      <div class="st-tile"><div class="st-val">${totalAns}</div><div class="st-lbl">Antworten gesamt</div></div>
       <div class="st-tile"><div class="st-val">${totalUniq}</div><div class="st-lbl">Länder geübt</div></div>
-      <div class="st-tile"><div class="st-val">${mastered.length}</div><div class="st-lbl">Gemeistert</div></div>
       <div class="st-tile st-red"><div class="st-val">${open.length}</div><div class="st-lbl">Noch offen</div></div>
     </div>
     <div class="st-pct-row"><div class="st-pct-bar-wrap"><div class="st-pct-bar" style="width:${pct}%"></div></div><span class="st-pct-lbl">${pct}\u00a0% richtig</span></div>
-    <div class="st-section-hdr">Noch offen (${open.length}) – Streak bis ${STREAK_GOAL}</div>
+    <div class="st-section-hdr">Noch offen (${open.length})</div>
     <div class="st-land-list">${openRows}</div>
     <div class="st-section-hdr">Gemeistert (${mastered.length})</div>
     <div class="st-land-list">${masteredRows}</div>
@@ -842,10 +840,7 @@ function renderMC(l,flag,prog){
       fb.textContent=ok?"Richtig!":"Richtig w\u00e4re: "+hsvs(l.Hauptstadt)[0];
       fb.className="fc-fb "+(ok?"ok":"err");
       onAnswer(l,ok);
-      const row=document.createElement("div");row.className="fcrow";
-      row.innerHTML=`<button class="fc-btn fc-pri" type="button">Weiter</button>`;
-      row.querySelector("button").addEventListener("click",()=>renderCard());
-      fcBox.appendChild(row);row.querySelector("button").focus();
+      setTimeout(()=>renderCard(),ok?600:1200);
     });
   });
 }
@@ -861,9 +856,7 @@ function renderType(l,flag,prog){
     fb.textContent=ok?"Richtig!":"Richtig w\u00e4re: "+(vs.length>1?vs.join(" / "):l.Hauptstadt);
     fb.className="fc-fb "+(ok?"ok":"err");
     onAnswer(l,ok,ok?null:val);
-    fcBox.querySelector(".fcrow").innerHTML=`<button class="fc-btn fc-pri" id="fcNx" type="button">Weiter</button>`;
-    document.getElementById("fcNx").addEventListener("click",()=>renderCard());
-    document.getElementById("fcNx").focus();
+    setTimeout(()=>renderCard(),ok?600:1200);
   };
   inp.addEventListener("keydown",e=>{if(e.key==="Enter")check();});
   document.getElementById("fcCk").addEventListener("click",check);
@@ -898,9 +891,10 @@ function renderResult(){
     ?[{t:"Schlie\u00dfen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-sec",id:"fcRedo"},{t:`Falsche wiederholen (${FC.wrongList.length})`,c:"fc-pri",id:"fcRetry"}]
     :[{t:"Schlie\u00dfen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-pri",id:"fcRedo"}];
 
-  fcBox.innerHTML=`<span class="fc-result-e">${e}</span><div class="fc-result-t">Fertig!</div><div class="fc-result-s">${FC.ok} richtig \u00b7 ${FC.wr} falsch \u00b7 ${pct}\u00a0%</div>${okBox}${wrBox}${brow(btns)}`;
+  fcBox.innerHTML=`<span class="fc-result-e">${e}</span><div class="fc-result-t">Fertig!</div><div class="fc-result-s">${FC.ok} richtig \u00b7 ${FC.wr} falsch \u00b7 ${pct}\u00a0%</div>${okBox}${wrBox}${brow(btns)}<div style="text-align:center;margin-top:10px;"><button class="fc-pick-action" id="fcToStats" type="button">Zur Statistik</button></div>`;
 
   document.getElementById("fcDone").addEventListener("click",closeFC);
+  document.getElementById("fcToStats").addEventListener("click",()=>renderStart("stats"));
   document.getElementById("fcRedo").addEventListener("click",()=>{
     const origPool=[...FC.okList,...FC.wrongList].map(l=>({Land:l.Land,Hauptstadt:l.Hauptstadt,Kontinent:l.Kontinent}));
     FC.pool=shuffle(origPool);FC.idx=0;FC.ok=0;FC.wr=0;FC.okList=[];FC.wrongList=[];FC.isRetry=false;renderCard();
