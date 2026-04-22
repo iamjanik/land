@@ -206,7 +206,7 @@ main{max-width:800px;margin:0 auto;padding:10px 14px 60px;}
 [data-theme="dark"] .fc-fb.ok,.is-dark .fc-fb.ok{color:#6aaa60;}
 [data-theme="dark"] .fc-fb.err,.is-dark .fc-fb.err{color:#e07070;}
 .fcrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:4px;}
-.fc-btn{padding:10px 22px;border-radius:10px;border:2px solid;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;white-space:nowrap;}
+.fc-btn{padding:10px 22px;border-radius:10px;border:2px solid;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;white-space:nowrap;touch-action:manipulation;}
 .fc-btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px;}
 .fc-sec{border-color:var(--border);color:var(--muted);background:transparent;}
 .fc-sec:hover{border-color:var(--muted);}
@@ -224,18 +224,18 @@ main{max-width:800px;margin:0 auto;padding:10px 14px 60px;}
 .fc-mode-row{margin-bottom:18px;}
 .fc-mode-lbl{font-size:.78rem;color:var(--muted);margin-bottom:7px;font-weight:500;}
 .fc-mode-btns{display:flex;gap:7px;justify-content:center;}
-.fc-mbtn{padding:6px 16px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:500;cursor:pointer;color:var(--muted);}
+.fc-mbtn{padding:6px 16px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:500;cursor:pointer;color:var(--muted);touch-action:manipulation;}
 .fc-mbtn.active{border-color:var(--acc);color:var(--acc);background:var(--acc-light);}
 .fc-pick-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .fc-pick-lbl{font-size:.78rem;color:var(--muted);font-weight:500;}
 .fc-pick-actions{display:flex;gap:6px;}
-.fc-pick-action{font-size:.72rem;color:var(--acc);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;padding:2px 6px;border-radius:4px;}
+.fc-pick-action{font-size:.72rem;color:var(--acc);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;padding:2px 6px;border-radius:4px;touch-action:manipulation;}
 .fc-pick-action:hover{background:var(--acc-light);}
 .fc-pick-count{font-size:.78rem;color:var(--muted);font-weight:500;}
 .fc-list{max-height:240px;overflow-y:auto;border:1.5px solid var(--border);border-radius:10px;background:var(--bg);margin-bottom:6px;text-align:left;}
 .fc-list::-webkit-scrollbar{width:4px;}
 .fc-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
-.fc-item{display:flex;align-items:center;gap:9px;padding:7px 12px;cursor:pointer;font-size:.84rem;color:var(--text);user-select:none;}
+.fc-item{display:flex;align-items:center;gap:9px;padding:7px 12px;cursor:pointer;font-size:.84rem;color:var(--text);user-select:none;touch-action:manipulation;}
 .fc-item:hover{background:var(--surface2);}
 .fc-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--acc);cursor:pointer;flex-shrink:0;}
 .fc-item .fi{font-size:1.1rem;flex-shrink:0;}
@@ -271,7 +271,7 @@ a.nice-link:hover{opacity:.75;}
 /* ── Multiple Choice ── */
 .fc-mc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;}
 @media(max-width:400px){.fc-mc-grid{grid-template-columns:1fr;}}
-.fc-mc-opt{padding:11px 14px;border-radius:10px;border:2px solid var(--border);background:var(--bg);font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;color:var(--text);text-align:center;line-height:1.3;transition:border-color .15s,background .15s;}
+.fc-mc-opt{padding:11px 14px;border-radius:10px;border:2px solid var(--border);background:var(--bg);font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;color:var(--text);text-align:center;line-height:1.3;transition:border-color .15s,background .15s;touch-action:manipulation;}
 .fc-mc-opt:hover:not(:disabled){border-color:var(--acc);background:var(--acc-light);}
 .fc-mc-opt.mc-ok{border-color:#2d7a2d;background:#e8f5e8;color:#1a4a1a;cursor:default;}
 .fc-mc-opt.mc-err{border-color:#c0392b;background:#fdecea;color:#6a1a14;cursor:default;}
@@ -280,7 +280,7 @@ a.nice-link:hover{opacity:.75;}
 [data-theme="dark"] .fc-mc-opt.mc-err,.is-dark .fc-mc-opt.mc-err{background:#2a0e0e;color:#e07070;}
 /* ── Statistik-Tab im FC-Overlay ── */
 .fc-nav{display:flex;gap:0;margin-bottom:20px;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;}
-.fc-nav-btn{flex:1;padding:8px 10px;background:none;border:none;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;color:var(--muted);transition:background .15s,color .15s;}
+.fc-nav-btn{flex:1;padding:8px 10px;background:none;border:none;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;color:var(--muted);transition:background .15s,color .15s;touch-action:manipulation;}
 .fc-nav-btn:not(:last-child){border-right:1.5px solid var(--border);}
 .fc-nav-btn.active{background:var(--acc);color:white;font-weight:600;}
 .fc-nav-btn:hover:not(.active){background:var(--surface2);color:var(--text);}
@@ -320,7 +320,7 @@ a.nice-link:hover{opacity:.75;}
 .fc-res-wr .fc-res-hdr{color:var(--un-n-tx);}
 
 .fc-filter-row{display:flex;gap:6px;margin-bottom:10px;}
-.fc-fchip{padding:4px 12px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;color:var(--muted);}
+.fc-fchip{padding:4px 12px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;color:var(--muted);touch-action:manipulation;}
 .fc-fchip.active{background:var(--acc);border-color:var(--acc);color:white;font-weight:600;}
 .fc-fchip:hover:not(.active){border-color:var(--acc);color:var(--acc);}
 </style>
@@ -650,8 +650,8 @@ document.getElementById("togAllBtn").addEventListener("click",()=>{const any=get
 const fcOv=document.getElementById("fcOv"),fcBox=document.getElementById("fcBox");
 /* FC.isRetry = true wenn wir gerade "Falsche wiederholen"-Runde spielen */
 const FC={pool:[],idx:0,ok:0,wr:0,okList:[],wrongList:[],streakSnapshot:{},mode:"type",sel:new Set(),listFilter:"all",isRetry:false};
-function openFC(){fcOv.classList.add("active");fcBox.focus();}
-function closeFC(){fcOv.classList.remove("active");}
+function openFC(){fcOv.classList.add("active");document.body.style.overflow="hidden";fcBox.focus();}
+function closeFC(){if(typeof _clearAdv==="function")_clearAdv();fcOv.classList.remove("active");document.body.style.overflow="";}
 
 function renderStart(tab){
   tab=tab||"learn";
@@ -705,7 +705,16 @@ function renderStart(tab){
 
   fcBox.querySelectorAll(".fc-nav-btn").forEach(b=>b.addEventListener("click",()=>renderStart(b.dataset.tab)));
   fcBox.querySelectorAll(".fc-mbtn").forEach(b=>b.addEventListener("click",()=>{FC.mode=b.dataset.m;fcBox.querySelectorAll(".fc-mbtn").forEach(x=>x.classList.toggle("active",x===b));}));
-  fcBox.querySelectorAll(".fc-fchip").forEach(b=>b.addEventListener("click",()=>{if(b.disabled)return;FC.listFilter=b.dataset.f;renderStart("learn");}));
+  fcBox.querySelectorAll(".fc-fchip").forEach(b=>b.addEventListener("click",()=>{
+    if(b.disabled)return;
+    FC.listFilter=b.dataset.f;
+    if(b.dataset.f==="wrong"){
+      /* Beim Wechsel zu "Noch offen" alle sichtbaren Länder automatisch auswählen */
+      const newWeak=sorted.filter(l=>weakSet.has(l.Land));
+      FC.sel=new Set(newWeak.map(l=>l.Land));
+    }
+    renderStart("learn");
+  }));
 
   const list=document.getElementById("fcList");
   const p=loadProg();
@@ -914,10 +923,10 @@ fcOv.addEventListener("keydown",e=>{if(e.key==="Escape")closeFC();});
 /* ── Info ── */
 const iOv=document.getElementById("infoOv");
 const iBox=iOv.querySelector(".fc-box");
-document.getElementById("infoBtn").addEventListener("click",()=>{iOv.classList.add("active");iBox.scrollTop=0;});
-document.getElementById("infoCloseX").addEventListener("click",()=>iOv.classList.remove("active"));
-iOv.addEventListener("click",e=>{if(e.target===iOv)iOv.classList.remove("active");});
-iOv.addEventListener("keydown",e=>{if(e.key==="Escape")iOv.classList.remove("active");});
+document.getElementById("infoBtn").addEventListener("click",()=>{iOv.classList.add("active");document.body.style.overflow="hidden";iBox.scrollTop=0;});
+document.getElementById("infoCloseX").addEventListener("click",()=>{iOv.classList.remove("active");document.body.style.overflow="";});
+iOv.addEventListener("click",e=>{if(e.target===iOv){iOv.classList.remove("active");document.body.style.overflow="";}});
+iOv.addEventListener("keydown",e=>{if(e.key==="Escape"){iOv.classList.remove("active");document.body.style.overflow="";}});
 
 /* ── Boot ── */
 (async()=>{
