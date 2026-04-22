@@ -859,11 +859,18 @@ function renderMC(l,flag,prog){
 
 function renderType(l,flag,prog){
   fcBox.innerHTML=`<div class="fc-prog">${prog}</div><span class="fc-flag">${flag}</span><div class="fc-q">Hauptstadt von<br><strong>${esc(l.Land)}</strong>?</div><input class="fc-inp" id="fcIn" type="text" placeholder="Hauptstadt eingeben \u2026" autocomplete="off" spellcheck="false"><div class="fc-fb" id="fcFb" role="status" aria-live="polite"></div>${brow([{t:"Abbrechen",c:"fc-sec",id:"fcAb"},{t:"Pr\u00fcfen",c:"fc-rev",id:"fcCk"}])}`;
-  const inp=document.getElementById("fcIn");inp.focus();
+  const inp=document.getElementById("fcIn");
+  const ckBtn=document.getElementById("fcCk");
+
   const check=()=>{
-    const val=inp.value.trim();if(!val)return;
-    const ni=norm(val);const vs=hsvs(l.Hauptstadt);const ok=vs.some(x=>norm(x)===ni);
-    inp.classList.add(ok?"ok":"err");inp.disabled=true;
+    const val=inp.value.trim();
+    if(!val||inp.disabled)return;
+    const ni=norm(val);
+    const vs=hsvs(l.Hauptstadt);
+    const ok=vs.some(x=>norm(x)===ni);
+    inp.classList.add(ok?"ok":"err");
+    inp.disabled=true;
+    ckBtn.disabled=true;
     if(ok){
       onAnswer(l,true);
     } else {
@@ -874,16 +881,18 @@ function renderType(l,flag,prog){
       fcBox.querySelector(".fcrow").innerHTML=`<button class="fc-btn fc-pri" id="fcNx" type="button">Weiter</button>`;
       const nx=document.getElementById("fcNx");
       const goNext=()=>{document.removeEventListener("keydown",_nxKey);renderCard();};
-      const _nxKey=(e)=>{if(e.key==="Enter")goNext();};
+      const _nxKey=(e)=>{if(e.key==="Enter"){e.preventDefault();goNext();}};
       nx.addEventListener("click",goNext);
       document.addEventListener("keydown",_nxKey);
       FC._advKey=_nxKey;
       nx.focus();
     }
   };
-  inp.addEventListener("keydown",e=>{if(e.key==="Enter")check();});
-  document.getElementById("fcCk").addEventListener("click",check);
+
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();check();}});
+  ckBtn.addEventListener("click",check);
   document.getElementById("fcAb").addEventListener("click",closeFC);
+  inp.focus();
 }
 
 function landRow(l,showStreak){
