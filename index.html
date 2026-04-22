@@ -495,6 +495,7 @@ function buildPool(selected){
 function norm(s){return s.toLowerCase().trim().replace(/\s+/g,"").replace(/[^a-z0-9äöüéèàâêîôûñ]/g,"");}
 function hsvs(h){return h.split(/[\n/,]/).map(s=>s.replace(/\(.*?\)/g,"").trim()).filter(Boolean);}
 function deb(fn,d=150){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),d);};}
+function normSort(s){return s.toLowerCase().replace(/ä/g,"a\u0001").replace(/ö/g,"o\u0001").replace(/ü/g,"u\u0001").replace(/é|è|ê/g,"e").replace(/ñ/g,"n");}
 function ag(l){const c=l[0].toUpperCase();return{"Ä":"A","Ö":"O","Ü":"U","É":"E","È":"E","Ñ":"N"}[c]??c;}
 function brow(items){return`<div class="fcrow">${items.map(b=>`<button class="fc-btn ${b.c}"${b.id?` id="${b.id}"`:""} type="button">${b.t}</button>`).join("")}</div>`;}
 function esc(s=""){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
@@ -536,7 +537,7 @@ function renderStats(container){
   const practiced=entries.filter(([,v])=>v.totalOk+v.totalWr>0);
   const totalUniq=practiced.length;
   const mastered=practiced.filter(([,v])=>isMastered(v));
-  const open=practiced.filter(([,v])=>!isMastered(v)).sort((a,b)=>b[1].streak-a[1].streak||a[0].localeCompare(b[0],"de"));
+  const open=practiced.filter(([,v])=>!isMastered(v)).sort((a,b)=>b[1].streak-a[1].streak||normSort(a[0]).localeCompare(normSort(b[0])));
   const totalOk=entries.reduce((s,[,v])=>s+(v.totalOk||0),0);
   const totalWr=entries.reduce((s,[,v])=>s+(v.totalWr||0),0);
   const totalAns=totalOk+totalWr;
@@ -600,7 +601,7 @@ function getFilt(){
 }
 
 function renderList(){
-  const f=getFilt();
+  const f=[...getFilt()].sort((a,b)=>normSort(a.Land).localeCompare(normSort(b.Land)));
   const main=document.getElementById("main");
   const noR=document.getElementById("noRes");
   Array.from(main.children).forEach(c=>{if(c.id!=="noRes"&&c.id!=="loadMsg")c.remove();});
@@ -679,7 +680,7 @@ function closeFC(){fcOv.classList.remove("active");}
 function renderStart(tab){
   tab=tab||"learn";
   const filt=getFilt();
-  const sorted=[...filt].sort((a,b)=>{const ka=ag(a.Land)+a.Land,kb=ag(b.Land)+b.Land;return ka<kb?-1:ka>kb?1:0;});
+  const sorted=[...filt].sort((a,b)=>normSort(a.Land).localeCompare(normSort(b.Land)));
   FC.sel=new Set([...FC.sel].filter(n=>sorted.some(l=>l.Land===n)));
   const weakSet=new Set(getWeakLands());
   const weakInPool=sorted.filter(l=>weakSet.has(l.Land));
@@ -905,12 +906,12 @@ function renderResult(){
 
   /* Buttons */
   const btns=FC.wrongList.length>0
-    ?[{t:"Zur\u00fcck",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-sec",id:"fcRedo"},{t:`Falsche wiederholen (${FC.wrongList.length})`,c:"fc-pri",id:"fcRetry"}]
-    :[{t:"Zur\u00fcck",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-pri",id:"fcRedo"}];
+    ?[{t:"Schlie\u00dfen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-sec",id:"fcRedo"},{t:`Falsche wiederholen (${FC.wrongList.length})`,c:"fc-pri",id:"fcRetry"}]
+    :[{t:"Schlie\u00dfen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-pri",id:"fcRedo"}];
 
   fcBox.innerHTML=`<span class="fc-result-e">${e}</span><div class="fc-result-t">Fertig!</div><div class="fc-result-s">${FC.ok} richtig \u00b7 ${FC.wr} falsch \u00b7 ${pct}\u00a0%</div>${masteredBox}${wrBox}${brow(btns)}`;
 
-  document.getElementById("fcDone").addEventListener("click",()=>renderStart("learn"));
+  document.getElementById("fcDone").addEventListener("click",closeFC);
   document.getElementById("fcRedo").addEventListener("click",()=>{
     const origPool=[...FC.okList,...FC.wrongList].map(l=>({Land:l.Land,Hauptstadt:l.Hauptstadt,Kontinent:l.Kontinent}));
     FC.pool=shuffle(origPool);FC.idx=0;FC.ok=0;FC.wr=0;FC.okList=[];FC.wrongList=[];FC.isRetry=false;renderCard();
