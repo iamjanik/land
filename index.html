@@ -883,7 +883,7 @@ function renderType(l,flag,prog){
       const goNext=()=>{document.removeEventListener("keydown",_nxKey);renderCard();};
       const _nxKey=(e)=>{if(e.key==="Enter"){e.preventDefault();goNext();}};
       nx.addEventListener("click",goNext);
-      document.addEventListener("keydown",_nxKey);
+      setTimeout(()=>document.addEventListener("keydown",_nxKey),0);
       FC._advKey=_nxKey;
       nx.focus();
     }
