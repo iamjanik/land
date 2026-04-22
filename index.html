@@ -709,9 +709,10 @@ function renderStart(tab){
     if(b.disabled)return;
     FC.listFilter=b.dataset.f;
     if(b.dataset.f==="wrong"){
-      /* Beim Wechsel zu "Noch offen" alle sichtbaren Länder automatisch auswählen */
       const newWeak=sorted.filter(l=>weakSet.has(l.Land));
       FC.sel=new Set(newWeak.map(l=>l.Land));
+    } else {
+      FC.sel=new Set();
     }
     renderStart("learn");
   }));
@@ -833,11 +834,7 @@ function renderMC(l,flag,prog){
       const fb=document.getElementById("fcFb");
       fb.textContent=ok?"Richtig!":"Richtig w\u00e4re: "+hsvs(l.Hauptstadt)[0];
       fb.className="fc-fb "+(ok?"ok":"err");
-      onAnswer(l,ok);
-      setTimeout(()=>{
-        FC._advClick=()=>{FC._advClick=null;renderCard();};
-        fcBox.addEventListener("click",FC._advClick,{once:true});
-      },300);
+      setTimeout(()=>onAnswer(l,ok), 600);
     });
   });
 }
