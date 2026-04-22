@@ -826,15 +826,11 @@ function renderMC(l,flag,prog){
   const others=shuffle(FC.pool.filter(x=>x.Land!==l.Land)).slice(0,3);
   const opts=shuffle([l,...others]);
   const grid=opts.map(o=>`<button class="fc-mc-opt" data-land="${esc(o.Land)}" type="button">${esc(hsvs(o.Hauptstadt)[0])}</button>`).join("");
-  fcBox.innerHTML=`<div class="fc-prog">${prog}</div><span class="fc-flag">${flag}</span><div class="fc-q">Hauptstadt von<br><strong>${esc(l.Land)}</strong>?</div><div class="fc-mc-grid">${grid}</div><div class="fc-fb" id="fcFb" role="status" aria-live="polite"></div>`;
+  fcBox.innerHTML=`<div class="fc-prog">${prog}</div><span class="fc-flag">${flag}</span><div class="fc-q">Hauptstadt von<br><strong>${esc(l.Land)}</strong>?</div><div class="fc-mc-grid">${grid}</div>`;
   fcBox.querySelectorAll(".fc-mc-opt").forEach(btn=>{
     btn.addEventListener("click",()=>{
-      const ok=btn.dataset.land===l.Land;
-      fcBox.querySelectorAll(".fc-mc-opt").forEach(b=>{b.disabled=true;if(b.dataset.land===l.Land)b.classList.add("mc-ok");else if(b===btn&&!ok)b.classList.add("mc-err");});
-      const fb=document.getElementById("fcFb");
-      fb.textContent=ok?"Richtig!":"Richtig w\u00e4re: "+hsvs(l.Hauptstadt)[0];
-      fb.className="fc-fb "+(ok?"ok":"err");
-      setTimeout(()=>onAnswer(l,ok), 600);
+      fcBox.querySelectorAll(".fc-mc-opt").forEach(b=>b.disabled=true);
+      onAnswer(l,btn.dataset.land===l.Land);
     });
   });
 }
