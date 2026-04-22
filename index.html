@@ -846,7 +846,11 @@ function renderMC(l,flag,prog){
         recordOnly(l,false);
         const row=document.createElement("div");row.className="fcrow";row.style.marginTop="12px";
         row.innerHTML=`<button class="fc-btn fc-pri" type="button">Weiter</button>`;
-        row.querySelector("button").addEventListener("click",()=>renderCard());
+        const goNext=()=>{document.removeEventListener("keydown",_nxKey);renderCard();};
+        const _nxKey=(e)=>{if(e.key==="Enter")goNext();};
+        row.querySelector("button").addEventListener("click",goNext);
+        document.addEventListener("keydown",_nxKey);
+        FC._advKey=_nxKey;
         fcBox.appendChild(row);row.querySelector("button").focus();
       }
     });
@@ -868,8 +872,13 @@ function renderType(l,flag,prog){
       fb.className="fc-fb err";
       recordOnly(l,false,val);
       fcBox.querySelector(".fcrow").innerHTML=`<button class="fc-btn fc-pri" id="fcNx" type="button">Weiter</button>`;
-      document.getElementById("fcNx").addEventListener("click",()=>renderCard());
-      document.getElementById("fcNx").focus();
+      const nx=document.getElementById("fcNx");
+      const goNext=()=>{document.removeEventListener("keydown",_nxKey);renderCard();};
+      const _nxKey=(e)=>{if(e.key==="Enter")goNext();};
+      nx.addEventListener("click",goNext);
+      document.addEventListener("keydown",_nxKey);
+      FC._advKey=_nxKey;
+      nx.focus();
     }
   };
   inp.addEventListener("keydown",e=>{if(e.key==="Enter")check();});
