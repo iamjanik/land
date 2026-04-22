@@ -245,12 +245,15 @@ main{max-width:800px;margin:0 auto;padding:10px 14px 60px;}
 .fc-result-s{font-size:.85rem;color:var(--muted);margin-bottom:22px;}
 .fc-wrong-box{background:var(--un-n-bg);border:1px solid var(--un-n-bd);border-radius:10px;padding:12px 14px;margin-bottom:18px;text-align:left;max-height:240px;overflow-y:auto;}
 .fc-wrong-hdr{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--un-n-tx);margin-bottom:8px;}
-.fc-wrong-list{display:flex;flex-direction:column;gap:6px;}
-.fc-wrong-row{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text);line-height:1.35;}
+.fc-wrong-list{display:flex;flex-direction:column;gap:0;}
+.fc-wrong-row{display:flex;flex-direction:column;gap:2px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.85rem;color:var(--text);line-height:1.4;}
+.fc-wrong-row:last-child{border-bottom:none;}
+.fc-wrong-row-top{display:flex;align-items:center;gap:8px;}
 .fc-wrong-row .fi{font-size:1.05rem;flex-shrink:0;}
-.fc-wrong-row .fn{font-weight:600;flex-shrink:0;}
-.fc-wrong-row .fc-sep{color:var(--muted);flex-shrink:0;}
-.fc-wrong-row .fa{color:var(--muted);white-space:pre-line;}
+.fc-wrong-row .fn{font-weight:600;}
+.fc-wrong-row-answer{padding-left:4px;font-size:.82rem;color:var(--muted);}
+.fc-wrong-row .fc-wrong-eingabe{color:var(--un-n-tx);font-style:italic;}
+.fc-wrong-row .fc-sep{color:var(--muted);margin:0 3px;}
 .info-sec{display:flex;flex-direction:column;gap:4px;}
 .ov-close-x{position:absolute;top:12px;right:12px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--muted);cursor:pointer;border-radius:6px;padding:0;}
 .ov-close-x:hover{background:var(--surface2);color:var(--text);}
@@ -891,8 +894,10 @@ function landRow(l,showStreak){
   const prog=loadProg();const v=prog[l.Land];
   const streakInfo=showStreak&&v?` <span style="font-size:.65rem;color:var(--muted);">${v.streak}/${STREAK_GOAL}</span>`:``;
   const cap=esc(l.Hauptstadt).replace(/\n/g," / ");
-  const eingabe=l._eingabe?`<span class="fc-wrong-eingabe">\u201e${esc(l._eingabe)}\u201c</span><span class="fc-sep">\u2192</span>`:"";
-  return `<div class="fc-wrong-row"><span class="fi" aria-hidden="true">${gF(l.Land)}</span><span class="fn">${esc(l.Land)}${streakInfo}</span><span class="fc-sep">\u00b7</span>${eingabe}<span class="fa">${cap}</span></div>`;
+  const answerLine=l._eingabe
+    ?`<div class="fc-wrong-row-answer"><span class="fc-wrong-eingabe">\u201e${esc(l._eingabe)}\u201c</span><span class="fc-sep">\u2192</span>${cap}</div>`
+    :`<div class="fc-wrong-row-answer">${cap}</div>`;
+  return `<div class="fc-wrong-row"><div class="fc-wrong-row-top"><span class="fi" aria-hidden="true">${gF(l.Land)}</span><span class="fn">${esc(l.Land)}${streakInfo}</span></div>${answerLine}</div>`;
 }
 
 function renderResult(){
@@ -904,7 +909,7 @@ function renderResult(){
   const prog=loadProg();
   const newlyMastered=FC.okList.filter(l=>isMastered(prog[l.Land])&&(FC.streakSnapshot[l.Land]||0)<STREAK_GOAL);
   const masteredBox=newlyMastered.length>0
-    ?`<div class="fc-res-box fc-res-mastered"><div class="fc-res-hdr">\u2605 Gemeistert (${newlyMastered.length})</div><div class="fc-wrong-list">${newlyMastered.map(l=>`<div class="fc-wrong-row"><span class="fi" aria-hidden="true">${gF(l.Land)}</span><span class="fn">${esc(l.Land)}</span>${streakDots(STREAK_GOAL)}</div>`).join("")}</div></div>`
+    ?`<div class="fc-res-box fc-res-mastered"><div class="fc-res-hdr">\u2605 Gemeistert (${newlyMastered.length})</div><div class="fc-wrong-list">${newlyMastered.map(l=>`<div class="fc-wrong-row"><div class="fc-wrong-row-top"><span class="fi" aria-hidden="true">${gF(l.Land)}</span><span class="fn">${esc(l.Land)}</span></div>${streakDots(STREAK_GOAL)}</div>`).join("")}</div></div>`
     :"";
 
   /* Falsch-Box */
