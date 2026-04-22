@@ -188,7 +188,7 @@ main{max-width:800px;margin:0 auto;padding:10px 14px 60px;}
 /* ══ OVERLAY ══ */
 .ov{display:none;position:fixed;inset:0;background:rgba(20,18,12,.78);z-index:300;align-items:center;justify-content:center;padding:16px;}
 .ov.active{display:flex;}
-.fc-box{background:var(--surface);border-radius:20px;padding:32px 28px 28px;max-width:460px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.3);border:1px solid var(--border);}
+.fc-box{background:var(--surface);border-radius:20px;padding:32px 28px 28px;max-width:460px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.3);border:1px solid var(--border);max-height:90vh;overflow-y:auto;}
 .fc-prog{font-size:.75rem;color:var(--muted);margin-bottom:20px;font-weight:500;}
 .fc-flag{font-size:2.6rem;line-height:1;display:block;margin-bottom:8px;}
 .fc-q{font-family:'DM Serif Display',serif;font-size:clamp(1.25rem,5vw,1.75rem);margin-bottom:24px;line-height:1.25;color:var(--text);}
@@ -291,26 +291,22 @@ a.nice-link:hover{opacity:.75;}
 .st-tile .st-lbl{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:3px;}
 .st-tile.st-red .st-val{color:#c0392b;}
 [data-theme="dark"] .st-tile.st-red .st-val,.is-dark .st-tile.st-red .st-val{color:#e07070;}
-.st-highlight{display:flex;gap:8px;margin-bottom:16px;}
-.st-hl-tile{flex:1;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;min-width:0;}
-.st-hl-tile .st-hl-label{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px;}
-.st-hl-tile .st-hl-val{font-size:.84rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.st-hl-tile .st-hl-sub{font-size:.72rem;color:var(--muted);margin-top:1px;}
-.st-hl-tile.st-best .st-hl-label{color:#2d7a2d;}
-[data-theme="dark"] .st-hl-tile.st-best .st-hl-label,.is-dark .st-hl-tile.st-best .st-hl-label{color:#6aaa60;}
-.st-hl-tile.st-worst .st-hl-label{color:#c0392b;}
-[data-theme="dark"] .st-hl-tile.st-worst .st-hl-label,.is-dark .st-hl-tile.st-worst .st-hl-label{color:#e07070;}
 .st-section-hdr{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:14px 0 6px;}
-.st-weak-list{display:flex;flex-direction:column;gap:5px;max-height:180px;overflow-y:auto;margin-bottom:14px;}
-.st-weak-row{display:flex;align-items:center;gap:8px;font-size:.82rem;}
-.st-weak-row .fi{font-size:1rem;flex-shrink:0;}
-.st-weak-row .fn{flex:1;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.st-weak-bar-wrap{width:50px;height:5px;background:var(--border);border-radius:3px;flex-shrink:0;}
-.st-weak-bar{height:5px;border-radius:3px;background:#c0392b;}
-[data-theme="dark"] .st-weak-bar,.is-dark .st-weak-bar{background:#e07070;}
-.st-weak-pct{font-size:.7rem;color:var(--muted);width:28px;text-align:right;flex-shrink:0;}
-.st-weak-tries{font-size:.65rem;color:var(--muted);width:22px;text-align:right;flex-shrink:0;opacity:.7;}
-.st-empty{font-size:.83rem;color:var(--muted);text-align:center;padding:16px 0;}
+.st-land-list{display:flex;flex-direction:column;gap:4px;max-height:200px;overflow-y:auto;margin-bottom:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--bg);}
+.st-land-list::-webkit-scrollbar{width:4px;}
+.st-land-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.st-land-row{display:flex;align-items:center;gap:8px;font-size:.82rem;padding:6px 10px;border-bottom:1px solid var(--border);}
+.st-land-row:last-child{border-bottom:none;}
+.st-land-row .fi{font-size:1rem;flex-shrink:0;}
+.st-land-row .fn{flex:1;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.st-streak-dots{display:flex;gap:3px;flex-shrink:0;}
+.st-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.st-dot.on{background:var(--acc);}
+.st-dot.off{background:var(--border);}
+.st-dot.done{background:var(--acc);}
+.st-mastered-mark{font-size:.75rem;color:var(--acc);font-weight:700;flex-shrink:0;}
+.st-land-counts{font-size:.65rem;color:var(--muted);flex-shrink:0;white-space:nowrap;}
+.st-empty{font-size:.83rem;color:var(--muted);text-align:center;padding:14px 0;}
 .st-pct-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .st-pct-bar-wrap{flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden;}
 .st-pct-bar{height:7px;border-radius:4px;background:var(--acc);transition:width .5s ease;}
@@ -467,17 +463,23 @@ const UN_CFG={"nicht_anerkannt":{cc:"un-n",mc:"dn",bc:"un-n",icon:"",label:"UN-S
 
 function gF(n){return FLAGS[n]||"🌐";}
 function shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
-/* Schwache Karten zuerst, dann unbekannte, dann bekannte – innerhalb jeder Gruppe geshuffelt */
+/* Sortierung: nicht-gemeisterte zuerst (nach aufsteigendem Streak), dann gemeisterte, innerhalb jeder Gruppe geshuffelt */
 function weightedSort(pool){
   const p=loadProg();
-  const grpWeak=[],grpNew=[],grpOk=[];
+  const grpOpen=[],grpMastered=[],grpNew=[];
   pool.forEach(l=>{
     const v=p[l.Land];
-    if(!v||v.ok+v.wr===0)grpNew.push(l);
-    else if(isWeak(v))grpWeak.push(l);
-    else grpOk.push(l);
+    if(!v||(v.totalOk+v.totalWr)===0)grpNew.push(l);
+    else if(isMastered(v))grpMastered.push(l);
+    else grpOpen.push(l);
   });
-  return [...shuffle(grpWeak),...shuffle(grpNew),...shuffle(grpOk)];
+  /* Offene nach Streak aufsteigend (niedrigster zuerst = schwächste zuerst) */
+  grpOpen.sort((a,b)=>(p[a.Land]?.streak||0)-(p[b.Land]?.streak||0));
+  return [...shuffle(grpOpen),...shuffle(grpNew),...shuffle(grpMastered)];
+}
+/* Baut den initialen Pool: alle ausgewählten Länder, nicht-gemeisterte vorangestellt */
+function buildPool(selected){
+  return weightedSort(selected);
 }
 function norm(s){return s.toLowerCase().trim().replace(/\s+/g,"").replace(/[^a-z0-9äöüéèàâêîôûñ]/g,"");}
 function hsvs(h){return h.split(/[\n/,]/).map(s=>s.replace(/\(.*?\)/g,"").trim()).filter(Boolean);}
@@ -488,71 +490,67 @@ function esc(s=""){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/
 function cid(n){return n.replace(/[^a-z0-9]/gi,"_").toLowerCase();}
 
 /* ── Lernfortschritt (localStorage) ── */
+/* Schema: { [land]: { streak: number, totalOk: number, totalWr: number } }
+   streak = aktuelle hintereinander-Richtig-Serie; reset auf 0 bei Falsch
+   Gemeistert wenn streak >= 5 */
 const PROG_KEY="laender_progress";
-function loadProg(){try{return JSON.parse(localStorage.getItem(PROG_KEY)||"{}");}catch{return{};}}
+const STREAK_GOAL=5;
+function loadProg(){try{const d=JSON.parse(localStorage.getItem(PROG_KEY)||"{}");/* Migration alter Einträge {ok,wr} → neues Format */Object.keys(d).forEach(k=>{const v=d[k];if(v.streak===undefined){d[k]={streak:0,totalOk:v.ok||0,totalWr:v.wr||0};}});return d;}catch{return{};}}
 function saveProg(p){try{localStorage.setItem(PROG_KEY,JSON.stringify(p));}catch{}}
 function recordResult(land,ok){
   const p=loadProg();
-  if(!p[land])p[land]={ok:0,wr:0};
-  if(ok)p[land].ok++;else p[land].wr++;
+  if(!p[land])p[land]={streak:0,totalOk:0,totalWr:0};
+  const v=p[land];
+  if(ok){v.streak++;v.totalOk++;}
+  else{v.streak=0;v.totalWr++;}
   saveProg(p);
+  return v.streak;
 }
-function isWeak(v){const t=v.ok+v.wr;return t>=2&&(v.wr/t)>=0.3;}
-function getWeakLands(){
-  const p=loadProg();
-  return Object.entries(p).filter(([,v])=>isWeak(v)).map(([k])=>k);
-}
+function isMastered(v){return v&&v.streak>=STREAK_GOAL;}
+function getMasteredLands(){const p=loadProg();return Object.entries(p).filter(([,v])=>isMastered(v)).map(([k])=>k);}
+function getOpenLands(){const p=loadProg();return Object.entries(p).filter(([,v])=>!isMastered(v)&&(v.totalOk+v.totalWr)>0).map(([k])=>k);}
+/* Für Auswahlliste: Länder die noch nicht gemeistert sind (inkl. nie versucht) */
+function isWeak(v){return v&&!isMastered(v)&&(v.totalOk+v.totalWr)>0;}
+function getWeakLands(){return getOpenLands();}
 
 /* ── Statistik ── */
+function streakDots(streak){
+  let h="";
+  for(let i=0;i<STREAK_GOAL;i++)h+=`<span class="st-dot ${i<streak?"on":"off"}"></span>`;
+  return`<div class="st-streak-dots">${h}</div>`;
+}
 function renderStats(container){
   const p=loadProg();
   const entries=Object.entries(p);
-  const totalUniq=entries.length;
-  const totalOk=entries.reduce((s,[,v])=>s+v.ok,0);
-  const totalWr=entries.reduce((s,[,v])=>s+v.wr,0);
+  const totalUniq=entries.filter(([,v])=>v.totalOk+v.totalWr>0).length;
+  const totalOk=entries.reduce((s,[,v])=>s+(v.totalOk||0),0);
+  const totalWr=entries.reduce((s,[,v])=>s+(v.totalWr||0),0);
   const totalAns=totalOk+totalWr;
   const pct=totalAns>0?Math.round(totalOk/totalAns*100):0;
-  const pctBad=totalAns>0?Math.round(totalWr/totalAns*100):0;
 
-  /* Bestes Land: nur richtig, mind. 1 Antwort, kein Fehler */
-  const perfect=entries.filter(([,v])=>v.wr===0&&v.ok>0).sort((a,b)=>b[1].ok-a[1].ok);
-  const bestLand=perfect.length?perfect[0]:null;
-  /* Schlechtestes Land: höchste Fehlerrate (mind. 2 Versuche) */
-  const worst=entries.filter(([,v])=>v.ok+v.wr>=2&&v.wr>0).sort((a,b)=>(b[1].wr/(b[1].ok+b[1].wr))-(a[1].wr/(a[1].ok+a[1].wr)));
-  const worstLand=worst.length?worst[0]:null;
+  const mastered=entries.filter(([,v])=>isMastered(v)).sort((a,b)=>a[0].localeCompare(b[0],"de"));
+  const open=entries.filter(([,v])=>!isMastered(v)&&(v.totalOk+v.totalWr)>0).sort((a,b)=>b[1].streak-a[1].streak||a[0].localeCompare(b[0],"de"));
 
-  /* Top-10 schwächste nach Fehlerquote (mind. 2 Versuche) */
-  const weak=entries
-    .filter(([,v])=>v.wr>0&&(v.ok+v.wr)>=2)
-    .map(([k,v])=>({land:k,ok:v.ok,wr:v.wr,total:v.ok+v.wr,rate:v.wr/(v.ok+v.wr)}))
-    .sort((a,b)=>b.rate-a.rate)
-    .slice(0,10);
+  const openRows=open.length
+    ?open.map(([k,v])=>`<div class="st-land-row"><span class="fi">${gF(k)}</span><span class="fn">${esc(k)}</span><span class="st-land-counts">${v.totalOk}✓ ${v.totalWr}✗</span>${streakDots(Math.min(v.streak,STREAK_GOAL))}</div>`).join("")
+    :`<div class="st-empty">Noch keine offenen Länder.</div>`;
 
-  const bestHTML=bestLand
-    ?`<div class="st-hl-val">${gF(bestLand[0])} ${esc(bestLand[0])}</div><div class="st-hl-sub">${bestLand[1].ok}× richtig</div>`
-    :`<div class="st-hl-val" style="color:var(--muted)">–</div>`;
-  const worstHTML=worstLand
-    ?`<div class="st-hl-val">${gF(worstLand[0])} ${esc(worstLand[0])}</div><div class="st-hl-sub">${Math.round(worstLand[1].wr/(worstLand[1].ok+worstLand[1].wr)*100)}\u00a0% falsch (${worstLand[1].ok+worstLand[1].wr} Versuche)</div>`
-    :`<div class="st-hl-val" style="color:var(--muted)">–</div>`;
-
-  const weakRows=weak.length
-    ?weak.map(w=>{const pW=Math.round(w.rate*100);return `<div class="st-weak-row"><span class="fi">${gF(w.land)}</span><span class="fn">${esc(w.land)}</span><div class="st-weak-bar-wrap"><div class="st-weak-bar" style="width:${pW}%"></div></div><span class="st-weak-pct">${pW}\u00a0%</span><span class="st-weak-tries">${w.total}×</span></div>`;}).join("")
-    :`<div class="st-empty">Noch keine Fehler – weiter so! 🎉</div>`;
+  const masteredRows=mastered.length
+    ?mastered.map(([k,v])=>`<div class="st-land-row"><span class="fi">${gF(k)}</span><span class="fn">${esc(k)}</span><span class="st-land-counts">${v.totalOk}✓ ${v.totalWr}✗</span><span class="st-mastered-mark">✓✓✓✓✓</span></div>`).join("")
+    :`<div class="st-empty">Noch keine Länder gemeistert.</div>`;
 
   container.innerHTML=`
     <div class="st-grid">
       <div class="st-tile"><div class="st-val">${totalAns}</div><div class="st-lbl">Antworten gesamt</div></div>
       <div class="st-tile"><div class="st-val">${totalUniq}</div><div class="st-lbl">Länder geübt</div></div>
-      <div class="st-tile"><div class="st-val">${totalOk}</div><div class="st-lbl">Richtig</div></div>
-      <div class="st-tile st-red"><div class="st-val">${totalWr}</div><div class="st-lbl">Falsch</div></div>
+      <div class="st-tile"><div class="st-val">${mastered.length}</div><div class="st-lbl">Gemeistert</div></div>
+      <div class="st-tile st-red"><div class="st-val">${open.length}</div><div class="st-lbl">Noch offen</div></div>
     </div>
     <div class="st-pct-row"><div class="st-pct-bar-wrap"><div class="st-pct-bar" style="width:${pct}%"></div></div><span class="st-pct-lbl">${pct}\u00a0% richtig</span></div>
-    <div class="st-highlight">
-      <div class="st-hl-tile st-best"><div class="st-hl-label">🏆 Bestes Land</div>${bestHTML}</div>
-      <div class="st-hl-tile st-worst"><div class="st-hl-label">⚠️ Schlechtestes Land</div>${worstHTML}</div>
-    </div>
-    <div class="st-section-hdr">Schwächste Länder (Fehlerquote)</div>
-    <div class="st-weak-list">${weakRows}</div>
+    <div class="st-section-hdr">Noch offen (${open.length}) – Streak bis ${STREAK_GOAL}</div>
+    <div class="st-land-list">${openRows}</div>
+    <div class="st-section-hdr">Gemeistert (${mastered.length})</div>
+    <div class="st-land-list">${masteredRows}</div>
     <div class="fcrow" id="stResetRow">
       <button class="fc-btn fc-sec" id="stClose2" type="button">Schließen</button><button class="fc-btn fc-sec" id="stReset" type="button">Fortschritt zurücksetzen</button>
     </div>
@@ -661,7 +659,7 @@ document.getElementById("togAllBtn").addEventListener("click",()=>{const any=get
 
 /* ══ FLASHCARDS ══ */
 const fcOv=document.getElementById("fcOv"),fcBox=document.getElementById("fcBox");
-const FC={pool:[],origPool:[],idx:0,ok:0,wr:0,wrong:[],mode:"type",sel:new Set(),listFilter:"all"};
+const FC={pool:[],origPool:[],idx:0,ok:0,wr:0,wrong:[],pending:[],mode:"type",sel:new Set(),listFilter:"all"};
 function openFC(){fcOv.classList.add("active");fcBox.focus();}
 function closeFC(){fcOv.classList.remove("active");}
 
@@ -704,7 +702,7 @@ function renderStart(tab){
     </div>
     <div class="fc-filter-row">
       <button class="fc-fchip${FC.listFilter==="all"?" active":""}" data-f="all" type="button">Alle (${sorted.length})</button>
-      <button class="fc-fchip${FC.listFilter==="wrong"?" active":""}" data-f="wrong" type="button"${weakInPool.length===0?" disabled":""} title="Länder mit ≥\u202f30\u00a0% Fehlerrate (mind. 2 Versuche)">Schwächen (${weakInPool.length})</button>
+      <button class="fc-fchip${FC.listFilter==="wrong"?" active":""}" data-f="wrong" type="button"${weakInPool.length===0?" disabled":""} title="Länder die noch nicht 5× hintereinander richtig waren">Noch offen (${weakInPool.length})</button>
     </div>
     <div class="fc-list" id="fcList" role="listbox" aria-multiselectable="true" aria-label="Staaten auswählen"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;min-height:26px;">
@@ -720,6 +718,7 @@ function renderStart(tab){
   fcBox.querySelectorAll(".fc-fchip").forEach(b=>b.addEventListener("click",()=>{if(b.disabled)return;FC.listFilter=b.dataset.f;renderStart("learn");}));
 
   const list=document.getElementById("fcList");
+  const p=loadProg();
   let lastG="";
   listSrc.forEach((l,i)=>{
     const g=ag(l.Land);
@@ -736,8 +735,9 @@ function renderStart(tab){
     row.dataset.name=l.Land;row.dataset.idx=i;
     row.setAttribute("role","option");
     row.setAttribute("aria-selected",String(FC.sel.has(l.Land)));
-    const wrBadge=weakSet.has(l.Land)?`<span style="font-size:.65rem;color:#c0392b;flex-shrink:0;">✗</span>`:"";
-    row.innerHTML='<input type="checkbox" '+(FC.sel.has(l.Land)?'checked':'')+' tabindex="-1" aria-hidden="true"><span class="fi">'+gF(l.Land)+'</span><span class="fn">'+esc(l.Land)+'</span>'+wrBadge;
+    const v=p[l.Land];
+    const masteredMark=isMastered(v)?`<span style="font-size:.65rem;color:var(--acc);flex-shrink:0;font-weight:700;">✓</span>`:v&&(v.totalOk+v.totalWr)>0?`<span style="font-size:.65rem;color:var(--muted);flex-shrink:0;">${v.streak}/${STREAK_GOAL}</span>`:``;
+    row.innerHTML='<input type="checkbox" '+(FC.sel.has(l.Land)?'checked':'')+' tabindex="-1" aria-hidden="true"><span class="fi">'+gF(l.Land)+'</span><span class="fn">'+esc(l.Land)+'</span>'+masteredMark;
     row.addEventListener("click",()=>{if(FC.sel.has(l.Land))FC.sel.delete(l.Land);else FC.sel.add(l.Land);refreshPickList(listSrc);});
     list.appendChild(row);
   });
@@ -747,7 +747,7 @@ function renderStart(tab){
   document.getElementById("fcStart").addEventListener("click",()=>{
     const pool=listSrc.filter(l=>FC.sel.has(l.Land));
     if(!pool.length){document.getElementById("fcW").textContent="Bitte mindestens einen Staat auswählen.";return;}
-    FC.pool=weightedSort(pool);FC.origPool=[...FC.pool];FC.idx=0;FC.ok=0;FC.wr=0;FC.wrong=[];renderCard();
+    FC.pool=buildPool(pool);FC.origPool=[...pool];FC.pending=[];FC.idx=0;FC.ok=0;FC.wr=0;FC.wrong=[];renderCard();
   });
   document.getElementById("fcCancel").addEventListener("click",closeFC);
 }
@@ -776,20 +776,41 @@ function refreshPickList(listSrc){
 }
 
 
+function uniqCount(){return new Set(FC.pool.slice(0,FC.idx).map(l=>l.Land)).size;}
+function buildProgLabel(){
+  const l=FC.pool[FC.idx];
+  const p=loadProg();const v=p?.[l?.Land];
+  const streak=v?v.streak:0;
+  const streakStr=streak>0?` · 🔥${streak}/${STREAK_GOAL}`:"";
+  const total=FC.pool.length;
+  const uniq=new Set(FC.pool.map(l=>l.Land)).size;
+  const posLabel=total>uniq?`${FC.idx+1}\u00a0/\u00a0${total} (${uniq} Länder)`:`${FC.idx+1}\u00a0/\u00a0${total}`;
+  return`${posLabel} · ✓\u00a0${FC.ok} · ✗\u00a0${FC.wr}${streakStr}`;
+}
+function afterAnswer(land,ok){
+  const newStreak=recordResult(land,ok);
+  if(!ok){
+    /* Nicht gemeistert → hinten nochmal einschieben (bis gemeistert) */
+    const p=loadProg();
+    if(!isMastered(p[land])){
+      FC.pool.push(FC.pool[FC.idx]);
+    }
+  }
+  FC.idx++;
+  renderCard();
+}
 function renderCard(){
   if(FC.idx>=FC.pool.length){renderResult();return;}
   const l=FC.pool[FC.idx];const flag=gF(l.Land);
-  const p=loadProg();const v=p[l.Land];
-  const weakMark=v&&isWeak(v)?` · ⚠️`:"";
-  const prog=`${FC.idx+1} / ${FC.pool.length} · ✓ ${FC.ok} · ✗ ${FC.wr}${weakMark}`;
+  const prog=buildProgLabel();
   if(FC.mode==="reveal")renderReveal(l,flag,prog);else if(FC.mode==="mc")renderMC(l,flag,prog);else renderType(l,flag,prog);
 }
 function renderReveal(l,flag,prog){
   fcBox.innerHTML=`<div class="fc-prog">${prog}</div><span class="fc-flag">${flag}</span><div class="fc-q">Hauptstadt von<br><strong>${esc(l.Land)}</strong>?</div>${brow([{t:"Abbrechen",c:"fc-sec",id:"fcAb"},{t:"Antwort zeigen",c:"fc-rev",id:"fcRev"}])}`;
   document.getElementById("fcRev").addEventListener("click",()=>{
     fcBox.innerHTML=`<div class="fc-prog">${prog}</div><span class="fc-flag">${flag}</span><div class="fc-q">Hauptstadt von<br><strong>${esc(l.Land)}</strong>?</div><div class="fc-ans">${esc(l.Hauptstadt)}</div>${brow([{t:"✗ Nicht gewusst",c:"fc-wr",id:"fcNo"},{t:"✓ Gewusst",c:"fc-ok",id:"fcYes"}])}`;
-    document.getElementById("fcYes").addEventListener("click",()=>{FC.ok++;recordResult(l.Land,true);FC.idx++;renderCard();});
-    document.getElementById("fcNo").addEventListener("click",()=>{FC.wr++;FC.wrong.push(l);recordResult(l.Land,false);FC.idx++;renderCard();});
+    document.getElementById("fcYes").addEventListener("click",()=>{FC.ok++;afterAnswer(l.Land,true);});
+    document.getElementById("fcNo").addEventListener("click",()=>{FC.wr++;FC.wrong.push(l);afterAnswer(l.Land,false);});
   });
   document.getElementById("fcAb").addEventListener("click",closeFC);
 }
@@ -806,10 +827,10 @@ function renderMC(l,flag,prog){
       fb.textContent=ok?"Richtig!":"Richtig wäre: "+hsvs(l.Hauptstadt)[0];
       fb.className="fc-fb "+(ok?"ok":"err");
       if(ok)FC.ok++;else{FC.wr++;FC.wrong.push(l);}
-      recordResult(l.Land,ok);
+      afterAnswer(l.Land,ok);
       const row=document.createElement("div");row.className="fcrow";
       row.innerHTML=`<button class="fc-btn fc-pri" type="button">Weiter</button>`;
-      row.querySelector("button").addEventListener("click",()=>{FC.idx++;renderCard();});
+      row.querySelector("button").addEventListener("click",()=>{renderCard();});
       fcBox.appendChild(row);row.querySelector("button").focus();
     });
   });
@@ -818,32 +839,50 @@ function renderMC(l,flag,prog){
 function renderType(l,flag,prog){
   fcBox.innerHTML=`<div class="fc-prog">${prog}</div><span class="fc-flag">${flag}</span><div class="fc-q">Hauptstadt von<br><strong>${esc(l.Land)}</strong>?</div><input class="fc-inp" id="fcIn" type="text" placeholder="Hauptstadt eingeben …" autocomplete="off" spellcheck="false"><div class="fc-fb" id="fcFb" role="status" aria-live="polite"></div>${brow([{t:"Abbrechen",c:"fc-sec",id:"fcAb"},{t:"Prüfen",c:"fc-rev",id:"fcCk"}])}`;
   const inp=document.getElementById("fcIn");inp.focus();
-  const check=()=>{const v=inp.value.trim();if(!v)return;const ni=norm(v);const vs=hsvs(l.Hauptstadt);const ok=vs.some(x=>norm(x)===ni);inp.classList.add(ok?"ok":"err");inp.disabled=true;const fb=document.getElementById("fcFb");fb.textContent=ok?"Richtig!":"Richtig wäre: "+(vs.length>1?vs.join(" / "):l.Hauptstadt);fb.className="fc-fb "+(ok?"ok":"err");if(ok)FC.ok++;else{FC.wr++;FC.wrong.push({...l,_eingabe:v});}recordResult(l.Land,ok);fcBox.querySelector(".fcrow").innerHTML=`<button class="fc-btn fc-pri" id="fcNx" type="button">Weiter</button>`;document.getElementById("fcNx").addEventListener("click",()=>{FC.idx++;renderCard();});document.getElementById("fcNx").focus();};
+  const check=()=>{
+    const val=inp.value.trim();if(!val)return;
+    const ni=norm(val);const vs=hsvs(l.Hauptstadt);const ok=vs.some(x=>norm(x)===ni);
+    inp.classList.add(ok?"ok":"err");inp.disabled=true;
+    const fb=document.getElementById("fcFb");
+    fb.textContent=ok?"Richtig!":"Richtig wäre: "+(vs.length>1?vs.join(" / "):l.Hauptstadt);
+    fb.className="fc-fb "+(ok?"ok":"err");
+    if(ok)FC.ok++;else{FC.wr++;FC.wrong.push({...l,_eingabe:val});}
+    afterAnswer(l.Land,ok);
+    fcBox.querySelector(".fcrow").innerHTML=`<button class="fc-btn fc-pri" id="fcNx" type="button">Weiter</button>`;
+    document.getElementById("fcNx").addEventListener("click",()=>{renderCard();});
+    document.getElementById("fcNx").focus();
+  };
   inp.addEventListener("keydown",e=>{if(e.key==="Enter")check();});
   document.getElementById("fcCk").addEventListener("click",check);
   document.getElementById("fcAb").addEventListener("click",closeFC);
 }
 function renderResult(){
-  const t=FC.pool.length;const p=t>0?Math.round(FC.ok/t*100):0;const e=p>=80?"🎉":p>=50?"👍":"📚";
-  const hasWrong=FC.wrong.length>0;
+  const p=FC.ok+FC.wr>0?Math.round(FC.ok/(FC.ok+FC.wr)*100):0;
+  const e=p>=80?"🎉":p>=50?"👍":"📚";
+  const prog=loadProg();
+  const nowMastered=FC.origPool.filter(l=>isMastered(prog[l.Land]));
+  const stillOpen=FC.origPool.filter(l=>!isMastered(prog[l.Land]));
+
   let wrongBox="";
-  if(hasWrong){
-    const rows=FC.wrong.map(l=>{
+  if(FC.wrong.length>0){
+    const seen=new Set();
+    const deduped=FC.wrong.filter(l=>{if(seen.has(l.Land))return false;seen.add(l.Land);return true;});
+    const rows=deduped.map(l=>{
       const cap=esc(l.Hauptstadt).replace(/\n/g," / ");
-      const eingabe=l._eingabe?`<span class="fc-wrong-eingabe">„${esc(l._eingabe)}“</span><span class="fc-sep">→</span>`:"";
+      const eingabe=l._eingabe?`<span class="fc-wrong-eingabe">„${esc(l._eingabe)}"</span><span class="fc-sep">→</span>`:"";
       return `<div class="fc-wrong-row"><span class="fi" aria-hidden="true">${gF(l.Land)}</span><span class="fn">${esc(l.Land)}</span><span class="fc-sep">·</span>${eingabe}<span class="fa">${cap}</span></div>`;
     }).join("");
-    wrongBox=`<div class="fc-wrong-box"><div class="fc-wrong-hdr">Nicht gewusst (${FC.wrong.length})</div><div class="fc-wrong-list">${rows}</div></div>`;
+    wrongBox=`<div class="fc-wrong-box"><div class="fc-wrong-hdr">Fehler dieser Runde (${deduped.length})</div><div class="fc-wrong-list">${rows}</div></div>`;
   }
-  /* Primäraktion rechts: wenn Falsche vorhanden → "Falsche wiederholen", sonst "Nochmal" */
-  const btns=hasWrong
-    ? [{t:"Schließen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-sec",id:"fcRedo"},{t:`Falsche wiederholen (${FC.wrong.length})`,c:"fc-pri",id:"fcRetryWrong"}]
-    : [{t:"Schließen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-pri",id:"fcRedo"}];
-  fcBox.innerHTML=`<span class="fc-result-e">${e}</span><div class="fc-result-t">Fertig!</div><div class="fc-result-s">${FC.ok} richtig · ${FC.wr} falsch · ${p}\u00a0%</div>${wrongBox}${brow(btns)}`;
-  document.getElementById("fcRedo").addEventListener("click",()=>{FC.pool=weightedSort([...FC.origPool]);FC.idx=0;FC.ok=0;FC.wr=0;FC.wrong=[];renderCard();});
+
+  const masteredStr=nowMastered.length>0?`<div style="font-size:.78rem;color:var(--acc);margin-bottom:2px;font-weight:600;">✓ ${nowMastered.length} gemeistert</div>`:"";
+  const openStr=stillOpen.length>0
+    ?`<div style="font-size:.78rem;color:var(--muted);margin-bottom:16px;">${stillOpen.length} noch offen</div>`
+    :`<div style="font-size:.78rem;color:var(--acc);margin-bottom:16px;font-weight:600;">Alle gemeistert! 🏆</div>`;
+
+  fcBox.innerHTML=`<span class="fc-result-e">${e}</span><div class="fc-result-t">Fertig!</div><div class="fc-result-s">${FC.ok} richtig · ${FC.wr} falsch · ${p}\u00a0%</div>${masteredStr}${openStr}${wrongBox}${brow([{t:"Schließen",c:"fc-sec",id:"fcDone"},{t:"Nochmal",c:"fc-pri",id:"fcRedo"}])}`;
+  document.getElementById("fcRedo").addEventListener("click",()=>{FC.pool=buildPool([...FC.origPool]);FC.idx=0;FC.ok=0;FC.wr=0;FC.wrong=[];renderCard();});
   document.getElementById("fcDone").addEventListener("click",closeFC);
-  const retry=document.getElementById("fcRetryWrong");
-  if(retry)retry.addEventListener("click",()=>{FC.pool=shuffle([...FC.wrong]);FC.origPool=[...FC.pool];FC.idx=0;FC.ok=0;FC.wr=0;FC.wrong=[];renderCard();});
 }
 
 document.getElementById("fcBtn").addEventListener("click",()=>{
